@@ -3,7 +3,7 @@
 
 <head>
   <base href="file:///D:/labo/runbook/sample">
-  <title>Title</title>
+  <title>MD RunBook</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.6.11/css/uikit.min.css"
@@ -104,7 +104,6 @@
         for (let i = 0; i < ev.target.files.length; i++) {
 
           let file = ev.target.files[i];
-          console.log(file.webkitRelativePath);
           // ディレクトリの相対パス
           if (!file.webkitRelativePath.endsWith(".md")) {
             continue;
@@ -117,7 +116,6 @@
         for (let i = 0; i < ev.target.files.length; i++) {
 
           let file = ev.target.files[i];
-          console.log(file.webkitRelativePath);
           // ディレクトリの相対パス
           if (!file.webkitRelativePath.endsWith(".png") &&
             !file.webkitRelativePath.endsWith(".gif") &&
@@ -135,6 +133,29 @@
         }
         document.getElementById('contents').innerHTML = contents.documentElement.innerHTML;
         Prism.highlightAll();
+
+        //refresh scroll spy
+        let headings = document.getElementById('contents').querySelectorAll('h2,h3');
+        console.log(headings.length);
+        let scrollspy = document.getElementById('scrollspy');
+        let mapping = {
+          "h2": ["heading2"],
+          "h3": ["heading3", "uk-margin-left"]
+        };
+        scrollspy.innerHTML = '';
+        for (let i = 0; i < headings.length; i++) {
+          let tarId = 'heading' + i;
+          headings[i].id = tarId;
+          let tarLi = document.createElement('li');
+          let tarAnchr = document.createElement('a');
+          tarAnchr.href = '#' + tarId;
+          tarAnchr.innerText = headings[i].innerText;
+          console.log(headings[i].innerText);
+          tarLi.appendChild(tarAnchr);
+          scrollspy.appendChild(tarLi);
+        }
+
+
       });
     });
 

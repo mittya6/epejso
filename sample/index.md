@@ -1,6 +1,6 @@
 ![エビフライトライアングル](ea60f30b.png "サンプル")
 
-#JSON、HTML・XMLのエスケープはCommonsでやろう。StringEscapeUtils
+# JSON、HTML・XMLのエスケープはCommonsでやろう。StringEscapeUtils
 
 JSONやHTMLのエスケープを自前メソッドでやりがちだが、エスケープ対象文字が抜けてしまっていたりします。
 
@@ -8,7 +8,7 @@ JSONやHTMLのエスケープを自前メソッドでやりがちだが、エス
 
 CommonsのStringEscapeUtils使っていると、知らなくても勝手にエスケープしてくれてるので、テスト時に漏れてしまっていても、リリース後に「あの文字もエスケープ対象だったのかぁ」と呑気なことが言えるので素晴らしいライブラリ。
 
-##使い方
+## 使い方
 
 使い方は簡単。staticメソッドを呼び出すだけ。
 
