@@ -136,21 +136,20 @@
 
         //refresh scroll spy
         let headings = document.getElementById('contents').querySelectorAll('h2,h3');
-        console.log(headings.length);
         let scrollspy = document.getElementById('scrollspy');
         let mapping = {
-          "h2": ["heading2"],
-          "h3": ["heading3", "uk-margin-left"]
+          "H2": ["heading2"],
+          "H3": ["heading3", "uk-margin-left"]
         };
         scrollspy.innerHTML = '';
         for (let i = 0; i < headings.length; i++) {
           let tarId = 'heading' + i;
           headings[i].id = tarId;
           let tarLi = document.createElement('li');
+          mapping[headings[i].tagName].forEach(tarClass => tarLi.classList.add(tarClass));
           let tarAnchr = document.createElement('a');
           tarAnchr.href = '#' + tarId;
           tarAnchr.innerText = headings[i].innerText;
-          console.log(headings[i].innerText);
           tarLi.appendChild(tarAnchr);
           scrollspy.appendChild(tarLi);
         }
