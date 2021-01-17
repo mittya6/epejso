@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base href="file:///D:/labo/runbook/sample">
+  <title>Title</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.6.11/css/uikit.min.css"
+    integrity="sha512-cxLX4gLHGdpS+2Vcsfmmek3mJpKlDD0oxOp34BTR3z7uDl/9KmtMPm7uhMmFu2s6TW3b7t11q4h+mH+lAODtVQ=="
+    crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.6.11/js/uikit.min.js"
+    integrity="sha512-SwuK95oqFbx6Ja3Vb5ftE0ez5ESW03zNOdcqRcor2XT6W8/BVymLs4+ITrupXWdrUjCrzZZuIenewIx8RHjjDg=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.6.11/js/uikit-icons.min.js"
+    integrity="sha512-rMG9gouAWKbS/Ws86mfou4CWhxY5pSR2vwpBi7gj8Qk3juWBBRrgbryrUWQr87FmISkKjW1pTAXYYRs1m0cmHw=="
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css"
+    integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.css"
+    integrity="sha512-cbQXwDFK7lj2Fqfkuxbo5iD1dSbLlJGXGpfTDqbggqjHJeyzx88I3rfwjS38WJag/ihH7lzuGlGHpDBymLirZQ=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/line-highlight/prism-line-highlight.min.css"
+    integrity="sha512-nXlJLUeqPMp1Q3+Bd8Qds8tXeRVQscMscwysJm821C++9w6WtsFbJjPenZ8cQVMXyqSAismveQJc0C1splFDCA=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/toolbar/prism-toolbar.min.css"
+    integrity="sha512-DSAA0ziYwggOJ3QyWFZhIaU8bSwQLyfnyIrmShRLBdJMtiYKT7Ju35ujBCZ6ApK3HURt34p2xNo+KX9ebQNEPQ=="
+    crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-coy.min.css"
+    integrity="sha512-CKzEMG9cS0+lcH4wtn/UnxnmxkaTFrviChikDEk1MAWICCSN59sDWIF0Q5oDgdG9lxVrvbENSV1FtjLiBnMx7Q=="
+    crossorigin="anonymous" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"
+    integrity="sha512-YBk7HhgDZvBxmtOfUdvX0z8IH2d10Hp3aEygaMNhtF8fSOvBZ16D/1bXZTJV6ndk/L/DlXxYStP8jrF77v2MIg=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/line-highlight/prism-line-highlight.min.js"
+    integrity="sha512-MGMi0fbhnsk/a/9vCluWv3P4IOfHijjupSoVYEdke+QQyGBOAaXNXnwW6/IZSH7JLdknDf6FL6b57o+vnMg3Iw=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.js"
+    integrity="sha512-br8H6OngKoLht57WKRU5jz3Vr0vF+Tw4G6yhNN2F3dSDheq4JiaasROPJB1wy7PxPk7kV/+5AIbmoZLxxx7Zow=="
+    crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-java.min.js"
+    integrity="sha512-PWHY6Vao4E9K4LsGBYCY0ttDeiWZwuUozTbJvSy9UFHRz2J4Bl7rcWML3wEnJTVuCJhSwGne/8My5gTo/gnbpg=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/toolbar/prism-toolbar.min.js"
+    integrity="sha512-cu2C9EssrOrVXT4thyL4gz/qWyh3Lq9XbICUXYyh3zJRCSKk1J08tBKPXnsSpdpZXOliaK/OJBygw/l0twAmwA=="
+    crossorigin="anonymous"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"
+    integrity="sha512-bWzyGaP/f19RLeYGN6ZhDgvkS7GM0Fq23lOI1/PB3lV6I775RIDzXLxCGR4iiDGzeMsQ3lncuXUQMFP7qO9lIQ=="
+    crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.2.7/marked.min.js"
+    integrity="sha512-Sl04EWeJ0QgILm83WoubQbZqh71aWLJP8xnswnKSBI37S+ZtrWVtSHmd1YaYYdC1g9PWN1siY7KO2jU3HtCVHA=="
+    crossorigin="anonymous"></script>
+
+  <style>
+    h1,
+    #scrollspy {
+      counter-reset: number;
+      counter-reset: sub-number;
+    }
+
+    h2,
+    #scrollspy .heading2 {
+      counter-increment: number;
+      counter-reset: sub-number;
+    }
+
+    h2::before,
+    #scrollspy .heading2 a::before {
+      content: counter(number)". ";
+    }
+
+    h3,
+    #scrollspy .heading3 {
+      counter-increment: sub-number;
+    }
+
+    h3::before,
+    #scrollspy .heading3 a::before {
+      content: counter(number)"-"counter(sub-number)". ";
+    }
+
+    nav {
+      background-color: #c2d3dd !important;
+    }
+  </style>
+  <script>
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+
+      document.getElementById('file').addEventListener('change', async ev => {
+
+        let contents;
+        //MDをHTMLに変換して挿入
+        for (let i = 0; i < ev.target.files.length; i++) {
+
+          let file = ev.target.files[i];
+          console.log(file.webkitRelativePath);
+          // ディレクトリの相対パス
+          if (!file.webkitRelativePath.endsWith(".md")) {
+            continue;
+          }
+          //document.getElementById('contents').innerHTML = marked(await parseAsText(file));
+          contents = new DOMParser().parseFromString(marked(await parseAsText(file)), "text/html");
+        }
+
+        //画像をBASE64にして挿入
+        for (let i = 0; i < ev.target.files.length; i++) {
+
+          let file = ev.target.files[i];
+          console.log(file.webkitRelativePath);
+          // ディレクトリの相対パス
+          if (!file.webkitRelativePath.endsWith(".png") &&
+            !file.webkitRelativePath.endsWith(".gif") &&
+            !file.webkitRelativePath.endsWith(".jpg")) {
+            continue;
+          }
+
+          //先頭のディレクトリ名を削除
+          let imgPath = file.webkitRelativePath.replace(/^.*?\//, '');
+          let dataUrl = await parseAsDataURL(file);
+          let imgs = contents.querySelectorAll('img[src$="' + imgPath + '"]');
+          imgs.forEach(img => {
+            img.src = dataUrl;
+          });
+        }
+        document.getElementById('contents').innerHTML = contents.documentElement.innerHTML;
+        Prism.highlightAll();
+      });
+    });
+
+    function parseAsText(file) {
+      // Always return a Promise
+      return new Promise((resolve, reject) => {
+        let content = '';
+        const reader = new FileReader();
+        // Wait till complete
+        reader.onloadend = function (e) {
+          resolve(e.target.result);
+        };
+        // Make sure to handle error states
+        reader.onerror = function (e) {
+          reject(e);
+        };
+        reader.readAsText(file);
+      });
+    }
+
+    function parseAsDataURL(file) {
+      // Always return a Promise
+      return new Promise((resolve, reject) => {
+        let content = '';
+        const reader = new FileReader();
+        // Wait till complete
+        reader.onloadend = function (e) {
+          resolve(e.target.result);
+        };
+        // Make sure to handle error states
+        reader.onerror = function (e) {
+          reject(e);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <nav class="uk-navbar-container uk-background-primary" uk-sticky>
+
+    <div class="uk-container uk-container-large">
+      <div class="uk-navbar-left uk-padding uk-padding-remove-vertical uk-padding-remove-left">
+        <a class="uk-navbar-item uk-logo" href="#offcanvas-usage" uk-toggle>
+          <span class="uk-margin-small-right" uk-icon="menu"></span>Menu
+        </a>
+
+        <div class="js-upload" uk-form-custom>
+          <input id="file" type="file" webkitdirectory>
+          <button class="uk-button uk-button-default" type="button" tabindex="-1">Select</button>
+        </div>
+      </div>
+    </div>
+
+  </nav>
+
+
+  <div class="uk-container uk-container-large uk-padding-small">
+    <div class="uk-grid-collapse uk-child-width-expand@s uk-grid-divider"" uk-grid>
+
+    <div class=" uk-width-expand">
+      <hr class="uk-divider-icon">
+
+      <div id="contents" class="uk-padding">
+
+        <h1 id="heading1" class="uk-heading-divider">serialVersionUIDって何なの？書くのめんどい。</h1>
+
+        <p>クラスのフィールドに指定する『serialVersionUID』。</p>
+
+        <p>Eclipseで警告出るから指定するけど、｢これってなんなのめんどい｣という方も多いはず。</p>
+
+        <p>「serialVersionUIDとは何なのか？」を具体的なサンプルで説明したいと思います。</p>
+
+
+        <h2 class="uk-heading-divider">serialVersionUIDは、どんな時に指定する必要があるか？</h2>
+
+        <p>インターフェースjava.io.Serializableを実装した場合に必要。</p>
+
+        <p>親クラスが実装していた場合にも必要になる。</p>
+
+        <p>じゃぁSerializableってなんなのよ？</p>
+
+
+        <h2 id="heading2">まずはSerializableをimplementsしたクラスを作成</h2>
+
+        <p>名前と年齢を設定する簡単なクラスを作りましょう。</p>
+        <pre class="line-numbers"><code class="language-java">import java.io.Serializable;
+
+  public class Human implements Serializable{
+  
+    private static final long serialVersionUID = 1L;
+    
+    private final String name;
+    
+    private final int age;
+   
+    public Human(String name,int age) {
+      this.name = name;
+      this.age = age;
+    }
+  
+    public String getName() {
+      return name;
+    }
+  
+    public int getAge() {
+      return age;
+    }
+  }</code></pre>
+
+        <h2 id="heading3">Serializable実装クラスはオブジェクト情報をファイルに書き込める。</h2>
+        <p>オブジェクト情報をまるまるファイルに書き込んでバイナリデータを作れます。</p>
+
+        <pre class="line-numbers"><code class="language-java">import java.io.FileOutputStream;
+          import java.io.ObjectOutputStream;
+          
+          public class SerializableWrite {
+            
+            public static void main(String[] args) throws Exception{
+              
+              Human human = new Human("John",15);
+              
+              //オブジェクトをファイルに書き込む
+              try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("human.obj"))){
+              
+                oos.writeObject(human);
+              
+              }
+            }
+          }
+        </code></pre>
+
+        <h2 id="heading4">逆にバイナリデータからインスタンスを復元できる。</h2>
+        <p>次は、ファイルを読み込んでインスタンスを作ってみます。</p>
+        <h3>hoge1</h3>
+        <h3>hoge2</h3>
+        <pre class="line-numbers"><code class="language-java">import java.io.FileInputStream;
+          import java.io.ObjectInputStream;
+          
+          
+          public class MainSerializeRead {
+          
+            public static void main(String[] args) throws Exception{
+              
+              //ファイルからオブジェクト情報を読み込む
+              try(ObjectInputStream oos = new ObjectInputStream(new FileInputStream("human.obj"))){
+              
+                Human human = (Human)oos.readObject();
+              
+                System.out.println(human.getName() + ":" + human.getAge());
+          
+              }
+            }
+          }
+        </code></pre>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="offcanvas-usage" uk-offcanvas>
+    <div class="uk-offcanvas-bar">
+
+      <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+      <ul id="scrollspy" class="uk-nav uk-nav-default" uk-scrollspy-nav="closest: li; scroll: true">
+        <li class="heading2"><a href="#heading1">serialVersionUIDは、どんな時に指定する必要があるか？</a></li>
+        <li class="heading2"><a href="#heading2">まずはSerializableをimplementsしたクラスを作成</a></li>
+        <li class="heading2"><a href="#heading3">Serializable実装クラスはオブジェクト情報をファイルに書き込める。</a></li>
+        <li class="heading2"><a href="#heading4">逆にバイナリデータからインスタンスを復元できる。</a></li>
+        <li class="heading3 uk-margin-left"><a href="#heading4">hoge1</a></li>
+        <li class="heading3 uk-margin-left"><a href="#heading4">hoge2</a></li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+
+</html>
