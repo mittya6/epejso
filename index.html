@@ -165,7 +165,7 @@
         let contents = '<!DOCTYPE html>';
         contents += '<html>';
         contents += '<head>';
-        contents += document.head.innerHTML;
+        contents += clonedHead.head.innerHTML;
         contents += '</head>';
         contents += clonedBody.body.innerHTML;
         contents += '</html>';
@@ -219,19 +219,18 @@
           <span class="uk-margin-small-right" uk-icon="menu"></span>Menu
         </a>
 
-        <div class="js-upload" uk-form-custom>
+        <div id="fileForm" class="js-upload" uk-form-custom>
           <input id="file" type="file" webkitdirectory>
           <button class="uk-button uk-button-default" type="button" tabindex="-1">Select</button>
         </div>
         <button id="save" class="uk-button uk-button-default uk-margin-left">Save</button>
-
       </div>
     </div>
 
   </nav>
 
 
-  <div class="uk-container uk-container-large uk-padding-small" id="main-container">
+  <div class="uk-container uk-container-small uk-padding-small" id="main-container">
     <div class="uk-grid-collapse uk-child-width-expand@s uk-grid-divider" uk-grid>
 
       <div class=" uk-width-expand">
@@ -349,7 +348,16 @@
       </div>
     </div>
     <script>
+      //インポートスクリプトでDOMを操作される前にDOMをコピーしておく。
+      let clonedHead = new DOMParser().parseFromString(document.head.innerHTML, "text/html");
       let clonedBody = new DOMParser().parseFromString(document.body.innerHTML, "text/html");
+
+      //clonedbodyのヘッダーボタンは削除する。
+      let tarNode;
+      tarNode = clonedBody.getElementById('fileForm');
+      tarNode.parentNode.removeChild(tarNode);
+      tarNode = clonedBody.getElementById('save');
+      tarNode.parentNode.removeChild(tarNode);
     </script>
 </body>
 
