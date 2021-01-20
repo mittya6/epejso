@@ -95,10 +95,9 @@
 
     window.addEventListener('DOMContentLoaded', (event) => {
 
-
       document.getElementById('file').addEventListener('change', async ev => {
 
-        let contents;
+        let contentsDOM;
         //MDをHTMLに変換して挿入
         for (let i = 0; i < ev.target.files.length; i++) {
 
@@ -107,7 +106,7 @@
           if (!file.webkitRelativePath.endsWith(".md")) {
             continue;
           }
-          contents = new DOMParser().parseFromString(marked(await parseAsText(file)), "text/html");
+          contentsDOM = new DOMParser().parseFromString(marked(await parseAsText(file)), "text/html");
         }
 
         //画像をBASE64にして挿入
@@ -124,23 +123,23 @@
           //先頭のディレクトリ名を削除
           let imgPath = file.webkitRelativePath.replace(/^.*?\//, '');
           let dataUrl = await parseAsDataURL(file);
-          let imgs = contents.querySelectorAll('img[src$="' + imgPath + '"]');
+          let imgs = contentsDOM.querySelectorAll('img[src$="' + imgPath + '"]');
           imgs.forEach(img => {
             img.src = dataUrl;
           });
         }
-        document.getElementById('contents').innerHTML = contents.documentElement.innerHTML;
-        cloned.getElementById('contents').innerHTML = contents.documentElement.innerHTML;
-        Prism.highlightAll();
+
+        clonedBody.getElementById('contents').innerHTML = contentsDOM.documentElement.innerHTML;
 
         //refresh scroll spy
-        let headings = document.getElementById('contents').querySelectorAll('h2,h3');
-        let scrollspy = document.getElementById('scrollspy');
+        let headings = clonedBody.querySelectorAll('h2,h3');
+        let scrollspy = clonedBody.getElementById('scrollspy');
+        scrollspy.innerHTML = '';
         let mapping = {
           "H2": ["heading2"],
           "H3": ["heading3", "uk-margin-left"]
         };
-        scrollspy.innerHTML = '';
+
         for (let i = 0; i < headings.length; i++) {
           let tarId = 'heading' + i;
           headings[i].id = tarId;
@@ -153,26 +152,27 @@
           scrollspy.appendChild(tarLi);
         }
 
-
+        //ボディ内部を丸ごとコピーするとヘッダーボタンのイベントが消えるので、個別にコピーする。
+        document.getElementById('main-container').innerHTML = clonedBody.getElementById('main-container').innerHTML;
+        document.getElementById('offcanvas-usage').innerHTML = clonedBody.getElementById('offcanvas-usage').innerHTML;
+        Prism.highlightAll();
       });
 
       document.getElementById('save').addEventListener('click', async ev => {
 
-        let fileName = document.getElementById('contents').getElementsByTagName('h1')[0].innerText;
-        let contents = '<html>';
+        let fileName = clonedBody.getElementsByTagName('h1')[0].innerText;
+        document.title = fileName;
+        let contents = '<!DOCTYPE html>';
+        contents += '<html>';
         contents += '<head>';
         contents += document.head.innerHTML;
         contents += '</head>';
-        contents += '<body>';
-        contents += cloned.documentElement.innerHTML;
-        contents += '</body>';
+        contents += clonedBody.body.innerHTML;
         contents += '</html>';
         let blob = new Blob([contents], { type: "text/plain;charset=utf-8" });
         saveAs(blob, fileName + '.html');
       });
     });
-
-
 
     function parseAsText(file) {
       // Always return a Promise
@@ -231,7 +231,7 @@
   </nav>
 
 
-  <div class="uk-container uk-container-large uk-padding-small">
+  <div class="uk-container uk-container-large uk-padding-small" id="main-container">
     <div class="uk-grid-collapse uk-child-width-expand@s uk-grid-divider" uk-grid>
 
       <div class=" uk-width-expand">
@@ -320,7 +320,7 @@
               
               //ファイルからオブジェクト情報を読み込む
               try(ObjectInputStream oos = new ObjectInputStream(new FileInputStream("human.obj"))){
-              
+
                 Human human = (Human)oos.readObject();
               
                 System.out.println(human.getName() + ":" + human.getAge());
@@ -332,7 +332,6 @@
         </div>
       </div>
     </div>
-
 
     <div id="offcanvas-usage" uk-offcanvas>
       <div class="uk-offcanvas-bar">
@@ -350,13 +349,7 @@
       </div>
     </div>
     <script>
-      let cloned;
-
-      cloned = document.body.innerHTML;
-      console.log(cloned);
-      cloned = new DOMParser().parseFromString(cloned, "text/html");
-      console.log(cloned.getElementById('contents'));
-
+      let clonedBody = new DOMParser().parseFromString(document.body.innerHTML, "text/html");
     </script>
 </body>
 
