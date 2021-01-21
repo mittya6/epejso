@@ -60,31 +60,49 @@
     crossorigin="anonymous"></script>
 
   <style>
+    body {
+      background-color: #fcfcfc;
+    }
+
     h1,
+    h2,
     #scrollspy {
       counter-reset: number;
       counter-reset: sub-number;
-    }
-
-    h2,
-    #scrollspy .heading2 {
-      counter-increment: number;
-      counter-reset: sub-number;
-    }
-
-    h2::before,
-    #scrollspy .heading2 a::before {
-      content: counter(number)". ";
+      counter-reset: subsub-number;
     }
 
     h3,
     #scrollspy .heading3 {
-      counter-increment: sub-number;
+      counter-increment: number;
+      counter-reset: sub-number;
+      counter-reset: subsub-number;
     }
 
     h3::before,
     #scrollspy .heading3 a::before {
+      content: counter(number)". ";
+    }
+
+    h4,
+    #scrollspy .heading4 {
+      counter-increment: sub-number;
+      counter-reset: subsub-number;
+    }
+
+    h4::before,
+    #scrollspy .heading4 a::before {
       content: counter(number)"-"counter(sub-number)". ";
+    }
+
+    h5,
+    #scrollspy .heading5 {
+      counter-increment: subsub-number;
+    }
+
+    h5::before,
+    #scrollspy .heading5 a::before {
+      content: counter(number)"-"counter(sub-number)"-"counter(subsub-number)". ";
     }
 
     nav {
@@ -132,12 +150,13 @@
         clonedBody.getElementById('contents').innerHTML = contentsDOM.documentElement.innerHTML;
 
         //refresh scroll spy
-        let headings = clonedBody.querySelectorAll('h2,h3');
+        let headings = clonedBody.querySelectorAll('h3,h4,h5');
         let scrollspy = clonedBody.getElementById('scrollspy');
         scrollspy.innerHTML = '';
         let mapping = {
-          "H2": ["heading2"],
-          "H3": ["heading3", "uk-margin-left"]
+          "H3": ["heading3"],
+          "H4": ["heading4", "uk-margin-left"],
+          "H5": ["heading5", "uk-margin-medium-left"]
         };
 
         for (let i = 0; i < headings.length; i++) {
@@ -160,8 +179,8 @@
 
       document.getElementById('save').addEventListener('click', async ev => {
 
-        let fileName = clonedBody.getElementsByTagName('h1')[0].innerText;
-        document.title = fileName;
+        let fileName = clonedBody.querySelectorAll('h1,h2,h3,h4,h5')[0].innerText;
+        clonedHead.title = fileName;
         let contents = '<!DOCTYPE html>';
         contents += '<html>';
         contents += '<head>';
@@ -213,7 +232,7 @@
 <body>
   <nav class="uk-navbar-container uk-background-primary" uk-sticky>
 
-    <div class="uk-container uk-container-large">
+    <div class="uk-container uk-container-small">
       <div class="uk-navbar-left uk-padding uk-padding-remove-vertical uk-padding-remove-left">
         <a class="uk-navbar-item uk-logo" href="#offcanvas-usage" uk-toggle>
           <span class="uk-margin-small-right" uk-icon="menu"></span>Menu
@@ -238,7 +257,18 @@
 
         <div id="contents" class="uk-padding">
 
-          <h1 id="heading1" class="uk-heading-divider">serialVersionUIDって何なの？書くのめんどい。</h1>
+          <h2 id="heading1" class="uk-heading-divider">MarkDownから手順書を作ろう</h2>
+
+          <h3 id="heading1" class="uk-heading-divider">使い方</h3>
+          <h4>MarkDownを書く。</h4>
+          <p>拡張子が"md"のファイルにMarkdownを記述します。</p>
+          <pre><code class="language-java">## カップラーメンの作り方
+### お湯を沸かす
+#### カップラーメンのラップをとる
+#### カップラーメンの蓋をあける。
+#### 火薬やスープを取り出す。
+### お湯をカップに注ぐ
+        </code></pre>
 
           <p>クラスのフィールドに指定する『serialVersionUID』。</p>
 
@@ -248,6 +278,8 @@
 
 
           <h2 class="uk-heading-divider">serialVersionUIDは、どんな時に指定する必要があるか？</h2>
+          <h3 class="uk-heading-divider">serialVersionUIDは、どんな時に指定する必要があるか？</h3>
+          <h4 class="uk-heading-divider">serialVersionUIDは、どんな時に指定する必要があるか？</h4>
 
           <p>インターフェースjava.io.Serializableを実装した場合に必要。</p>
 
