@@ -263,103 +263,30 @@
           <h4>MarkDownを書く。</h4>
           <p>拡張子が"md"のファイルにMarkdownを記述します。</p>
           <pre><code class="language-java">## カップラーメンの作り方
+![カップラーメン](ea60f30b.png "サンプル")
+
 ### お湯を沸かす
 #### カップラーメンのラップをとる
 #### カップラーメンの蓋をあける。
 #### 火薬やスープを取り出す。
 ### お湯をカップに注ぐ
-        </code></pre>
+#### 3分待つ
+```java
+Thread.sleep(1000);
+```</code></pre>
 
-          <p>クラスのフィールドに指定する『serialVersionUID』。</p>
+          <h4>画像と一緒にフォルダに格納</h4>
 
-          <p>Eclipseで警告出るから指定するけど、｢これってなんなのめんどい｣という方も多いはず。</p>
+          <h4>SELECTボタンを押してフォルダを選択</h4>
 
-          <p>「serialVersionUIDとは何なのか？」を具体的なサンプルで説明したいと思います。</p>
+          <h4>画面に表示させて確認</h4>
 
+          <h4>OKなら、SAVEボタン押してHTML生成</h4>
+          <ul class="uk-list uk-list-disc">
+            <li>画像はHTMLにURLスキームで埋め込みます。</li>
+            <li>Menuボタンを押すとh3～h5までの目次が自動生成されます。</li>
+          </ul>
 
-          <h2 class="uk-heading-divider">serialVersionUIDは、どんな時に指定する必要があるか？</h2>
-          <h3 class="uk-heading-divider">serialVersionUIDは、どんな時に指定する必要があるか？</h3>
-          <h4 class="uk-heading-divider">serialVersionUIDは、どんな時に指定する必要があるか？</h4>
-
-          <p>インターフェースjava.io.Serializableを実装した場合に必要。</p>
-
-          <p>親クラスが実装していた場合にも必要になる。</p>
-
-          <p>じゃぁSerializableってなんなのよ？</p>
-
-
-          <h2 id="heading2">まずはSerializableをimplementsしたクラスを作成</h2>
-
-          <p>名前と年齢を設定する簡単なクラスを作りましょう。</p>
-          <pre class="line-numbers"><code class="language-java">import java.io.Serializable;
-
-  public class Human implements Serializable{
-  
-    private static final long serialVersionUID = 1L;
-    
-    private final String name;
-    
-    private final int age;
-   
-    public Human(String name,int age) {
-      this.name = name;
-      this.age = age;
-    }
-  
-    public String getName() {
-      return name;
-    }
-  
-    public int getAge() {
-      return age;
-    }
-  }</code></pre>
-
-          <h2 id="heading3">Serializable実装クラスはオブジェクト情報をファイルに書き込める。</h2>
-          <p>オブジェクト情報をまるまるファイルに書き込んでバイナリデータを作れます。</p>
-
-          <pre class="line-numbers"><code class="language-java">import java.io.FileOutputStream;
-          import java.io.ObjectOutputStream;
-          
-          public class SerializableWrite {
-            
-            public static void main(String[] args) throws Exception{
-              
-              Human human = new Human("John",15);
-              
-              //オブジェクトをファイルに書き込む
-              try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("human.obj"))){
-              
-                oos.writeObject(human);
-              
-              }
-            }
-          }
-        </code></pre>
-
-          <h2 id="heading4">逆にバイナリデータからインスタンスを復元できる。</h2>
-          <p>次は、ファイルを読み込んでインスタンスを作ってみます。</p>
-          <h3>hoge1</h3>
-          <h3>hoge2</h3>
-          <pre class="line-numbers"><code class="language-java">import java.io.FileInputStream;
-          import java.io.ObjectInputStream;
-          
-          
-          public class MainSerializeRead {
-          
-            public static void main(String[] args) throws Exception{
-              
-              //ファイルからオブジェクト情報を読み込む
-              try(ObjectInputStream oos = new ObjectInputStream(new FileInputStream("human.obj"))){
-
-                Human human = (Human)oos.readObject();
-              
-                System.out.println(human.getName() + ":" + human.getAge());
-          
-              }
-            }
-          }
-        </code></pre>
         </div>
       </div>
     </div>
