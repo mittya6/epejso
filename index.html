@@ -79,6 +79,11 @@
       counter-reset: subsub-number;
     }
 
+    h3::before {
+      border-left: solid 8px lightcoral;
+      padding-left: 8px;
+    }
+
     h3::before,
     #scrollspy .heading3 a::before {
       content: counter(number)". ";
@@ -88,6 +93,11 @@
     #scrollspy .heading4 {
       counter-increment: sub-number;
       counter-reset: subsub-number;
+    }
+
+    h4::before {
+      border-left: solid 8px #c2d3dd;
+      padding-left: 8px;
     }
 
     h4::before,
@@ -286,6 +296,8 @@ Thread.sleep(1000);
             <li>画像はHTMLにURLスキームで埋め込みます。</li>
             <li>Menuボタンを押すとh3～h5までの目次が自動生成されます。</li>
           </ul>
+
+          <h5>TEST</h5>
 
         </div>
       </div>
