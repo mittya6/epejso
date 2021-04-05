@@ -1,6 +1,6 @@
 ![エビフライトライアングル](ea60f30b.png "サンプル")
 
-## MarkdownからHTMLが作成されました。
+# MarkdownからHTMLが作成されました。
 * * *
 
 画像は、
@@ -87,7 +87,7 @@ public class Main {
 ##### Header 4
 ###### Header 5
 
-### Markdown plus h2 with a custom ID ##         {#id-goes-here}
+# Markdown plus h2 with a custom ID ##         {#id-goes-here}
 [Link back to H2](#id-goes-here)
 
 This is a paragraph, which is text surrounded by whitespace. Paragraphs can be on one 
@@ -100,8 +100,6 @@ feeling-lucky), a [wiki: test] link to a Wikipedia page, and a link to
 
 Now some inline markup like _italics_,  **bold**, and `code()`. Note that underscores in 
 words are ignored in Markdown Extra.
-
-![picture alt](/images/photo.jpeg "Title is optional")     
 
 > Blockquotes are like quoted text in email replies
 >> And, they can be nested
@@ -119,15 +117,13 @@ And now some code:
     // Code is just text indented a bit
     which(is_easy) to_remember();
 
-~~~
-
+```javascript
 // Markdown extra adds un-indented code blocks too
 
 if (this_is_more_code == true && !indented) {
     // tild wrapped code blocks, also not indented
 }
-
-~~~
+```
 
 Text with  
 two trailing spaces  
@@ -137,8 +133,6 @@ for things like poems
 
 #### Horizontal rules
 
-* * * *
-****
 --------------------------
 
 <div class="custom-class" markdown="1">
