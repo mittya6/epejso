@@ -1,25 +1,24 @@
 <!DOCTYPE html>
-<html lang="en-gb" dir="ltr">
+<html lang="en-gb">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Blog layout example - UIkit documentation</title>
-    <script><%- include('node_modules/prismjs/prism.js'); %></script>
-    <script><%- include('node_modules/uikit/dist/js/uikit.min.js') %></script>
-    <script><%- include('node_modules/in-view/dist/in-view.min.js') %></script>
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/toolbar/prism-toolbar.min.css"
-    integrity="sha512-DSAA0ziYwggOJ3QyWFZhIaU8bSwQLyfnyIrmShRLBdJMtiYKT7Ju35ujBCZ6ApK3HURt34p2xNo+KX9ebQNEPQ=="
-    crossorigin="anonymous" />
-    <style><%- include('node_modules/uikit/dist/css/uikit.my.uikit.min.css') %></style>
-    <style><%- include('node_modules/prismjs/themes/prism.css') %></style>
+    <script><%- prismjs %></script>
+    <script><%- prismtoolbarminjs %></script>
+    <script><%- prismcopytoclipboardminjs %></script>
+    <script><%- uikitminjs %></script>
+    <script><%- inviewminjs %></script>
+    <style> <%-prismtoolbarcss %></style>
+    <style><%- uikitmincss %></style>
+    <style><%- prismcss %></style>
 </head>
 
 <script>
-    inView.offset({
-        top: 10
-    });
+        inView.offset({
+            top: 10
+        });
     window.addEventListener('load', (event) => {
         const tarCaption = document.getElementById("tarCaption");
         inView('h1').on('exit', el => {
