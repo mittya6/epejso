@@ -10,19 +10,112 @@
     <script><%- prismcopytoclipboardminjs %></script>
     <script><%- uikitminjs %></script>
     <script><%- inviewminjs %></script>
-    <style> <%-prismtoolbarcss %></style>
+    <style><%- prismtoolbarcss %></style>
     <style><%- uikitmincss %></style>
     <style><%- prismcss %></style>
+    <style>
+    body {
+      background-color: #fcfcfc;
+      font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "メイリオ", sans-serif;
+    }
+
+    #scrollspy li {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .uk-container,
+    #scrollspy {
+      counter-reset: number;
+      counter-reset: sub-number;
+      counter-reset: subsub-number;
+    }
+
+    h1,
+    .heading1 {
+      counter-increment: number;
+      counter-reset: sub-number;
+      counter-reset: subsub-number;
+    }
+
+    h1::before {
+      border-left: solid 8px lightcoral;
+      padding-left: 8px;
+    }
+
+    h1::before,
+    #scrollspy .heading1 a::before {
+      content: counter(number)". ";
+    }
+
+    h2,
+    #scrollspy .heading2 {
+      counter-increment: sub-number;
+      counter-reset: subsub-number;
+    }
+
+    h2::before {
+      border-left: solid 8px #c2d3dd;
+      padding-left: 8px;
+    }
+
+    h2::before,
+    #scrollspy .heading2 a::before {
+      content: counter(number)"-"counter(sub-number)". ";
+    }
+
+    h3,
+    #scrollspy .heading3 {
+      counter-increment: subsub-number;
+    }
+
+    h3::before {
+      border-left: solid 4px burlywood;
+      padding-left: 8px;
+    }
+
+    h3::before,
+    #scrollspy .heading3 a::before {
+      content: counter(number)"-"counter(sub-number)"-"counter(subsub-number)". ";
+    }
+
+  </style>
+  <script>
+    window.addEventListener('load', (event) => {
+        let headings = document.querySelectorAll('h1,h2,h3');
+        let scrollspy = document.getElementById('scrollspy');
+        scrollspy.innerHTML = '';
+        let mapping = {
+          "H1": ["heading1"],
+          "H2": ["heading2", "uk-margin-left"],
+          "H3": ["heading3", "uk-margin-medium-left"]
+        };
+
+        for (let i = 0; i < headings.length; i++) {
+          let tarId = 'heading' + i;
+          headings[i].id = tarId;
+          let tarLi = document.createElement('li');
+          mapping[headings[i].tagName].forEach(tarClass => tarLi.classList.add(tarClass));
+          let tarAnchr = document.createElement('a');
+          tarAnchr.href = '#' + tarId;
+          tarAnchr.innerText = headings[i].innerText;
+          tarLi.appendChild(tarAnchr);
+          scrollspy.appendChild(tarLi);
+        }
+    });
+  </script>
 </head>
 
 <script>
+
+    window.addEventListener('load', (event) => {
         inView.offset({
             top: 10
         });
-    window.addEventListener('load', (event) => {
+
         const tarCaption = document.getElementById("tarCaption");
         inView('h1').on('exit', el => {
-            // alert(el.innerText);
             tarCaption.innerText = el.innerText;
         });
     });
@@ -38,8 +131,7 @@
 
         <nav class="uk-navbar-container uk-margin" uk-navbar uk-sticky>
             <div class="uk-navbar-left">
-                <a class="uk-navbar-toggle" uk-navbar-toggle-icon href="#"></a>
-
+                <a class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle href="#offcanvas-usage"></a>
 
                 <ul class="uk-navbar-nav">
                     <li id="tarCaption">
@@ -57,7 +149,22 @@
             </article>
 
         </div>
+    </div>
 
+    <div id="offcanvas-usage" uk-offcanvas="flip: true; overlay: true">
+        <div class="uk-offcanvas-bar">
+
+            <button class="uk-offcanvas-close" type="button" uk-close></button>
+    
+            <ul id="scrollspy" class="uk-nav uk-nav-default" uk-scrollspy-nav="closest: li; scroll: true">
+              <li class="heading2"><a href="#heading1">serialVersionUIDは、どんな時に指定する必要があるか？</a></li>
+              <li class="heading2"><a href="#heading2">まずはSerializableをimplementsしたクラスを作成</a></li>
+              <li class="heading2"><a href="#heading3">Serializable実装クラスはオブジェクト情報をファイルに書き込める。</a></li>
+              <li class="heading2"><a href="#heading4">逆にバイナリデータからインスタンスを復元できる。</a></li>
+              <li class="heading3 uk-margin-left"><a href="#heading4">hoge1</a></li>
+              <li class="heading3 uk-margin-left"><a href="#heading4">hoge2</a></li>
+            </ul>
+          </div>
     </div>
 </body>
 

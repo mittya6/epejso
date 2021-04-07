@@ -1,4 +1,4 @@
-![エビフライトライアングル](ea60f30b.png "サンプル")
+![エビフライトライアングル](ea60f30b.png "MarkdownからHTMLが作成されました。")
 
 # MarkdownからHTMLが作成されました。
 * * *
@@ -28,6 +28,11 @@ function test(){
 ```
 ### 使い方
 #### 本当の使い方
+
+```shell
+cp ./test ./test/oge
+mv /tmp/hoge /hoge
+```
 
 使い方は簡単。staticメソッドを呼び出すだけ。
 

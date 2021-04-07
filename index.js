@@ -6,8 +6,10 @@ const { Command } = require('commander');
 
 const renderer = new marked.Renderer();
 renderer.image = function(href, title, text) {   
-  return `<div uk-lightbox>
-              <a class="uk-button uk-button-default" href="${href}"><img src="${href}" uk-img></a>
+  return `<div class="uk-width-1-5" uk-lightbox>
+              <a class="uk-button uk-button-default" href="${href}"  data-caption="${text}">
+                <img src="${href}" uk-img>
+              </a>
           </div>`;
 }
 
@@ -54,7 +56,7 @@ ejs.renderFile('./index.ejs', {
   inviewminjs: fs.readFileSync('node_modules/in-view/dist/in-view.min.js','utf-8'),
   prismtoolbarcss: fs.readFileSync('node_modules/prismjs/plugins/toolbar/prism-toolbar.css','utf-8'),
   uikitmincss: fs.readFileSync('node_modules/uikit/dist/css/uikit.my.uikit.min.css','utf-8'),
-  prismcss: fs.readFileSync('node_modules/prismjs/themes/prism.css','utf-8'),  
+  prismcss: fs.readFileSync('node_modules/prismjs/themes/prism-tomorrow.css','utf-8'),  
   content: marked(message, { renderer: renderer })
 
 }, function (err, html) {
