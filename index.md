@@ -1,8 +1,0 @@
-# JSでのスクロール連動エフェクトにはIntersection Observerが便利
-
-rootは交差監視をする枠のような要素（ルート要素）です。null（デフォルト値）にするとビューポート、つまり見ている画面との交差監視を有効にします。ビューポートを指定することが多いと思いますが、上記の例では#observerAreaという要素を指定しています。#observerAreaがoverflow: scrollで要素内スクロールができ、その中の要素と#observerAreaとの交差監視を有効にしたい場合には、このようにルート要素を指定します。
-
-# JSでのスクロール連動エフェクト
-
-Vue.jsにはOption APIやClass方式があり、Vue.jsバージョン3からはComposition APIも増え、さまざまな作り方があります。Vue.jsを基礎としているフレームワーク、Nuxt.jsも同様にNuxt Composition APIとしてNuxt.js用に拡張されたものがリリースされています。
-

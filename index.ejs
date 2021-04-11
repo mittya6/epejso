@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Blog layout example - UIkit documentation</title>
+    <title><%- title %></title>
     <script><%- prismjs %></script>
     <script><%- prismtoolbarminjs %></script>
     <script><%- prismcopytoclipboardminjs %></script>
@@ -117,6 +117,8 @@
         const tarCaption = document.getElementById("tarCaption");
         inView('h1').on('exit', el => {
             tarCaption.innerText = el.innerText;
+            var property = window.getComputedStyle(el, '::before');
+            console.log( property);
         });
     });
 </script>
@@ -136,7 +138,7 @@
                 <ul class="uk-navbar-nav">
                     <li id="tarCaption">
                         <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
-                        Features
+                        <%- title %>
                     </li>
                 </ul>
             </div>

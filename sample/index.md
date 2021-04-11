@@ -1,9 +1,10 @@
-![エビフライトライアングル](ea60f30b.png "MarkdownからHTMLが作成されました。")
+---
+Title:   My awesome markdown file
+Author:  Me
+---
 
 # MarkdownからHTMLが作成されました。
 * * *
-
-画像は、
 
 1. First item
 2. Second item
@@ -19,6 +20,7 @@
 |  Cell  |  Cell  |   $10  |
 |  Cell  |  Cell  |   $20  |
 
+![エビフライトライアングル](ea60f30b.png "MarkdownからHTMLが作成されました。")
 
 
 ```javascript
@@ -140,10 +142,9 @@ for things like poems
 
 --------------------------
 
-<div class="custom-class" markdown="1">
 This is a div wrapping some Markdown plus.  Without the DIV attribute, it ignores the 
 block. 
-</div>
+
 
 ### Markdown plus tables ##
 

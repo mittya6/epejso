@@ -1,39 +1,9 @@
 const fs = require("fs");
 const ejs = require("ejs");
-const marked = require("marked");
+const marked = require("meta-marked");
 const path = require('path');
 const { Command } = require('commander');
-
-const renderer = new marked.Renderer();
-renderer.image = function(href, title, text) {   
-  return `<div class="uk-width-1-5" uk-lightbox>
-              <a class="uk-button uk-button-default" href="${href}"  data-caption="${text}">
-                <img src="${href}" uk-img>
-              </a>
-          </div>`;
-}
-
-/*
-marked.setOptions({
-    breaks: true,
-    langPrefix: "language-",
-    highlight: (code, lang) => {
-      console.log(lang)
-      if (lang && lang.match(":")) {
-        lang = lang.substring(0, lang.indexOf(":"));
-      }
-      if (lang in Prism.languages) {
-        console.log(code);
-        console.log(typeof(code));
-       // code.setAttribute('data-prismjs-copy','copy');
-      var hoge = Prism.highlight(code, Prism.languages[lang]);
-      console.log(typeof(hoge));
-        return Prism.highlight(code, Prism.languages[lang]);
-      }
-      return code;
-    }
-  });
-  */
+const { JSDOM } = require("jsdom");
 
 const program = new Command();
 program.option("-f, --filepath <value>", "test option").parse(process.argv);
@@ -45,23 +15,44 @@ program.on('--help', () => {
   console.log()
 });
 
-const message = fs.readFileSync(program.opts().filepath, 'utf-8');
+/** parse marked content start */
+const renderer = new marked.Renderer();
+renderer.image =  function (href, title, text) {
+  const dataURI = parseAsDataURL(path.join(path.dirname(program.opts().filepath),href));
+  return `<div class="uk-width-1-5" uk-lightbox>
+            <a class="uk-button uk-button-default" href="${dataURI}"  data-caption="${text}" data-type="image">
+              <img src="${dataURI}" uk-img>
+            </a>
+        </div>`;
+}
+renderer.table = function(header, body) {
+  return `<table class="uk-table uk-table-divider">'
+            <thead>${header}</thead>
+            <tbody>${body}</tbody>
+          </table>`;
+};
+const markedContents = marked(fs.readFileSync(program.opts().filepath, 'utf-8'), { renderer: renderer });
+/** parse marked content end */
+
+
 ejs.renderFile('./index.ejs', {
 
+  title: markedContents['meta']['Title'],
   //temp.ejsに渡す値
-  prismjs: fs.readFileSync('node_modules/prismjs/prism.js','utf-8'),
-  prismtoolbarminjs: fs.readFileSync('node_modules/prismjs/plugins/toolbar/prism-toolbar.min.js','utf-8'),
-  prismcopytoclipboardminjs: fs.readFileSync('node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js','utf-8'),
-  uikitminjs: fs.readFileSync('node_modules/uikit/dist/js/uikit.min.js','utf-8'),
-  inviewminjs: fs.readFileSync('node_modules/in-view/dist/in-view.min.js','utf-8'),
-  prismtoolbarcss: fs.readFileSync('node_modules/prismjs/plugins/toolbar/prism-toolbar.css','utf-8'),
-  uikitmincss: fs.readFileSync('node_modules/uikit/dist/css/uikit.my.uikit.min.css','utf-8'),
-  prismcss: fs.readFileSync('node_modules/prismjs/themes/prism-tomorrow.css','utf-8'),  
-  content: marked(message, { renderer: renderer })
+  prismjs: fs.readFileSync('node_modules/prismjs/prism.js', 'utf-8'),
+  prismtoolbarminjs: fs.readFileSync('node_modules/prismjs/plugins/toolbar/prism-toolbar.min.js', 'utf-8'),
+  prismcopytoclipboardminjs: fs.readFileSync('node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js', 'utf-8'),
+  uikitminjs: fs.readFileSync('node_modules/uikit/dist/js/uikit.min.js', 'utf-8'),
+  inviewminjs: fs.readFileSync('node_modules/in-view/dist/in-view.min.js', 'utf-8'),
+  prismtoolbarcss: fs.readFileSync('node_modules/prismjs/plugins/toolbar/prism-toolbar.css', 'utf-8'),
+  uikitmincss: fs.readFileSync('node_modules/uikit/dist/css/uikit.my.uikit.min.css', 'utf-8'),
+  prismcss: fs.readFileSync('node_modules/prismjs/themes/prism-tomorrow.css', 'utf-8'),
+
+  content: markedContents['html']
 
 }, function (err, html) {
   if (err) {
-    console.log(err.stack);
+    console.log(err);
     return;
   }
   // 出力ファイル名
@@ -72,3 +63,7 @@ ejs.renderFile('./index.ejs', {
 });
 
 
+function parseAsDataURL(file) {
+  const base64ed = fs.readFileSync(file,{ encoding: "base64" });
+  return `data:image/${path.extname(file).replace('.','')};base64,${base64ed}`;
+}
