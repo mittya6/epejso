@@ -32,8 +32,8 @@ function test(){
 #### 本当の使い方
 
 ```shell
-cp ./test ./test/oge
-mv /tmp/hoge /hoge
+$ cp ./test ./test/oge
+$ mv /tmp/hoge /hoge
 ```
 
 使い方は簡単。staticメソッドを呼び出すだけ。

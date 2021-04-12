@@ -7,7 +7,44 @@
 @global-xlarge-font-size:                       1.5rem;     // 32px
 @global-large-font-size:                        1.25rem;   // 24px
 @global-medium-font-size:                       0.875rem;  // 20px
-@global-small-font-size:                        0.75rem; // 14px
+@global-small-font-size:                        0.64rem; // 14px
 
 @offcanvas-bar-background:                      #fff;
 @offcanvas-bar-color-mode:                      dark;
+
+@global-font-family:  "Lucida Grande", "Hiragino Kaku Gothic ProN", Meiryo, "ＭＳ Ｐゴシック", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+@global-muted-background:                       #f8f8f8;
+@global-primary-background:                     #1e87f0;
+@global-secondary-background:                   #222;
+@global-success-background:                     #32d296;
+@global-warning-background:                     #faa05a;
+@global-danger-background:                      #f0506e;
+
+h1::before,
+#scrollspy .heading1 a::before {
+    border-left: solid 8px @global-danger-background;
+    padding-left: 8px;
+}
+
+h1:not(:first-child){
+    margin-top: @global-large-margin;
+}
+
+h2{
+    margin-top: @global-medium-margin;
+}
+
+
+
+h2::before,
+#scrollspy .heading2 a::before {
+    border-left: solid 8px @global-warning-background;
+    padding-left: 8px;
+}
+
+h3::before,
+#scrollspy .heading3 a::before{
+    border-left: solid 4px @global-success-background;
+    padding-left: 8px;
+}

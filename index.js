@@ -3,7 +3,6 @@ const ejs = require("ejs");
 const marked = require("meta-marked");
 const path = require('path');
 const { Command } = require('commander');
-const { JSDOM } = require("jsdom");
 
 const program = new Command();
 program.option("-f, --filepath <value>", "test option").parse(process.argv);
@@ -43,7 +42,6 @@ ejs.renderFile('./index.ejs', {
   prismtoolbarminjs: fs.readFileSync('node_modules/prismjs/plugins/toolbar/prism-toolbar.min.js', 'utf-8'),
   prismcopytoclipboardminjs: fs.readFileSync('node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js', 'utf-8'),
   uikitminjs: fs.readFileSync('node_modules/uikit/dist/js/uikit.min.js', 'utf-8'),
-  inviewminjs: fs.readFileSync('node_modules/in-view/dist/in-view.min.js', 'utf-8'),
   prismtoolbarcss: fs.readFileSync('node_modules/prismjs/plugins/toolbar/prism-toolbar.css', 'utf-8'),
   uikitmincss: fs.readFileSync('node_modules/uikit/dist/css/uikit.my.uikit.min.css', 'utf-8'),
   prismcss: fs.readFileSync('node_modules/prismjs/themes/prism-tomorrow.css', 'utf-8'),
