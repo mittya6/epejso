@@ -3,9 +3,13 @@
     "commander": "^7.2.0",
     "ejs": "^3.1.6",
     "fs": "^0.0.1-security",
+    "less": "^4.1.1",
     "marked": "^2.0.1",
     "meta-marked": "^0.5.0",
     "prismjs": "^1.23.0",
     "uikit": "^3.6.18"
+  },
+  "scripts": {
+    "compile-less": "npx lessc custom/my.uikit.less custom/my.uikit.css --math=always --relative-urls"
   }
 }
