@@ -5,14 +5,10 @@ const path = require('path');
 const { Command } = require('commander');
 
 const program = new Command();
-program.option("-f, --filepath <value>", "test option").parse(process.argv);
-
-program.on('--help', () => {
-  console.log()
-  console.log('For more information, see')
-  console.log('https://github.com/hktysk/resv')
-  console.log()
-});
+program.option("-f, --filepath <value>", "markdown file path").parse(process.argv);
+if (!program.opts().filepath){
+  throw new Error("-f required filepath")
+}
 
 /** parse marked content start */
 const renderer = new marked.Renderer();
@@ -44,7 +40,7 @@ ejs.renderFile('./index.ejs', {
   uikitminjs: fs.readFileSync('node_modules/uikit/dist/js/uikit.min.js', 'utf-8'),
   prismtoolbarcss: fs.readFileSync('node_modules/prismjs/plugins/toolbar/prism-toolbar.css', 'utf-8'),
   uikitmincss: fs.readFileSync('custom/my.uikit.css', 'utf-8'),
-  prismcss: fs.readFileSync('node_modules/prismjs/themes/prism-tomorrow.css', 'utf-8'),
+  prismcss: fs.readFileSync('node_modules/prism-themes/themes/prism-material-light.css', 'utf-8'),
 
   content: markedContents['html']
 
