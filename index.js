@@ -14,11 +14,16 @@ if (!program.opts().filepath){
 const renderer = new marked.Renderer();
 renderer.image =  function (href, title, text) {
   const dataURI = parseAsDataURL(path.join(path.dirname(program.opts().filepath),href));
-  return `<div class="uk-width-1-5" uk-lightbox>
-            <a class="uk-button uk-button-default" href="${dataURI}"  data-caption="${text}" data-type="image">
-              <img src="${dataURI}" uk-img>
-            </a>
-        </div>`;
+  return `<div class="uk-width-1-4 uk-text-center" uk-lightbox>
+            <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
+              <a class="uk-button uk-button-default" href="${dataURI}"  data-caption="${text}" data-type="image">
+                <img src="${dataURI}" uk-img>
+                <div class="uk-transition-fade uk-position-cover uk-position-small uk-overlay uk-overlay-default uk-flex uk-flex-center uk-flex-middle">
+                  <p class="uk-h4 uk-margin-remove">${text}</p>
+                </div>
+              </a>
+            </div>
+          </div>`;
 }
 renderer.table = function(header, body) {
   return `<table class="uk-table uk-table-divider">'
@@ -33,6 +38,8 @@ const markedContents = marked(fs.readFileSync(program.opts().filepath, 'utf-8'),
 ejs.renderFile('./index.ejs', {
 
   title: markedContents['meta']['Title'],
+  createDate: markedContents['meta']['CreatedDate'],
+  updateDate: markedContents['meta']['UpdatedDate'],
   //temp.ejsに渡す値
   prismjs: fs.readFileSync('node_modules/prismjs/prism.js', 'utf-8'),
   prismtoolbarminjs: fs.readFileSync('node_modules/prismjs/plugins/toolbar/prism-toolbar.min.js', 'utf-8'),

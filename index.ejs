@@ -101,20 +101,23 @@
                 <a class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle href="#offcanvas-usage"></a>
 
                 <ul class="uk-navbar-nav">
-                    <li id="tarCaption">
-                        <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
+                    <li class="uk-logo">
                         <%- title %>
                     </li>
                 </ul>
             </div>
         </nav>
 
-        <div class="uk-child-width-expand" uk-grid>
-            <article class="uk-article">
-                <%-content %>
+        <div uk-grid>
+            <article class="uk-article uk-width-1-1">
+              <%-content %>
             </article>
-
+            <div class="uk-width-1-1">
+              <p class="uk-article-meta">updated on <%- updateDate %></p>
+            </div>
         </div>
+
+ 
     </div>
 
     <div id="offcanvas-usage" uk-offcanvas="flip: true; overlay: true">
@@ -124,11 +127,6 @@
     
             <ul id="scrollspy" class="uk-nav uk-nav-default" uk-scrollspy-nav="closest: li; scroll: true; offset: 40">
               <li class="heading2"><a href="#heading1">serialVersionUIDは、どんな時に指定する必要があるか？</a></li>
-              <li class="heading2"><a href="#heading2">まずはSerializableをimplementsしたクラスを作成</a></li>
-              <li class="heading2"><a href="#heading3">Serializable実装クラスはオブジェクト情報をファイルに書き込める。</a></li>
-              <li class="heading2"><a href="#heading4">逆にバイナリデータからインスタンスを復元できる。</a></li>
-              <li class="heading3 uk-margin-left"><a href="#heading4">hoge1</a></li>
-              <li class="heading3 uk-margin-left"><a href="#heading4">hoge2</a></li>
             </ul>
           </div>
     </div>

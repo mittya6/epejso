@@ -1,6 +1,6 @@
 ---
-Title:   My awesome markdown file
-Author:  Me
+Title: MarkDownから手順書を作成しました。
+UpdatedDate: 2021/04/15
 ---
 
 # MarkdownからHTMLが作成されました。
@@ -25,15 +25,15 @@ Author:  Me
 
 ```javascript
 function test(){
-  
+  console.log('hello');
 }
 ```
 ### 使い方
 #### 本当の使い方
 
-```shell
-$ cp ./test ./test/oge
-$ mv /tmp/hoge /hoge
+```dos
+cp ./test ./test/oge
+mv /tmp/hoge /hoge
 ```
 
 使い方は簡単。staticメソッドを呼び出すだけ。
