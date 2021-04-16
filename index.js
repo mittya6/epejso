@@ -9,6 +9,7 @@ program
   .option("-f, --filepath <value>", "markdown file path")
   .option("-e, --ejspath <value>", "ejs template file path")
   .option("-r, --rendererpath <value>", "renderer file path")
+  .option("-o, --outputdir <value>", "output directory")
   .parse(process.argv);
 if (!program.opts().filepath){
   throw new Error("-f required filepath")
@@ -21,6 +22,7 @@ const renderer = (require(rendererpath))(path.dirname(program.opts().filepath));
 const markedContents = marked(fs.readFileSync(program.opts().filepath, 'utf-8'), { renderer: renderer });
 /** parse marked content end */
 
+const outputdir = (program.opts().outputdir)?program.opts().outputdir:'./';
 
 ejs.renderFile(ejspath, {
 
@@ -44,7 +46,7 @@ ejs.renderFile(ejspath, {
     return;
   }
   // 出力ファイル名
-  const file = path.dirname(program.opts().filepath) + '/index.html';
+  const file = path.join(path.dirname(outputdir) , markedContents['meta']['Title'] + '.html');
   // テキストファイルに書き込む
   fs.writeFileSync(file, html, 'utf8');
   console.log("完了")
