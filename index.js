@@ -5,37 +5,24 @@ const path = require('path');
 const { Command } = require('commander');
 
 const program = new Command();
-program.option("-f, --filepath <value>", "markdown file path").parse(process.argv);
+program
+  .option("-f, --filepath <value>", "markdown file path")
+  .option("-e, --ejspath <value>", "ejs template file path")
+  .option("-r, --rendererpath <value>", "renderer file path")
+  .parse(process.argv);
 if (!program.opts().filepath){
   throw new Error("-f required filepath")
 }
+const ejspath = (program.opts().ejspath)?program.opts().ejspath:'./template/default.ejs';
+const rendererpath = (program.opts().rendererpath)?program.opts().rendererpath:'./renderer/defaultRenderer.js';
 
 /** parse marked content start */
-const renderer = new marked.Renderer();
-renderer.image =  function (href, title, text) {
-  const dataURI = parseAsDataURL(path.join(path.dirname(program.opts().filepath),href));
-  return `<div class="uk-width-1-4 uk-text-center" uk-lightbox>
-            <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
-              <a class="uk-button uk-button-default" href="${dataURI}"  data-caption="${text}" data-type="image">
-                <img src="${dataURI}" uk-img>
-                <div class="uk-transition-fade uk-position-cover uk-position-small uk-overlay uk-overlay-default uk-flex uk-flex-center uk-flex-middle">
-                  <p class="uk-h4 uk-margin-remove">${text}</p>
-                </div>
-              </a>
-            </div>
-          </div>`;
-}
-renderer.table = function(header, body) {
-  return `<table class="uk-table uk-table-divider">'
-            <thead>${header}</thead>
-            <tbody>${body}</tbody>
-          </table>`;
-};
+const renderer = (require(rendererpath))(path.dirname(program.opts().filepath));
 const markedContents = marked(fs.readFileSync(program.opts().filepath, 'utf-8'), { renderer: renderer });
 /** parse marked content end */
 
 
-ejs.renderFile('./index.ejs', {
+ejs.renderFile(ejspath, {
 
   title: markedContents['meta']['Title'],
   createDate: markedContents['meta']['CreatedDate'],
@@ -64,7 +51,3 @@ ejs.renderFile('./index.ejs', {
 });
 
 
-function parseAsDataURL(file) {
-  const base64ed = fs.readFileSync(file,{ encoding: "base64" });
-  return `data:image/${path.extname(file).replace('.','')};base64,${base64ed}`;
-}
