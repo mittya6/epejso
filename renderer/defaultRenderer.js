@@ -13,7 +13,7 @@ module.exports = (mddir) => {
 
     renderer.image = function (href, title, text) {
         const dataURI = this.parseAsDataURL(path.join(mddir, href));
-        return `<div class="uk-width-1-4 uk-text-center" uk-lightbox>
+        return `<div class="uk-width-1-3 uk-text-center" uk-lightbox>
             <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
               <a class="uk-button uk-button-default" href="${dataURI}"  data-caption="${text}" data-type="image">
                 <img src="${dataURI}" uk-img>
@@ -25,11 +25,31 @@ module.exports = (mddir) => {
           </div>`;
     }
     renderer.table = function (header, body) {
-        return `<table class="uk-table uk-table-divider">'
+        return `<div class="uk-card uk-card-default uk-card-body uk-width-2-3@m">
+          <table class="uk-table uk-table-divider">'
             <thead>${header}</thead>
             <tbody>${body}</tbody>
-          </table>`;
+          </table>
+          </div>`;
     };
+
+    renderer.code = function (code, lang) {
+
+      let langs = [];
+      let label = "";
+      let language = "";
+      if(lang){
+        langs = lang.split(':');
+      }
+      if(langs.length > 0){
+        language = `language-${langs[1]}`;
+      }
+      if(langs.length > 1){
+        label = `<span class="uk-label uk-label-warning filename">${langs[1]}</span>`;
+      }
+      return `${label}
+      <pre><code class="${language}">${code}</code></pre>`;
+    }
 
     return renderer;
 }
