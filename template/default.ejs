@@ -2,22 +2,29 @@
 <html lang="en-gb">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><%- title %></title>
-    <script><%- prismjs %></script>
-    <script><%- prismtoolbarminjs %></script>
-    <script><%- prismcopytoclipboardminjs %></script>
-    <script><%- uikitminjs %></script>
-    <style><%- prismtoolbarcss %></style>
-    <style><%- uikitmincss %></style>
-    <style><%- prismcss %></style>
-    <style>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    <%- title %>
+  </title>
+  <script><%- prismjs %></script>
+  <script><%- prismtoolbarminjs %></script>
+  <script><%- prismcopytoclipboardminjs %></script>
+  <script><%- uikitminjs %></script>
+  <style>
+    <%- prismtoolbarcss %>
+  </style>
+  <style>
+    <%- uikitmincss %>
+  </style>
+  <style>
+    <%- prismcss %>
+  </style>
+  <style>
     #scrollspy li {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .uk-container,
@@ -59,10 +66,9 @@
     #scrollspy .heading3 a::before {
       content: counter(number)"-"counter(sub-number)"-"counter(subsub-number)". ";
     }
-
   </style>
   <script>
-    window.addEventListener('load', (event) => {
+      window.addEventListener('load', (event) => {
         let headings = document.querySelectorAll('h1,h2,h3');
         let scrollspy = document.getElementById('scrollspy');
         scrollspy.innerHTML = '';
@@ -83,52 +89,53 @@
           tarLi.appendChild(tarAnchr);
           scrollspy.appendChild(tarLi);
         }
-    });
+      });
   </script>
 </head>
 
 <style>
-    [uk-navbar] {
-        background-color: white !important;
-    }
+  [uk-navbar] {
+    background-color: white !important;
+  }
 </style>
 
 <body>
-    <div class="uk-container uk-container-small">
+  <div class="uk-container uk-container-small uk-card uk-card-default uk-card-body">
 
-        <nav class="uk-navbar-container uk-margin" uk-navbar uk-sticky>
-            <div class="uk-navbar-left">
-                <a class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle href="#offcanvas-usage"></a>
+    <nav class="uk-navbar-container uk-margin " uk-navbar uk-sticky>
+      <div class="uk-navbar-left">
+        <a class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle href="#offcanvas-usage"></a>
 
-                <ul class="uk-navbar-nav">
-                    <li class="uk-logo">
-                        <%- title %>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <ul class="uk-navbar-nav">
+          <li class="uk-logo">
+            <%- title %>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-        <div uk-grid>
-            <article class="uk-article uk-width-1-1">
-              <%-content %>
-            </article>
-            <div class="uk-width-1-1">
-              <p class="uk-article-meta">updated on <%- updateDate %></p>
-            </div>
-        </div>
-
+    <div uk-grid>
+      <article class="uk-article uk-width-1-1">
+        <%-content %>
+      </article>
+      <div class="uk-width-1-1">
+        <p class="uk-article-meta">updated on <%- updateDate %>
+        </p>
+      </div>
     </div>
 
-    <div id="offcanvas-usage" uk-offcanvas="flip: true; overlay: true">
-        <div class="uk-offcanvas-bar">
+  </div>
 
-            <button class="uk-offcanvas-close" type="button" uk-close></button>
-    
-            <ul id="scrollspy" class="uk-nav uk-nav-default" uk-scrollspy-nav="closest: li; scroll: true; offset: 40">
-              <li class="heading2"><a href="#heading1">serialVersionUIDは、どんな時に指定する必要があるか？</a></li>
-            </ul>
-          </div>
+  <div id="offcanvas-usage" uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+
+      <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+      <ul id="scrollspy" class="uk-nav uk-nav-default" uk-scrollspy-nav="closest: li; scroll: true; offset: 40">
+        <li class="heading2"><a href="#heading1">serialVersionUIDは、どんな時に指定する必要があるか？</a></li>
+      </ul>
     </div>
+  </div>
 </body>
 
 </html>
