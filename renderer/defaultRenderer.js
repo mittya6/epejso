@@ -11,15 +11,9 @@ module.exports = (mddir) => {
     return `data:image/${path.extname(file).replace('.', '')};base64,${base64ed}`;
   }
 
-<<<<<<< HEAD
     renderer.image = function (href, title, text) {
         const dataURI = this.parseAsDataURL(path.join(mddir, href));
         return `<div class="uk-width-1-3 uk-text-center" uk-lightbox>
-=======
-  renderer.image = function (href, title, text) {
-    const dataURI = this.parseAsDataURL(path.join(mddir, href));
-    return `<div class="uk-width-1-3 uk-text-center" uk-lightbox>
->>>>>>> d590f82a4b6ad83c05ae2690b9b7d1883f23858e
             <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
               <a class="uk-button uk-button-default" href="${dataURI}"  data-caption="${text}" data-type="image">
                 <img src="${dataURI}" uk-img>
@@ -29,7 +23,6 @@ module.exports = (mddir) => {
               </a>
             </div>
           </div>`;
-<<<<<<< HEAD
     }
     renderer.table = function (header, body) {
         return `<div class="uk-card uk-card-default uk-card-body uk-width-2-3@m">
@@ -59,16 +52,4 @@ module.exports = (mddir) => {
     }
 
     return renderer;
-=======
-  }
-  renderer.table = function (header, body) {
-    return `<div class="uk-card uk-card-default uk-card-body uk-width-2-3">
-          <table class="uk-table uk-table-divider">'
-            <thead>${header}</thead>
-            <tbody>${body}</tbody>
-          </table></div>`;
-  };
-
-  return renderer;
->>>>>>> d590f82a4b6ad83c05ae2690b9b7d1883f23858e
 }
