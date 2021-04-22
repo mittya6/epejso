@@ -3,6 +3,8 @@ const ejs = require("ejs");
 const marked = require("meta-marked");
 const path = require('path');
 const { Command } = require('commander');
+const glob = require('glob');
+
 
 const program = new Command();
 program
@@ -10,19 +12,27 @@ program
   .option("-e, --ejspath <value>", "ejs template file path")
   .option("-r, --rendererpath <value>", "renderer file path")
   .option("-o, --outputdir <value>", "output directory")
+  .option("-d, --tarDir <value>", "target directory")
   .parse(process.argv);
-if (!program.opts().filepath){
-  throw new Error("-f required filepath")
+if (!program.opts().filepath &&  !program.opts().tarDir){
+  throw new Error("-f or -d required")
 }
 const ejspath = (program.opts().ejspath)?program.opts().ejspath:'./template/default.ejs';
 const rendererpath = (program.opts().rendererpath)?program.opts().rendererpath:'./renderer/defaultRenderer.js';
+const renderer = (require(rendererpath))(path.dirname(program.opts().filepath));
+const outputdir = (program.opts().outputdir)?program.opts().outputdir:'../';
+
+let tarMd = path.join(outputdir, '**/*.md');
+glob(tarMd,{'ignore':['**/node_modules/**/*','**/README.md']}, (err, files) => {
+  files.forEach(file => {
+      console.log(file);
+  });
+});
+
 
 /** parse marked content start */
-const renderer = (require(rendererpath))(path.dirname(program.opts().filepath));
 const markedContents = marked(fs.readFileSync(program.opts().filepath, 'utf-8'), { renderer: renderer });
 /** parse marked content end */
-
-const outputdir = (program.opts().outputdir)?program.opts().outputdir:'./';
 
 ejs.renderFile(ejspath, {
 
@@ -37,19 +47,16 @@ ejs.renderFile(ejspath, {
   prismtoolbarcss: fs.readFileSync('node_modules/prismjs/plugins/toolbar/prism-toolbar.css', 'utf-8'),
   uikitmincss: fs.readFileSync('custom/my.uikit.css', 'utf-8'),
   prismcss: fs.readFileSync('node_modules/prism-themes/themes/prism-material-light.css', 'utf-8'),
-
   content: markedContents['html']
 
 }, function (err, html) {
   if (err) {
-    console.log(err);
+    console.error(err);
     return;
   }
   // 出力ファイル名
-  const file = path.join(path.dirname(outputdir) , markedContents['meta']['Title'] + '.html');
+  const file = path.join(outputdir, markedContents['meta']['Title'] + '.html');
   // テキストファイルに書き込む
   fs.writeFileSync(file, html, 'utf8');
   console.log("完了")
 });
-
-
