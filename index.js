@@ -25,23 +25,22 @@ const outputdir = (program.opts().outputdir) ? program.opts().outputdir : '../';
 const mdfiles = [];
 
 if (program.opts().filepath) {
-  mdfiles.push(program.opts().filepath);
+  makehtml(program.opts().filepath);
 
 } else {
   let tarMd = path.join(outputdir, '**/*.md');
   glob(path.resolve(tarMd), { 'ignore': ['**/node_modules/**', '**/README.md'] }, (err, files) => {
-    files.forEach(file => {
-      mdfiles.push(file);
+    files.forEach(mdfile => {
+      makehtml(mdfile);
     });
   });
 }
 
-mdfiles.forEach((mdfile) => { makehtml(mdfile); });
-
 function makehtml(tarMdfile) {
+  
   /** parse marked content start */
-  const renderer = (require(rendererpath))(path.dirname(program.opts().filepath));
-  const markedContents = marked(fs.readFileSync(program.opts().filepath, 'utf-8'), { renderer: renderer });
+  const renderer = (require(rendererpath))(path.dirname(tarMdfile));
+  const markedContents = marked(fs.readFileSync(tarMdfile, 'utf-8'), { renderer: renderer });
   /** parse marked content end */
 
   ejs.renderFile(ejspath, {
@@ -61,12 +60,13 @@ function makehtml(tarMdfile) {
 
   }, function (err, html) {
     if (err) {
-      console.error(err);
+      console.log(err);
       return;
     }
     // 出力ファイル名
     const file = path.join(outputdir, markedContents['meta']['Title'] + '.html');
     // テキストファイルに書き込む
+    console.log(file);
     fs.writeFileSync(file, html, 'utf8');
     console.log("完了")
   });
