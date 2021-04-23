@@ -68,12 +68,11 @@
     }
 
 
-    span.filename{
-      position:relative;
-      top:20px;
-      z-index:100;
+    span.filename {
+      position: relative;
+      top: 20px;
+      z-index: 100;
     }
-
   </style>
   <script>
       window.addEventListener('load', (event) => {
@@ -126,10 +125,18 @@
       <article class="uk-article uk-width-1-1">
         <%-content %>
       </article>
-      <div class="uk-width-1-1">
-        <p class="uk-article-meta">updated on <%- updateDate %>
-        </p>
+      <% if (createDate) { %>
+        <div class="uk-width-1-2 uk-margin-remove-bottom" uk-leader>created on</div>
+        <div>
+          <%- createDate %>
+        </div>
+      <% } %>
+      <% if (updateDate) { %>
+        <div class="uk-width-1-2 uk-margin-remove-top" uk-leader>updated on</div>
+        <div>
+      <%- updateDate %>
       </div>
+      <% } %>
     </div>
 
   </div>

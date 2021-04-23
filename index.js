@@ -66,8 +66,8 @@ function makehtml(tarMdfile) {
     // 出力ファイル名
     const file = path.join(outputdir, markedContents['meta']['Title'] + '.html');
     // テキストファイルに書き込む
-    console.log(file);
+    
     fs.writeFileSync(file, html, 'utf8');
-    console.log("完了")
+    console.log(`output ${file}`);
   });
 }
