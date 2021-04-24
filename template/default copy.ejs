@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    <%- title %>
+  </title>
+  <script><%- prismjs %></script>
+  <script><%- prismtoolbarminjs %></script>
+  <script><%- prismcopytoclipboardminjs %></script>
+  <script><%- uikitminjs %></script>
+  <style>
+    <%- prismtoolbarcss %>
+  </style>
+  <style>
+    <%- uikitmincss %>
+  </style>
+  <style>
+    <%- prismcss %>
+  </style>
+  <style>
+    #scrollspy li {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .uk-container,
+    #scrollspy {
+      counter-reset: number;
+      counter-reset: sub-number;
+      counter-reset: subsub-number;
+    }
+
+    h1,
+    .heading1 {
+      counter-increment: number;
+      counter-reset: sub-number;
+      counter-reset: subsub-number;
+    }
+
+    h1::before,
+    #scrollspy .heading1 a::before {
+      content: counter(number)". ";
+    }
+
+    h2,
+    #scrollspy .heading2 {
+      counter-increment: sub-number;
+      counter-reset: subsub-number;
+    }
+
+    h2::before,
+    #scrollspy .heading2 a::before {
+      content: counter(number)"-"counter(sub-number)". ";
+    }
+
+    h3,
+    #scrollspy .heading3 {
+      counter-increment: subsub-number;
+    }
+
+    h3::before,
+    #scrollspy .heading3 a::before {
+      content: counter(number)"-"counter(sub-number)"-"counter(subsub-number)". ";
+    }
+
+
+    span.filename {
+      position: relative;
+      top: 20px;
+      z-index: 100;
+    }
+  </style>
+  <script>
+      window.addEventListener('load', (event) => {
+        let headings = document.querySelectorAll('h1,h2,h3');
+        let scrollspy = document.getElementById('scrollspy');
+        scrollspy.innerHTML = '';
+        let mapping = {
+          "H1": ["heading1"],
+          "H2": ["heading2", "uk-margin-left"],
+          "H3": ["heading3", "uk-margin-medium-left"]
+        };
+
+        for (let i = 0; i < headings.length; i++) {
+          let tarId = 'heading' + i;
+          headings[i].id = tarId;
+          let tarLi = document.createElement('li');
+          mapping[headings[i].tagName].forEach(tarClass => tarLi.classList.add(tarClass));
+          let tarAnchr = document.createElement('a');
+          tarAnchr.href = '#' + tarId;
+          tarAnchr.innerText = headings[i].innerText;
+          tarLi.appendChild(tarAnchr);
+          scrollspy.appendChild(tarLi);
+        }
+      });
+  </script>
+</head>
+
+<style>
+  [uk-navbar] {
+    background-color: white !important;
+  }
+</style>
+
+<body>
+  <div class="uk-container uk-container-small uk-card uk-card-default uk-card-body">
+
+    <nav class="uk-navbar-container uk-margin" uk-navbar uk-sticky>
+      <div class="uk-navbar-left">
+        <a class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle href="#offcanvas-usage"></a>
+
+        <ul class="uk-navbar-nav">
+          <li class="uk-logo">
+            <%- title %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div uk-grid></div>
+      <article class="uk-article uk-width-1-1">
+        <%-content %>
+      </article>
+      <div class="uk-width-1-1">
+        <hr class="uk-margin-xlarge-top">
+        <ul class="uk-list uk-list-hyphen uk-list-muted">
+          <% if (createDate) { %>
+            <li>created on <%- createDate %></li>
+          <% } %>
+          <% if (updateDate) { %>
+            <li>updated on <%- updateDate %></li>
+          <% } %>
+        </ul>
+    </div>
+      
+      
+    </div>
+
+  </div>
+
+  <div id="offcanvas-usage" uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+
+      <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+      <ul id="scrollspy" class="uk-nav uk-nav-default" uk-scrollspy-nav="closest: li; scroll: true; offset: 40">
+        <li class="heading2"><a href="#heading1">serialVersionUIDは、どんな時に指定する必要があるか？</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>
