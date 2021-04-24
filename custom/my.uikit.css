@@ -3126,7 +3126,7 @@ select.uk-form-width-xsmall {
   vertical-align: middle;
   white-space: nowrap;
   border-radius: 2px;
-  text-transform: uppercase;
+  text-transform: none;
 }
 /* Color modifiers
  ========================================================================== */

@@ -1,0 +1,4 @@
+ejs:
+    template: "./template/default.ejs"
+marked:
+    renderer: "./renderer/defaultRenderer.js"
