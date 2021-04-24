@@ -16,7 +16,6 @@
   },
   "scripts": {
     "compile-less": "npx lessc custom/my.uikit.less custom/my.uikit.css --math=always --relative-urls",
-    "mdc": "node index",
     "wait": "onchange \"../**/*.md\" -- node index.js -d ../"
   }
 }

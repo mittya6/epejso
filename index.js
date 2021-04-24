@@ -20,8 +20,6 @@ const rendererpath = config.get("marked.renderer");
 
 const outputdir = (program.opts().outputdir) ? program.opts().outputdir : '../';
 
-const mdfiles = [];
-
 if (program.opts().filepath) {
   makehtml(program.opts().filepath);
 
@@ -39,6 +37,12 @@ const makehtml = (tarMdfile) => {
   /** parse marked content start */
   const renderer = (require(rendererpath))(path.dirname(tarMdfile));
   const markedContents = marked(fs.readFileSync(tarMdfile, 'utf-8'), { renderer: renderer });
+  if(!markedContents['meta']){
+    markedContents['meta'] = [];
+  }
+  if(!markedContents['meta']['Title']){
+    markedContents['meta']['Title'] = "no title";
+  }
   /** parse marked content end */
 
   ejs.renderFile(ejspath, {
