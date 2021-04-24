@@ -12,21 +12,21 @@ program
   .option("-o, --outputdir <value>", "output directory")
   .option("-d, --tarDir <value>", "target directory")
   .parse(process.argv);
-if (!program.opts().filepath && !program.opts().tarDir) {
-  throw new Error("-f or -d required");
-}
+
 const ejspath =  config.get('ejs.template');
 const rendererpath = config.get("marked.renderer");
 
 const outputdir = (program.opts().outputdir) ? program.opts().outputdir : '../';
 
+console.log("start md2runbook");
 if (program.opts().filepath) {
   makehtml(program.opts().filepath);
 
 } else {
   let tarMd = path.join(outputdir, '**/*.md');
-  glob(path.resolve(tarMd), { 'ignore': ['**/node_modules/**', '**/README.md'] }, (err, files) => {
+  glob(path.resolve(tarMd), { 'ignore': ['**/md2runbook/**','**/node_modules/**', '**/README.md'] }, (err, files) => {
     files.forEach(mdfile => {
+      console.log(`marked ${mdfile}`);
       makehtml(mdfile);
     });
   });

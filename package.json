@@ -3,6 +3,7 @@
   "dependencies": {
     "commander": "^7.2.0",
     "config": "^3.3.6",
+    "cpx": "^1.5.0",
     "ejs": "^3.1.6",
     "fs": "^0.0.1-security",
     "glob": "^7.1.6",
@@ -16,6 +17,7 @@
   },
   "scripts": {
     "compile-less": "npx lessc custom/my.uikit.less custom/my.uikit.css --math=always --relative-urls",
-    "wait": "onchange \"../**/*.md\" -- node index.js -d ../"
+    "wait": "onchange \"../**/*.md\" -e ./**/*.md  -- node index.js",
+    "sample": "mkdirp ../sample && cpx \"./sample/**/*\" ../sample"
   }
 }
