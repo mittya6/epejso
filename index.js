@@ -6,32 +6,20 @@ const { Command } = require('commander');
 const glob = require('glob');
 const config = require('config');
 
+
+// parse Start argument start
 const program = new Command();
 program
   .option("-f, --filepath <value>", "markdown file path")
-  .option("-o, --outputdir <value>", "output directory")
+  .option("-o, --outputdir <value>", "output directory", '../')
   .option("-d, --tarDir <value>", "target directory")
   .parse(process.argv);
+// parse Start argument end
 
 const ejspath = config.get('ejs.template');
 const rendererpath = config.get("ejs.marked.renderer");
 
-const outputdir = (program.opts().outputdir) ? program.opts().outputdir : '../';
-
 console.log("start md2runbook");
-if (program.opts().filepath) {
-  makehtml(program.opts().filepath);
-
-} else {
-  let tarMd = path.join(outputdir, '**/*.md');
-  glob(path.resolve(tarMd), { 'ignore': ['**/md2runbook/**', '**/node_modules/**', '**/README.md'] }, (err, files) => {
-    files.forEach(mdfile => {
-      console.log(`marked ${mdfile}`);
-      makehtml(mdfile);
-    });
-  });
-}
-
 
 const includeFiles = {};
 if (config.has('ejs.include.file')) {
@@ -40,6 +28,19 @@ if (config.has('ejs.include.file')) {
     includeFiles[key] = fs.readFileSync(obj[key], 'utf-8');
   });
 }
+
+if (program.opts().filepath) {
+  makehtml(program.opts().filepath);
+  return;
+}
+
+let tarMd = path.join(program.opts().outputdir, '**/*.md');
+glob(path.resolve(tarMd), { 'ignore': ['**/md2runbook/**', '**/node_modules/**', '**/README.md'] }, (err, mdfiles) => {
+  mdfiles.forEach(mdfile => {
+    console.log(`marked ${mdfile}`);
+    makehtml(mdfile);
+  });
+});
 
 
 const makehtml = (tarMdfile) => {
@@ -54,22 +55,17 @@ const makehtml = (tarMdfile) => {
   }
   /** parse marked content end */
 
-  let ejsParams = {
-    title: markedContents['meta']['Title'],
-    createDate: markedContents['meta']['CreatedDate'],
-    updateDate: markedContents['meta']['UpdatedDate'],
-  }
+  const ejsParams = {};
   ejsParams[config.get("ejs.marked.ejsKey")] = markedContents['html'];
-
   ejs.renderFile(ejspath,
-    Object.assign(ejsParams, includeFiles)
+    Object.assign(ejsParams, includeFiles, markedContents['meta'])
     , function (err, html) {
       if (err) {
         console.log(err);
         return;
       }
       // 出力ファイル名
-      const file = path.join(outputdir, markedContents['meta']['Title'] + '.html');
+      const file = path.join(program.opts().outputdir, markedContents['meta']['Title'] + '.html');
       // テキストファイルに書き込む
 
       fs.writeFileSync(file, html, 'utf8');

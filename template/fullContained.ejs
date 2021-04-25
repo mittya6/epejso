@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    <%- title %>
+    <%- Title %>
   </title>
   <script><%- prismjs %></script>
   <script><%- prismtoolbarminjs %></script>
@@ -115,7 +115,7 @@
 
         <ul class="uk-navbar-nav">
           <li class="uk-logo">
-            <%- title %>
+            <%- Title %>
           </li>
         </ul>
       </div>
@@ -128,16 +128,14 @@
       <div class="uk-width-1-1">
         <hr class="uk-margin-xlarge-top">
         <ul class="uk-list uk-list-hyphen uk-list-muted">
-          <% if (createDate) { %>
-            <li>created on <%- createDate %></li>
+          <% if (locals.CreatedDate) { %>
+            <li>created on <%- CreatedDate %></li>
           <% } %>
-          <% if (updateDate) { %>
-            <li>updated on <%- updateDate %></li>
+          <% if (locals.UpdatedDate) { %>
+            <li>updated on <%- UpdatedDate %></li>
           <% } %>
         </ul>
     </div>
-      
-      
     </div>
 
   </div>
