@@ -5,7 +5,7 @@ const path = require('path');
 const { Command } = require('commander');
 const glob = require('glob');
 const config = require('config');
-
+console.log(config);
 const program = new Command();
 program
   .option("-f, --filepath <value>", "markdown file path")
