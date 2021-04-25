@@ -1,0 +1,14 @@
+ejs:
+    template: "./template/fullContained.ejs"
+    marked:
+        renderer: "./renderer/defaultRenderer.js"
+        ejsKey: "content"
+    include:
+        file: 
+            prismjs: "node_modules/prismjs/prism.js"
+            prismtoolbarminjs: "node_modules/prismjs/plugins/toolbar/prism-toolbar.min.js"
+            prismcopytoclipboardminjs: "node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"
+            uikitminjs: "node_modules/uikit/dist/js/uikit.min.js"
+            prismtoolbarcss: "node_modules/prismjs/plugins/toolbar/prism-toolbar.css"
+            uikitmincss: "custom/my.uikit.css"
+            prismcss: "node_modules/prism-themes/themes/prism-material-light.css"

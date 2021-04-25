@@ -5,7 +5,7 @@ const path = require('path');
 const { Command } = require('commander');
 const glob = require('glob');
 const config = require('config');
-console.log(config);
+
 const program = new Command();
 program
   .option("-f, --filepath <value>", "markdown file path")
@@ -14,7 +14,7 @@ program
   .parse(process.argv);
 
 const ejspath =  config.get('ejs.template');
-const rendererpath = config.get("marked.renderer");
+const rendererpath = config.get("ejs.marked.renderer");
 
 const outputdir = (program.opts().outputdir) ? program.opts().outputdir : '../';
 
@@ -31,6 +31,17 @@ if (program.opts().filepath) {
     });
   });
 }
+
+console.log(config);
+
+if(config.has('ejs.include.file')){
+  let obj = config.get('ejs.include.file');
+  Object.keys(obj).forEach(function (key) {
+    console.log(key);
+    console.log(obj[key]);
+  });
+}
+
 
 const makehtml = (tarMdfile) => {
   
