@@ -28,7 +28,7 @@ module.exports = (mddir) => {
   }
   renderer.table = function (header, body) {
     return `<div class="uk-card uk-card-default uk-card-body uk-width-2-3@m">
-          <table class="uk-table uk-table-divider">'
+          <table class="uk-table uk-table-divider">
             <thead>${header}</thead>
             <tbody>${body}</tbody>
           </table>
