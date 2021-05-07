@@ -27,12 +27,12 @@ module.exports = (mddir) => {
           </div>`;
   }
   renderer.table = function (header, body) {
-    return `<div class="uk-card uk-card-default uk-card-body uk-width-2-3@m">
-          <table class="uk-table uk-table-divider">
+    return `
+          <table class="uk-table uk-table-divider uk-table-striped">
             <thead>${header}</thead>
             <tbody>${body}</tbody>
           </table>
-          </div>`;
+          `;
   };
 
   renderer.code = function (code, lang) {

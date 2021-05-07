@@ -10,7 +10,7 @@
 html {
   /* 1 */
   font-family: "Lucida Grande", "Hiragino Kaku Gothic ProN", Meiryo, "ＭＳ Ｐゴシック", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: normal;
   line-height: 1.5;
   /* 2 */
@@ -293,7 +293,7 @@ h4,
 }
 h5,
 .uk-h5 {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.4;
 }
 h6,
@@ -7218,7 +7218,7 @@ ul.uk-nav-sub {
   line-height: 1.5;
 }
 .uk-text-default {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.5;
 }
 /* Weight modifier
@@ -12270,17 +12270,16 @@ h1:not(:first-child) {
 h2 {
   margin-top: 40px;
 }
-h1::before {
-  border-left: solid 8px #f0506e;
-  padding-left: 8px;
+h1 {
+  border-bottom: solid 4px #f8f8f8;
 }
 #scrollspy .heading1 a::before {
   border-left: solid 4px #f0506e;
   padding-left: 4px;
 }
-h2::before {
-  border-left: solid 8px #faa05a;
-  padding-left: 8px;
+h2 {
+  display: inline-block;
+  border-bottom: solid 2px #f8f8f8;
 }
 #scrollspy .heading2 a::before {
   border-left: solid 4px #faa05a;
@@ -12290,4 +12289,7 @@ h3::before,
 #scrollspy .heading3 a::before {
   border-left: solid 4px #f8f8f8;
   padding-left: 4px;
+}
+table {
+  border: solid 2px #f8f8f8;
 }
