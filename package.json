@@ -1,5 +1,6 @@
 {
   "name": "epejso",
+  "version": "0.0.1",
   "license": "UNLICENSED",
   "dependencies": {
     "commander": "^7.2.0",
