@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git+https://github.com/mittya6/epejso.git"
   },
+  "engines": {
+    "node": ">= 4"
+  },
   "bin": {
     "epejso": "index.js"
   },
