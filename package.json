@@ -12,6 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/mittya6/epejso.git"
   },
+  "bundleDependencies": false,
   "bin": {
     "epejso": "./index.js"
   },
