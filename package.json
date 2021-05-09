@@ -1,4 +1,9 @@
 {
+  "author": {
+    "name": "Fabio Crisci",
+    "email": "piuccio@gmail.com",
+    "url": "https://github.com/piuccio/"
+  },
   "name": "epejso",
   "version": "0.0.1",
   "main": "./index",
