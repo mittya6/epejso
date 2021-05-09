@@ -16,7 +16,7 @@
     "node": ">= 4"
   },
   "bin": {
-    "epejso": "index.js"
+    "epejso": "./index.js"
   },
   "module": "./index.js",
   "dependencies": {
