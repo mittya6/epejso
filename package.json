@@ -13,12 +13,12 @@
     "url": "https://github.com/mittya6/"
   },
   "license": "MIT",
-  "main": "./index",
+  "main": "./cli",
   "types": "./index.d.ts",
-  "module": "./index.js",
+  "module": "./cli.js",
   "browser": "./build/cowsay.umd.js",
   "bin": {
-    "epejso": "./index.js"
+    "epejso": "./cli.js"
   },
   "files": [
     "index.js",
