@@ -1,22 +1,44 @@
 {
+  "name": "epejso",
+  "version": "1.4.0",
+  "description": "epejso makes runbook from markdown",
+  "keywords": [
+    "epejso",
+    "runbook"
+  ],
+  "homepage": "https://github.com/mittya6/epejso",
   "author": {
     "name": "Michio Yasuda",
     "email": "test@gmail.com",
     "url": "https://github.com/mittya6/"
   },
-  "name": "epejso",
-  "version": "1.0.2",
-  "main": "./index",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mittya6/epejso.git"
-  },
-  "bundleDependencies": false,
+  "main": "./index",
+  "types": "./index.d.ts",
+  "module": "./index.js",
+  "browser": "./build/cowsay.umd.js",
   "bin": {
     "epejso": "./index.js"
   },
-  "module": "./index.js",
+  "files": [
+    "index.js",
+    "config/",
+    "custom/",
+    "renderer/",
+    "sample/",
+    "template/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mittya6/epejso.git"
+  },
+  "scripts": {
+    "compile-less": "npx lessc custom/my.uikit.less custom/my.uikit.css --math=always --relative-urls",
+    "wait": "onchange \"../**/*.md\" -e ./**/*.md  -- yarn build-all",
+    "build-all": "node index.js",
+    "clean": " rimraf ../*.html",
+    "sample": "mkdirp ../sample && cpx \"./sample/**/*\" ../sample"
+  },
   "dependencies": {
     "commander": "^7.2.0",
     "config": "^3.3.6",
@@ -34,14 +56,8 @@
     "rimraf": "^3.0.2",
     "uikit": "^3.6.18"
   },
-  "scripts": {
-    "compile-less": "npx lessc custom/my.uikit.less custom/my.uikit.css --math=always --relative-urls",
-    "wait": "onchange \"../**/*.md\" -e ./**/*.md  -- yarn build-all",
-    "build-all": "node index.js",
-    "clean": " rimraf ../*.html",
-    "sample": "mkdirp ../sample && cpx \"./sample/**/*\" ../sample"
-  },
-    "engines": {
+  "preferGlobal": true,
+  "engines": {
     "node": ">= 4"
   }
 }
