@@ -33,7 +33,7 @@
     "url": "https://github.com/mittya6/epejso.git"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "mocha"
 
   },
   "dependencies": {
@@ -55,6 +55,6 @@
   },
   "preferGlobal": true,
   "engines": {
-    "node": ">= 4"
+    "node": ">=0.10.0"
   }
 }
