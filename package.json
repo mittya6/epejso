@@ -55,6 +55,6 @@
   },
   "preferGlobal": true,
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">= 4"
   }
 }
