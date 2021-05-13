@@ -14,8 +14,6 @@
   },
   "license": "MIT",
   "main": "./cli",
-  "module": "./cli.js",
-  "browser": "./build/cowsay.umd.js",
   "bin": {
     "epejso": "./cli.js"
   },
