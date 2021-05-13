@@ -9,12 +9,11 @@
   "homepage": "https://github.com/mittya6/epejso",
   "author": {
     "name": "Michio Yasuda",
-    "email": "test@gmail.com",
+    "email": "mittya6@gmail.com",
     "url": "https://github.com/mittya6/"
   },
   "license": "MIT",
   "main": "./cli",
-  "types": "./index.d.ts",
   "module": "./cli.js",
   "browser": "./build/cowsay.umd.js",
   "bin": {
@@ -57,7 +56,6 @@
     "rimraf": "^3.0.2",
     "uikit": "^3.6.18"
   },
-  "preferGlobal": true,
   "engines": {
     "node": ">=0.10.0"
   }
