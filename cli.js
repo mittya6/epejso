@@ -8,6 +8,10 @@ const { Command } = require('commander');
 const glob = require('glob');
 const config = require('config');
 
+// specify config directroy
+process.env.NODE_CONFIG_DIR = path.join(__dirname,'config');
+
+
 
 // parse Start argument start
 const program = new Command();
