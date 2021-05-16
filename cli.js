@@ -18,8 +18,8 @@ program
   .parse(process.argv);
 // parse Start argument end
 
-const ejspath = path.join(__dirname__ ,config.get('ejs.template'));
-const rendererpath = path.join(__dirname__ ,config.get("ejs.marked.renderer"));
+const ejspath = path.join(__dirname ,config.get('ejs.template'));
+const rendererpath = path.join(__dirname ,config.get("ejs.marked.renderer"));
 
 console.log("start md2runbook");
 
