@@ -18,7 +18,7 @@ const program = new Command();
 program
   .option("-f, --filepath <value>", "markdown file path")
   .option("-o, --outputdir <value>", "output directory", './')
-  .option("-d, --tarDir <value>", "target directory")
+  .option("-d, --tarDir <value>", "target directory", './')
   .parse(process.argv);
 // parse Start argument end
 
@@ -73,8 +73,8 @@ if (program.opts().filepath) {
 }
 
 
-let tarMd = path.join(program.opts().outputdir, '**/*.md');
-glob(path.resolve(tarMd), { 'ignore': ['**/md2runbook/**', '**/node_modules/**', '**/README.md'] }, (err, mdfiles) => {
+let tarMd = path.join(program.opts().tarDir, '**/*.md');
+glob(path.resolve(tarMd), { 'ignore': ['**/node_modules/**'] }, (err, mdfiles) => {
   mdfiles.forEach(mdfile => {
     console.log(`marked ${mdfile}`);
     makehtml(mdfile);

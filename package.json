@@ -30,12 +30,9 @@
     "url": "https://github.com/mittya6/epejso.git"
   },
   "scripts": {
-    "test": "mocha",
     "compile-less": "npx lessc custom/my.uikit.less custom/my.uikit.css --math=always --relative-urls",
     "wait": "onchange \"../**/*.md\" -e ./**/*.md  -- yarn build-all",
-    "build-all": "node index.js",
-    "clean": " rimraf ../*.html",
-    "sample": "mkdirp ../sample && cpx \"./sample/**/*\" ../sample"
+    "build-all": "node cli.js"
   },
   "dependencies": {
     "commander": "^7.2.0",
@@ -44,17 +41,17 @@
     "ejs": "^3.1.6",
     "fs": "^0.0.1-security",
     "glob": "^7.1.6",
-    "less": "^4.1.1",
     "marked": "^2.0.1",
     "meta-marked": "^0.5.0",
-    "mkdirp": "^1.0.4",
     "onchange": "^7.1.0",
     "prism-themes": "^1.6.0",
     "prismjs": "^1.23.0",
-    "rimraf": "^3.0.2",
     "uikit": "^3.6.18"
   },
   "engines": {
     "node": ">=0.10.0"
+  },
+  "devDependencies": {
+    "less": "^4.1.1"
   }
 }
