@@ -5,4 +5,4 @@ ejs:
         ejsKey: "content"
     include:
         file: 
-            uikitmincss: "custom/my.uikit.css"
+            tarjs: "dist/main.js"

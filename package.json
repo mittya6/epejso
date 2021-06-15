@@ -18,9 +18,9 @@
     "epejso": "./cli.js"
   },
   "files": [
-    "index.js",
+    "cli.js",
     "config/",
-    "custom/",
+    "dist/",
     "renderer/",
     "sample/",
     "template/"
@@ -30,7 +30,7 @@
     "url": "https://github.com/mittya6/epejso.git"
   },
   "scripts": {
-    "compile-less": "npx lessc custom/my.uikit.less custom/my.uikit.css --math=always --relative-urls",
+    "compile-less": "npx lessc custom/my.uikit.less src/my.uikit.css --math=always --relative-urls",
     "wait": "onchange \"../**/*.md\" -e ./**/*.md  -- yarn build-all",
     "build-all": "node cli.js"
   },
@@ -45,13 +45,17 @@
     "meta-marked": "^0.5.0",
     "onchange": "^7.1.0",
     "prism-themes": "^1.6.0",
-    "prismjs": "^1.23.0",
     "uikit": "^3.6.18"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "devDependencies": {
-    "less": "^4.1.1"
+    "css-loader": "^5.2.6",
+    "less": "^4.1.1",
+    "prismjs": "^1.23.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2"
   }
 }

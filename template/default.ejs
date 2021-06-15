@@ -7,28 +7,11 @@
   <title>
     <%- Title %>
   </title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"
-    integrity="sha512-YBk7HhgDZvBxmtOfUdvX0z8IH2d10Hp3aEygaMNhtF8fSOvBZ16D/1bXZTJV6ndk/L/DlXxYStP8jrF77v2MIg=="
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/toolbar/prism-toolbar.min.js"
-    integrity="sha512-cu2C9EssrOrVXT4thyL4gz/qWyh3Lq9XbICUXYyh3zJRCSKk1J08tBKPXnsSpdpZXOliaK/OJBygw/l0twAmwA=="
-    crossorigin="anonymous"></script>
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"
-    integrity="sha512-bWzyGaP/f19RLeYGN6ZhDgvkS7GM0Fq23lOI1/PB3lV6I775RIDzXLxCGR4iiDGzeMsQ3lncuXUQMFP7qO9lIQ=="
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.20/dist/js/uikit.min.js"></script>
 
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/toolbar/prism-toolbar.min.css"
-    integrity="sha512-DSAA0ziYwggOJ3QyWFZhIaU8bSwQLyfnyIrmShRLBdJMtiYKT7Ju35ujBCZ6ApK3HURt34p2xNo+KX9ebQNEPQ=="
-    crossorigin="anonymous" />
-  <style>
-    <%- uikitmincss %>
-  </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css"
-    integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
-    crossorigin="anonymous" />
+  <script>
+    <%- tarjs %>
+  </script>
+
   <style>
     #scrollspy li {
       white-space: nowrap;
@@ -88,28 +71,28 @@
     }
   </style>
   <script>
-    window.addEventListener('load', (event) => {
-      let headings = document.querySelectorAll('h1,h2,h3');
-      let scrollspy = document.getElementById('scrollspy');
-      scrollspy.innerHTML = '';
-      let mapping = {
-        "H1": ["heading1"],
-        "H2": ["heading2", "uk-margin-left"],
-        "H3": ["heading3", "uk-margin-medium-left"]
-      };
+      window.addEventListener('load', (event) => {
+        let headings = document.querySelectorAll('h1,h2,h3');
+        let scrollspy = document.getElementById('scrollspy');
+        scrollspy.innerHTML = '';
+        let mapping = {
+          "H1": ["heading1"],
+          "H2": ["heading2", "uk-margin-left"],
+          "H3": ["heading3", "uk-margin-medium-left"]
+        };
 
-      for (let i = 0; i < headings.length; i++) {
-        let tarId = 'heading' + i;
-        headings[i].id = tarId;
-        let tarLi = document.createElement('li');
-        mapping[headings[i].tagName].forEach(tarClass => tarLi.classList.add(tarClass));
-        let tarAnchr = document.createElement('a');
-        tarAnchr.href = '#' + tarId;
-        tarAnchr.innerText = headings[i].innerText;
-        tarLi.appendChild(tarAnchr);
-        scrollspy.appendChild(tarLi);
-      }
-    });
+        for (let i = 0; i < headings.length; i++) {
+          let tarId = 'heading' + i;
+          headings[i].id = tarId;
+          let tarLi = document.createElement('li');
+          mapping[headings[i].tagName].forEach(tarClass => tarLi.classList.add(tarClass));
+          let tarAnchr = document.createElement('a');
+          tarAnchr.href = '#' + tarId;
+          tarAnchr.innerText = headings[i].innerText;
+          tarLi.appendChild(tarAnchr);
+          scrollspy.appendChild(tarLi);
+        }
+      });
   </script>
 </head>
 
