@@ -5,47 +5,79 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    uitkit temple
+    <%- Title %>
   </title>
-  <!-- UIkit CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/css/uikit.min.css" />
 
-  <!-- UIkit JS -->
-  <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.22/dist/js/uikit-icons.min.js"></script>
+  <script>
+    <%- tarjs %>
+  </script>
+  <script>
+      window.addEventListener('load', (event) => {
+        let headings = document.querySelectorAll('h1,h2,h3');
+        let scrollspy = document.getElementById('scrollspy');
+        let scrollspy2 = document.getElementById('scrollspy2');
+        scrollspy.innerHTML = '';
+        scrollspy2.innerHTML = '';
+
+        let mapping = {
+          "H1": ["heading1"],
+          "H2": ["heading2", "uk-margin-left"],
+          "H3": ["heading3", "uk-margin-medium-left"]
+        };
+
+        for (let i = 0; i < headings.length; i++) {
+          let tarId = 'heading' + i;
+          headings[i].id = tarId;
+          let tarLi = document.createElement('li');
+          mapping[headings[i].tagName].forEach(tarClass => tarLi.classList.add(tarClass));
+          let tarAnchr = document.createElement('a');
+          tarAnchr.href = '#' + tarId;
+          tarAnchr.innerText = headings[i].innerText;
+          tarLi.appendChild(tarAnchr);
+          scrollspy.appendChild(tarLi);
+          scrollspy2.appendChild(tarLi.cloneNode(true));
+
+        }
+      });
+  </script>
 </head>
 
 <body>
-  <nav class="uk-navbar-container uk-hidden@m" uk-navbar>
+  <nav class="uk-navbar-container uk-margin uk-hidden@m	" uk-navbar uk-sticky>
     <div class="uk-navbar-left">
+      <a class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle href="#offcanvas-usage"></a>
 
       <ul class="uk-navbar-nav">
-        <li class="uk-active"><a href="#">Active</a></li>
-        <li>
-          <a href="#">Parent</a>
-          <div class="uk-navbar-dropdown">
-            <ul class="uk-nav uk-navbar-dropdown-nav">
-              <li class="uk-active"><a href="#">Active</a></li>
-              <li><a href="#">Item</a></li>
-              <li><a href="#">Item</a></li>
-            </ul>
-          </div>
+        <li class="uk-logo">
+          <%- Title %>
         </li>
-
       </ul>
-
     </div>
   </nav>
 
   <div class="uk-grid-collapse" uk-grid>
 
+    
     <div class="uk-card  uk-card-body uk-padding uk-width-1-3 uk-visible@m">
       <div uk-sticky>
-        Item
+        <%- Title %>
+        <ul id="scrollspy" class="uk-nav uk-nav-default" uk-scrollspy-nav="closest: li; scroll: true; offset: 40">
+          <li class="heading2"><a href="#heading1">serialVersionUIDは、どんな時に指定する必要があるか？</a></li>
+        </ul>
       </div>
     </div>
     <div class="uk-card uk-card-default uk-card-body uk-padding uk-width-expand">
-      Item
+      <%-content %>
+    </div>
+  </div>
+
+  <div id="offcanvas-usage" uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+      <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+      <ul id="scrollspy2" class="uk-nav uk-nav-default" uk-scrollspy-nav="closest: li; scroll: true; offset: 40">
+        <li class="heading2"><a href="#heading1">serialVersionUIDは、どんな時に指定する必要があるか？</a></li>
+      </ul>
     </div>
   </div>
 
