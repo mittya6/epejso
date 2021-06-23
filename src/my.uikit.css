@@ -80,7 +80,7 @@ strong {
   /* 1 */
   font-family: Consolas, monaco, monospace;
   /* 2 */
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   /* 3 */
   color: #f0506e;
   white-space: nowrap;
@@ -298,7 +298,7 @@ h5,
 }
 h6,
 .uk-h6 {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   line-height: 1.4;
 }
 /* Tablet landscape and bigger */
@@ -384,7 +384,7 @@ blockquote p:last-of-type {
 }
 blockquote footer {
   margin-top: 10px;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: #666;
 }
@@ -397,7 +397,7 @@ blockquote footer::before {
  * 1. Contain overflow in all browsers.
  */
 pre {
-  font: 0.72rem / 1.5 Consolas, monaco, monospace;
+  font: 0.875rem / 1.5 Consolas, monaco, monospace;
   color: #666;
   -moz-tab-size: 4;
   tab-size: 4;
@@ -893,7 +893,7 @@ a.uk-link-reset,
  */
 .uk-description-list > dt {
   color: #333;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   font-weight: normal;
   text-transform: uppercase;
 }
@@ -944,7 +944,7 @@ a.uk-link-reset,
   text-align: left;
   vertical-align: bottom;
   /* 1 */
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   font-weight: normal;
   color: #999;
   text-transform: uppercase;
@@ -964,12 +964,12 @@ a.uk-link-reset,
 /* Footer
  ========================================================================== */
 .uk-table tfoot {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 /* Caption
  ========================================================================== */
 .uk-table caption {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   text-align: left;
   color: #999;
 }
@@ -1558,7 +1558,7 @@ button.uk-icon:not(:disabled) {
  * Small
  */
 .uk-form-small {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 .uk-form-small:not(textarea):not([multiple]):not([size]) {
   height: 30px;
@@ -1841,7 +1841,7 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 .uk-form-label {
   color: #333;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 /* Layout
  ========================================================================== */
@@ -1965,7 +1965,7 @@ select.uk-form-width-xsmall {
   box-sizing: border-box;
   padding: 0 30px;
   vertical-align: middle;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   /* 8 */
   line-height: 38px;
   /* 9 */
@@ -2097,12 +2097,12 @@ select.uk-form-width-xsmall {
 .uk-button-small {
   padding: 0 15px;
   line-height: 28px;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 .uk-button-large {
   padding: 0 40px;
   line-height: 53px;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 /* Text modifiers
  ========================================================================== */
@@ -2705,7 +2705,7 @@ select.uk-form-width-xsmall {
   /* 3 */
   background: #1e87f0;
   color: #fff;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   /* 4 */
   display: flex;
   justify-content: center;
@@ -3117,7 +3117,7 @@ select.uk-form-width-xsmall {
   /* 1 */
   background: #1e87f0;
   color: #fff;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   /* 2 */
   display: inline-flex;
   justify-content: center;
@@ -3140,7 +3140,7 @@ select.uk-form-width-xsmall {
   padding: 0 10px;
   background: #1e87f0;
   line-height: 1.5;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   color: #fff;
   vertical-align: middle;
   white-space: nowrap;
@@ -3230,7 +3230,7 @@ select.uk-form-width-xsmall {
 /* Meta
  ========================================================================== */
 .uk-article-meta {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   line-height: 1.4;
   color: #999;
 }
@@ -3271,7 +3271,7 @@ select.uk-form-width-xsmall {
 /* Meta
  ========================================================================== */
 .uk-comment-meta {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   line-height: 1.4;
   color: #999;
 }
@@ -3653,7 +3653,7 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 .uk-dropdown-nav {
   white-space: nowrap;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 /*
  * Items
@@ -5030,7 +5030,7 @@ ul.uk-nav-sub {
 .uk-nav-header {
   padding: 5px 0;
   text-transform: uppercase;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 .uk-nav-header:not(:first-child) {
   margin-top: 20px;
@@ -5043,7 +5043,7 @@ ul.uk-nav-sub {
 /* Default modifier
  ========================================================================== */
 .uk-nav-default {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 /*
  * Items
@@ -5272,7 +5272,7 @@ ul.uk-nav-sub {
   min-height: 80px;
   padding: 0 15px;
   /* 3 */
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   font-family: "Lucida Grande", "Hiragino Kaku Gothic ProN", Meiryo, "ＭＳ Ｐゴシック", "Helvetica Neue", Helvetica, Arial, sans-serif;
   /* 4 */
   text-decoration: none;
@@ -5329,7 +5329,7 @@ ul.uk-nav-sub {
 /* Subtitle
  ========================================================================== */
 .uk-navbar-subtitle {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 /* Style modifiers
  ========================================================================== */
@@ -5423,7 +5423,7 @@ ul.uk-nav-sub {
  * Adopts `uk-nav`
  ========================================================================== */
 .uk-navbar-dropdown-nav {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
 }
 /*
  * Items
@@ -5557,7 +5557,7 @@ ul.uk-nav-sub {
   display: block;
   /* 2 */
   color: #999;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   text-transform: uppercase;
   transition: 0.1s ease-in-out;
   transition-property: color, background-color;
@@ -5651,7 +5651,7 @@ ul.uk-nav-sub {
 /* Items
  ========================================================================== */
 .uk-breadcrumb > * > * {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   color: #999;
 }
 /* Hover + Focus */
@@ -5678,7 +5678,7 @@ ul.uk-nav-sub {
   /* 1 */
   margin: 0 20px 0 calc(20px - 4px);
   /* 2 */
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   color: #999;
 }
 /* ========================================================================
@@ -5795,7 +5795,7 @@ ul.uk-nav-sub {
   padding: 5px 10px;
   color: #999;
   border-bottom: 1px solid transparent;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   text-transform: uppercase;
   transition: color 0.1s ease-in-out;
 }
@@ -7224,7 +7224,7 @@ ul.uk-nav-sub {
   color: #333;
 }
 .uk-text-meta {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   line-height: 1.4;
   color: #999;
 }
@@ -7238,7 +7238,7 @@ ul.uk-nav-sub {
 /* Size modifiers
  ========================================================================== */
 .uk-text-small {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 .uk-text-large {
@@ -12357,6 +12357,11 @@ h2 {
 #scrollspy .heading2 a::before {
   border-left: solid 4px #faa05a;
   padding-left: 4px;
+}
+#scrollspy li {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 h3::before,
 #scrollspy .heading3 a::before {
