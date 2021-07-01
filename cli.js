@@ -6,11 +6,11 @@ const marked = require("meta-marked");
 const path = require('path');
 const { Command } = require('commander');
 const glob = require('glob');
+const chokidar = require('chokidar');
 
 // specify config directroy
-process.env.NODE_CONFIG_DIR = path.join(__dirname,'config');
+process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config');
 const config = require('config');
-
 
 
 // parse Start argument start
@@ -19,22 +19,23 @@ program
   .option("-f, --filepath <value>", "markdown file path")
   .option("-o, --outputdir <value>", "output directory", './')
   .option("-d, --tarDir <value>", "target directory", './')
+  .option("-w, --wait")
   .parse(process.argv);
 // parse Start argument end
 
-const ejspath = path.join(__dirname ,config.get('ejs.template'));
-const rendererpath = path.join(__dirname ,config.get("ejs.marked.renderer"));
+const ejspath = path.join(__dirname, config.get('ejs.template'));
+const rendererpath = path.join(__dirname, config.get("ejs.marked.renderer"));
 
-console.log("start md2runbook");
+console.log("start epejso");
+
 
 const includeFiles = {};
 if (config.has('ejs.include.file')) {
   let obj = config.get('ejs.include.file');
   Object.keys(obj).forEach(function (key) {
-    includeFiles[key] = fs.readFileSync(path.join(__dirname,obj[key]), 'utf-8');
+    includeFiles[key] = fs.readFileSync(path.join(__dirname, obj[key]), 'utf-8');
   });
 }
-
 
 const makehtml = (tarMdfile) => {
   /** parse marked content start */
@@ -66,6 +67,22 @@ const makehtml = (tarMdfile) => {
     });
 }
 
+if (program.opts().wait) {
+  let globpath;
+  if (program.opts().filepath) {
+    globpath = program.opts().filepath;
+  } else {
+    const tarMd = path.join(program.opts().tarDir, '**/*.md');
+    globpath = path.resolve(tarMd);
+  }
+  const watcher = chokidar.watch(globpath, {
+    ignored: (path => path.includes('node_modules')),
+    persistent: true
+  });
+  watcher
+  .on('change', path => makehtml(path))
+  return;
+}
 
 if (program.opts().filepath) {
   makehtml(program.opts().filepath);
