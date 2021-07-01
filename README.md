@@ -3,4 +3,4 @@
 npm install git+https://github.com/mittya6/epejso.git
 
 
-npx onchange "./**/*.md"  -- npx epejso -o ./
+npx epejso -w
