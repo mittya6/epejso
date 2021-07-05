@@ -24,7 +24,7 @@ program
 // parse Start argument end
 
 const ejspath = path.join(__dirname, config.get('ejs.template'));
-const rendererpath = path.join(__dirname, config.get("ejs.marked.renderer"));
+const rendererpath = config.has("ejs.marked.renderer")?path.join(__dirname, config.get("ejs.marked.renderer")):new marked.Renderer();
 
 console.log("start epejso");
 

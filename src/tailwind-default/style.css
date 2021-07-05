@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+@layer base {
+
+    #container{
+        counter-reset: section;
+    }
+
+    #container h1{
+        @apply text-4xl font-normal leading-normal mt-0 mb-2 text-pink-800;
+        @apply border-b-2 border-pink-800;
+    }
+
+    #container h1::before{
+        @apply text-4xl font-normal leading-normal mt-0 mb-2 text-pink-800;
+        counter-increment: section;
+        content: counter(section) ". "; 
+    }
+
+    #container h2{
+        @apply text-3xl font-normal leading-normal mt-0 mb-2 text-gray-800;
+        @apply inline-block border-dashed border-b-2 border-gray-800;
+    }
+
+    h3{
+        @apply text-2xl;
+    }
+
+    h4{
+        @apply text-xl;
+    }
+    
+    p{
+        @apply antialiased 
+    }
+  }

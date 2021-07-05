@@ -1,0 +1,7 @@
+ejs:
+    template: "./template/tailwind-default.ejs"
+    marked:
+        ejsKey: "content"
+    include:
+        file: 
+            tarjs: "dist/tailwind-default.js"

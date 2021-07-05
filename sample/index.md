@@ -1,5 +1,5 @@
 ---
-Title: MarkDownから手順書を作成しました。2
+Title: MarkDownから手順書を作成しました。4
 UpdatedDate: 2021/04/15
 ---
 
@@ -28,13 +28,17 @@ function test(){
   console.log('hello');
 }
 ```
-### 使い方
-#### 本当の使い方
+# 使い方
+## 本当の使い方
+
+1. まずはコマンド実行
 
 ```dos
 cp ./test ./test/oge
 mv /tmp/hoge /hoge
 ```
+
+2. 休憩する。
 
 使い方は簡単。staticメソッドを呼び出すだけ。
 
@@ -68,31 +72,14 @@ public class Main {
     tarStr = "\",";
     System.out.println("変換前：" + tarStr);
     System.out.println("変換後：" + StringEscapeUtils.escapeCsv(tarStr));
-    
-    
-    System.out.println();
-    
-    //JavaScriptをエスケープ
-    System.out.println("・JavaScriptをエスケープ");
-    tarStr = "He didn't say, \"Stop!\"";
-    System.out.println("変換前：" + tarStr);
-    System.out.println("変換後：" + StringEscapeUtils.escapeEcmaScript(tarStr));
-    
-    System.out.println();
-    
-    //XMLをエスケープ
-    System.out.println("・XMLをエスケープ");
-    tarStr = "\"bread\" & \"butter\"";
-    System.out.println("変換前：" + tarStr);
-    System.out.println("変換後：" + StringEscapeUtils.escapeXml10(tarStr));
   }
 }
 ```
-## Header 1
-### Header 2
-#### Header 3
-##### Header 4
-###### Header 5
+# Header 1
+## Header 2
+### Header 3
+#### Header 4
+##### Header 5
 
 # Markdown plus h2 with a custom ID ##         {#id-goes-here}
 [Link back to H2](#id-goes-here)

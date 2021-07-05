@@ -33,7 +33,10 @@
     "compile-less": "npx lessc custom/my.uikit.less src/my.uikit.css --math=always --relative-urls",
     "wait": "onchange \"../**/*.md\" -e ./**/*.md  -- yarn build-all",
     "build-all": "node cli.js",
-    "sample": "node cli.js -f sample/index.md -o ../"
+    "sample": "node cli.js -f sample/index.md -o ../",
+    "tailwind-compile":"tailwind build -i ./src/tailwind-default/style.css -o ./src/tailwind-default/tailwind.css",
+    "tailwind-webpack":"webpack --config webpack.config-tailwind-default.js",
+    "tailwind-build":"npm run tailwind-compile && npm run tailwind-webpack"
   },
   "dependencies": {
     "chokidar": "^3.5.2",
@@ -57,6 +60,7 @@
     "less": "^4.1.1",
     "prismjs": "^1.23.0",
     "style-loader": "^2.0.0",
+    "tailwindcss": "^2.2.4",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.2"
   }
