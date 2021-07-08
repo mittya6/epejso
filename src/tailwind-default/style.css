@@ -36,6 +36,10 @@
     }
     
     p{
-        @apply antialiased 
+        @apply antialiased;
     }
-  }
+
+    ol{
+        @apply list-decimal;
+    }
+}

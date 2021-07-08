@@ -1,0 +1,75 @@
+// Import UIkit default theme (or uikit.less with only core styles)
+@import "../../node_modules/uikit/src/less/uikit.theme.less";
+
+// Your custom code goes here, e.g. mixins, variables.
+// See "how to create a theme" below for more info.
+@global-2xlarge-font-size:                      1.8rem; // 42px
+@global-xlarge-font-size:                       1.5rem;     // 32px
+@global-large-font-size:                        1.25rem;   // 24px
+@global-medium-font-size:                       0.875rem;  // 20px
+@global-small-font-size:                        0.875rem; // 14px
+@global-font-size:                              15px;
+@offcanvas-bar-background:                      #fff;
+@offcanvas-bar-color-mode:                      dark;
+
+@global-font-family:  "Lucida Grande", "Hiragino Kaku Gothic ProN", Meiryo, "ＭＳ Ｐゴシック", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+@global-muted-background:                       #f8f8f8;
+@global-primary-background:                     #1e87f0;
+@global-secondary-background:                   #222;
+@global-success-background:                     #32d296;
+@global-warning-background:                     #faa05a;
+@global-danger-background:                      #f0506e;
+
+@label-text-transform:     none;
+
+h1:not(:first-child){
+    margin-top: @global-large-margin;
+}
+
+h2{
+    margin-top: @global-medium-margin;
+}
+
+h1 {
+    border-bottom:solid 4px @global-muted-background;
+}
+
+#scrollspy .heading1 a::before {
+    border-left: solid 4px @global-muted-background;
+    padding-left: 4px;
+}
+
+
+h2{
+    display: inline-block;
+    border-bottom:solid 2px @global-muted-background;
+
+}
+
+
+#scrollspy li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+table {
+    border:solid 2px @global-muted-background;
+}
+
+
+ul,ol{
+    margin:0px;
+    padding-left: 16px;
+    li{
+        margin-top: 0px;
+    }
+}
+
+p{
+    margin: 0px;
+    padding-top: 4px;
+}
+

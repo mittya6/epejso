@@ -23,14 +23,11 @@
     #scrollspy {
       counter-reset: number;
       counter-reset: sub-number;
-      counter-reset: subsub-number;
     }
 
     h1,
     .heading1 {
       counter-increment: number;
-      counter-reset: subsub-number;
-
     }
 
     h1,
@@ -46,22 +43,11 @@
     h2,
     #scrollspy .heading2 {
       counter-increment: sub-number;
-      counter-reset: subsub-number;
     }
 
     h2::before,
     #scrollspy .heading2 a::before {
       content: counter(number)"-"counter(sub-number)". ";
-    }
-
-    h3,
-    #scrollspy .heading3 {
-      counter-increment: subsub-number;
-    }
-
-    h3::before,
-    #scrollspy .heading3 a::before {
-      content: counter(number)"-"counter(sub-number)"-"counter(subsub-number)". ";
     }
 
     span.filename {
@@ -72,13 +58,12 @@
   </style>
   <script>
       window.addEventListener('load', (event) => {
-        let headings = document.querySelectorAll('h1,h2,h3');
+        let headings = document.querySelectorAll('h1,h2');
         let scrollspy = document.getElementById('scrollspy');
         scrollspy.innerHTML = '';
         let mapping = {
           "H1": ["heading1"],
-          "H2": ["heading2", "uk-margin-left"],
-          "H3": ["heading3", "uk-margin-medium-left"]
+          "H2": ["heading2", "uk-margin-left"]
         };
 
         for (let i = 0; i < headings.length; i++) {

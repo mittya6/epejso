@@ -30,13 +30,14 @@
     "url": "https://github.com/mittya6/epejso.git"
   },
   "scripts": {
-    "compile-less": "npx lessc custom/my.uikit.less src/my.uikit.css --math=always --relative-urls",
-    "wait": "onchange \"../**/*.md\" -e ./**/*.md  -- yarn build-all",
+    "uikit-compile": "npx less src/uikit-default/my.uikit.less src/uikit-default/my.uikit.css --math=always --relative-urls",
+    "uikit-webpack": "webpack --config webpack.config-uikit-default.js",
+    "uikit-build": "npm run uikit-compile && npm run uikit-webpack",
     "build-all": "node cli.js",
     "sample": "node cli.js -f sample/index.md -o ../",
-    "tailwind-compile":"tailwind build -i ./src/tailwind-default/style.css -o ./src/tailwind-default/tailwind.css",
-    "tailwind-webpack":"webpack --config webpack.config-tailwind-default.js",
-    "tailwind-build":"npm run tailwind-compile && npm run tailwind-webpack"
+    "tailwind-compile": "tailwind build -i ./src/tailwind-default/style.css -o ./src/tailwind-default/tailwind.css",
+    "tailwind-webpack": "webpack --config webpack.config-tailwind-default.js",
+    "tailwind-build": "npm run tailwind-compile && npm run tailwind-webpack"
   },
   "dependencies": {
     "chokidar": "^3.5.2",
@@ -59,9 +60,9 @@
     "css-loader": "^5.2.6",
     "less": "^4.1.1",
     "prismjs": "^1.23.0",
-    "style-loader": "^2.0.0",
+    "style-loader": "^3.0.0",
     "tailwindcss": "^2.2.4",
-    "webpack": "^5.38.1",
+    "webpack": "^5.43.0",
     "webpack-cli": "^4.7.2"
   }
 }

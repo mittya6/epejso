@@ -5,4 +5,4 @@ ejs:
         ejsKey: "content"
     include:
         file: 
-            tarjs: "dist/main.js"
+            tarjs: "dist/uikit-default.js"
