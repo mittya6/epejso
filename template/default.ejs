@@ -89,19 +89,28 @@
 </style>
 
 <body>
+
+  <nav class="uk-navbar-container" uk-navbar uk-sticky>
+    <div class="uk-navbar-left uk-margin-left">
+      <ul class="uk-navbar-nav">
+        <li>
+          </button>
+          <a href="#offcanvas-usage" class="uk-button uk-button-default" uk-toggle>
+            <span uk-icon="tag"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="uk-navbar-center">
+      <ul class="uk-navbar-nav">
+        <li class="uk-text-bold">
+          <%- Title %>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
   <div class="uk-container uk-container-xsmall uk-card uk-card-default uk-card-body">
-
-    <nav class="uk-navbar-container uk-margin" uk-navbar uk-sticky>
-      <div class="uk-navbar-left">
-        <a class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle href="#offcanvas-usage"></a>
-
-        <ul class="uk-navbar-nav">
-          <li class="uk-logo">
-            <%- Title %>
-          </li>
-        </ul>
-      </div>
-    </nav>
 
     <div uk-grid></div>
     <article class="uk-article uk-width-1-1">

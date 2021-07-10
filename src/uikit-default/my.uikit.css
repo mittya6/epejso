@@ -12340,11 +12340,15 @@ iframe.uk-cover {
 h1:not(:first-child) {
   margin-top: 70px;
 }
+h1 {
+  border-bottom: solid 4px #f8f8f8;
+  font-weight: bolder;
+}
 h2 {
   margin-top: 40px;
 }
-h1 {
-  border-bottom: solid 4px #f8f8f8;
+h1 + h2 {
+  margin-top: 10px;
 }
 #scrollspy .heading1 a::before {
   border-left: solid 4px #f8f8f8;
