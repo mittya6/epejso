@@ -49,8 +49,10 @@ module.exports = (mddir) => {
     if (langs.length > 1) {
       label = `<span class="uk-label uk-label-warning filename">${langs[1]}</span>`;
     }
-    return `${label}
-      <pre><code class="${language}">${code}</code></pre>`;
+    return `<div style="position:relative">
+              ${label}
+              <pre><code class="${language}">${code}</code></pre>
+            </div>`;
   }
 
   return renderer;

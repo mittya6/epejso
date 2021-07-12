@@ -51,10 +51,9 @@
     }
 
     span.filename {
-      position: relative;
-      bottom: -16px;
+      position: absolute;
+      top: -4px;
       z-index: 100;
-      margin-bottom:-16px;
     }
   </style>
   <script>
@@ -94,9 +93,9 @@
     <div class="uk-navbar-left uk-margin-left">
       <ul class="uk-navbar-nav">
         <li>
-          <a href="#offcanvas-usage" class="uk-button uk-button-default" uk-toggle>
+          <button href="#offcanvas-usage" class="uk-button uk-button-default uk-margin-small-top" uk-toggle>
             <span uk-icon="tag" class="uk-text-warning"></span>
-          </a>
+          </button>
         </li>
       </ul>
     </div>

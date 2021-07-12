@@ -34,7 +34,7 @@ function test(){
 
 1. まずはコマンド実行
 
-```dos
+```dos:testです。
 cp ./test ./test/oge
 mv /tmp/hoge /hoge
 ```
