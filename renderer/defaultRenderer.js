@@ -47,7 +47,7 @@ module.exports = (mddir) => {
       language = `language-${langs[1]}`;
     }
     if (langs.length > 1) {
-      label = `<span class="uk-label uk-label-warning filename">${langs[1]}</span>`;
+      label = `<span class="uk-label uk-label-danger filename">${langs[1]}</span>`;
     }
     return `<div style="position:relative">
               ${label}
