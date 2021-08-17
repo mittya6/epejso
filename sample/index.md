@@ -1,5 +1,5 @@
 ---
-Title: MarkDownから手順書を作成しました。4
+Title: MarkDownから手順書を作成しました。
 UpdatedDate: 2021/04/15
 ---
 

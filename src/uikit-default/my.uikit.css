@@ -12379,3 +12379,7 @@ p {
   margin: 0px;
   padding-top: 4px;
 }
+.uk-label-muted {
+  background-color: #f8f8f8;
+  color: #666;
+}
