@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 module.exports = {
   mode: "production",
 
@@ -28,7 +30,9 @@ module.exports = {
     //  出力ファイルのディレクトリ名
     path: `${__dirname}/dist`,
     // 出力ファイル名
-    filename: "tailwind-default.js"
-  }
+    filename: "tailwind-default.js",
+
+    libraryTarget: "umd"
+  },
 
 };

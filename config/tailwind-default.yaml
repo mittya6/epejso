@@ -1,7 +1,14 @@
 ejs:
     template: "./template/tailwind-default.ejs"
     marked:
+        renderer: "./renderer/tailwindRenderer.js"
         ejsKey: "content"
     include:
         file: 
             tarjs: "dist/tailwind-default.js"
+            notiejs: "node_modules/notie/dist/notie.min.js"
+            notiecss: "node_modules/notie/dist/notie.min.css"
+            basiclightboxjs: "node_modules/basiclightbox/dist/basicLightbox.min.js"
+            basiclightboxcss: "node_modules/basiclightbox/dist/basicLightbox.min.css"
+            highlightsjs: "src/tailwind-default/highlight.min.js"
+

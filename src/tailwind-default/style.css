@@ -1,45 +1,55 @@
 @tailwind base;
+
 @tailwind components;
+
 @tailwind utilities;
-
-
-
 
 @layer base {
 
-    #container{
-        counter-reset: section;
+
+
+    main h1{
+        @apply pt-72;
     }
 
-    #container h1{
-        @apply text-4xl font-normal leading-normal mt-0 mb-2 text-pink-800;
-        @apply border-b-2 border-pink-800;
+    main h2{
+        @apply pt-16;
     }
 
-    #container h1::before{
-        @apply text-4xl font-normal leading-normal mt-0 mb-2 text-pink-800;
-        counter-increment: section;
-        content: counter(section) ". "; 
+    aside > ul{
+        @apply pt-16;
     }
 
-    #container h2{
-        @apply text-3xl font-normal leading-normal mt-0 mb-2 text-gray-800;
-        @apply inline-block border-dashed border-b-2 border-gray-800;
-    }
 
-    h3{
-        @apply text-2xl;
-    }
-
-    h4{
-        @apply text-xl;
-    }
-    
     p{
-        @apply antialiased;
+        @apply pt-12;
     }
 
-    ol{
-        @apply list-decimal;
+    h1{
+        @apply text-4xl font-normal leading-normal mt-0 mb-2 text-pink-300 border-b-2 border-pink-300;
+    }
+
+    h1 + p{
+        @apply pt-8;
+    }
+
+    h2{
+        @apply text-2xl text-yellow-700;
+    }
+
+    h2 + p{
+        @apply pt-4;
+    }
+
+    ul+p {
+        @apply pt-8;
+    }
+
+    pre {
+        @apply border-2 border-blue-50 rounded-lg relative;
+    }
+
+    button.copy{
+        @apply absolute right-2 top-2 bg-white hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded transition duration-150 ease-in-out;
     }
 }

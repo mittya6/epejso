@@ -1,68 +1,272 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-    <link rel="stylesheet" href="public/css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
     <title><%- Title %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <script><%- tarjs %></script>
+    <script><%- highlightsjs %></script>
+    <script>hljs.highlightAll();</script>
+    <script><%- notiejs %></script>
+    <style><%- notiecss %></style>
+    <style><%- basiclightboxcss %></style>
+
     <script>
-        <%- tarjs %>
+let ScrollSpy = class {
+    constructor(selector, classlist) {
+        this.selector = document.querySelectorAll(selector);
+        const options = {
+            root: null,
+            rootMargin: `0px`,
+            threshold: 0
+        };
+        const observer = new IntersectionObserver(this.doWhenIntersect.bind(this), options);
+        this.classlist = classlist;
+
+        this.previousMapping = new Map();
+        let lastEle;
+        this.mapping = new Map();
+        [...this.selector].forEach((tarEle) => {
+            if (!tarEle.id) {
+                return;
+            }
+            let targetEles = document.querySelectorAll(`a[href="#${tarEle.id}"]`);
+            if (!targetEles || targetEles.length == 0) {
+                return;
+            }
+            this.mapping.set(tarEle.id, [...targetEles]);
+            observer.observe(tarEle);
+
+            if (lastEle) {
+                this.previousMapping.set(tarEle.id, lastEle);
+            }
+            lastEle = tarEle;
+        });
+    }
+
+    doWhenIntersect(entries) {
+        
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                let clientRect = entry.target.getBoundingClientRect();
+                let tarEles;
+                if (clientRect.top > window.innerHeight) {
+                    tarEles = this.previousMapping.get(entry.target.id);
+                } else {
+                    tarEles = this.mapping.get(entry.target.id);
+                }
+                if (this.lastEle === entry.target) {
+                    return;
+                }
+                if (this.lastEle) {
+                    this.mapping.get(this.lastEle.id).forEach((tarEle) => {
+                        tarEle.classList.remove(...this.classlist);
+                    });
+                }
+                tarEles.forEach((tarEle) => {
+                    tarEle.classList.add(...this.classlist);
+                });
+                this.lastEle = entry.target;
+            }
+        });
+    }
+};
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+
+            //create menu
+            let ul = document.createElement('ul');
+            let nestedUl;
+            document.querySelectorAll("main h1, main h2").forEach((tarheading,index) => {
+                tarheading.id = `${tarheading.tagName}-${index}`;
+                let li = document.createElement('li');
+                li.classList.add("pt-1")
+                let a = document.createElement('a');
+                a.innerText = tarheading.innerText;
+                a.href =`#${tarheading.id}`;
+                li.appendChild(a);
+
+                if('H1' == tarheading.tagName){
+                    ul.appendChild(li);
+
+                }else if('H2' == tarheading.tagName){
+                    if(ul.lastChild && ul.lastChild.lastChild.tagName == 'UL'){
+                        ul.lastChild.lastChild.appendChild(li);
+                    }else{
+                        let nestedUl = document.createElement('ul');
+                        nestedUl.classList.add("pl-4");
+                        ul.lastChild.appendChild(nestedUl);
+                        nestedUl.appendChild(li);
+                    }
+                }
+            });
+            document.getElementById("scrollspy").innerHTML = ul.innerHTML;
+            document.getElementById("scrollspy2").innerHTML = ul.innerHTML;
+            
+
+            //scroll spy
+            new ScrollSpy("main h1, main h2", [ "underline", "font-bold"]);
+
+            document.querySelectorAll('pre').forEach((tarPre) => {
+                let copyButton = document.createElement("button");
+                copyButton.className = 'copy';
+                copyButton.innerHTML = 'copy';
+                copyButton.addEventListener('click', (event) => {
+                    let tarText = copyButton.parentNode.querySelector('code').innerText;
+                    execCopy(tarText);
+                    notie.alert({ text: 'copied' });
+                });
+                tarPre.insertBefore(copyButton, tarPre.firstChild);
+            });
+        });
+
+        function execCopy(string) {
+            // 空div 生成
+            var tmp = document.createElement("div");
+            // 選択用のタグ生成
+            var pre = document.createElement('pre');
+
+            // 親要素のCSSで user-select: none だとコピーできないので書き換える
+            pre.style.webkitUserSelect = 'auto';
+            pre.style.userSelect = 'auto';
+            tmp.appendChild(pre).textContent = string;
+
+            // 要素を画面外へ
+            var s = tmp.style;
+            s.position = 'fixed';
+            s.right = '200%';
+
+            // body に追加
+            document.body.appendChild(tmp);
+            // 要素を選択
+            document.getSelection().selectAllChildren(tmp);
+
+            // クリップボードにコピー
+            var result = document.execCommand("copy");
+            // 要素削除
+            document.body.removeChild(tmp);
+
+            return result;
+        }
+
+        function toggle(target) {
+            target.classList.toggle("scale-100");
+            target.classList.toggle("opacity-100");
+        }
     </script>
+    <style>
+    html {
+            scroll-behavior: smooth;
+    }
+
+    main{
+        counter-reset: section;
+    }
+
+    main h1::before {
+        counter-increment: section;
+        content: counter(section) ". ";
+    }
+
+    ul#scrollspy{
+        counter-reset: scroll-section;
+
+    }
+    
+    ul#scrollspy > li::before {
+        counter-increment: scroll-section;
+        content: counter(scroll-section) ". ";
+    }
+
+    ul#scrollspy2{
+        counter-reset: scroll-section2;
+    }
+
+    ul#scrollspy2 > li::before {
+        counter-increment: scroll-section2;
+        content: counter(scroll-section2) ". ";
+    }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/xcode.min.css"
+    integrity="sha512-hDoXdEZ9LKsZWAWm3LMIeAJT///uSvllP7dCOB4lV/cfSb/sv1yhT+q6ORYKubs1keK/w08GKTrYB0UU8dzhvw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body class="h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
-    <div class="h-screen w-screen flex bg-gray-200">
-        <!-- container -->
+<body class="gallery">
 
-        <aside class="w-16 hidden lg:flex flex-col items-center bg-white text-gray-700 shadow h-full">
-            <!-- Side Nav Bar-->
-            <div class="h-16 flex items-center w-full">
-                <!-- Logo Section -->
-                <a class="h-6 w-6 mx-auto" href="http://svelte.dev/">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                </a>
-            </div>
+    <div class="flex mx-auto w-5/6">
+        <div class="fixed top-0 left-4 md:hidden block  
+            text-pink-600 bg-pink-300 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full mt-8"
+            onclick="toggle(document.querySelector('#modal'))">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-grid">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+        </div>
+        <aside class="h-full sticky top-0 w-64 pt-8 hidden md:block ">
+            <header class="inline no-underline border-0	text-2xl	">
+                <%- Title %>
+            </header>
+            <dl class="text-sm	pt-2">
+                <dt class="inline-block ">初回:</dt>
+                <dd class="inline-block text-gray-400"><% if (locals.CreateDate) { %><%- CreateDate %><% } %></dd>
+                <br>
+                <dt class="inline-block ">更新:</dt>
+                <dd class="inline-block text-gray-400"><% if (locals.UpdateDate) { %><%- locals.UpdateDate %><% } %></dd>
+            </dl>
+            <ul id="scrollspy" class="text-sm pt-8">
+                <li class="pt-2">
+                    <a href="#h1-1">gradle dependencies</a>
+                </li>
+                <li class="pt-2">
+                    <a href="#h1-2">さくっと実装してみよう</a>
+                    <ul class="pl-4">
+                        <li class="pt-2"><a href="#h2-1">Componentのクラスを作る</a></li>
+                        <li class="pt-2"><a href="#h2-2">Aspectのクラスを作る</a></li>
+                    </ul>
+                </li>
+                <li class="pt-2">
+                    <a href="#h1-3">Mainクラスを作って実行</a>
+                </li>
+            </ul>
         </aside>
-
-        <div class="flex-1 flex flex-col">
-            <nav class="px-4 flex justify-between bg-white h-16 border-b-2">
-                <!-- top bar -->
-
-                <ul class="flex items-center lg:hidden">
-                    <!-- top bar left -->
-                    <li class="h-6 w-6">
-                        <!-- Logo Section -->
-                        <a class="h-6 w-6 mx-auto" href="http://svelte.dev/">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-
-                <ul class="flex items-center">
-                    <!-- top bar center -->
-                    <li>
-                        <h1 class="pl-10 lg:pl-0 text-gray-700"><%- Title %></h1>
-                    </li>
-                </ul>
-
-            </nav>
-            <div id="container" class="overflow-y-auto p-8 relative"><%-content %></div>
-        </div>
-
-        <!-- offcanvas -->
-        <div id="offcanvas" class="absolute top-0 left-0 w-96 h-screen bg-white border-b-2 invisible
-        transition duration-1000 ease-out opacity-0">
-            aiueo
-            <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
-                onclick="this.parentNode.classList.add('opacity-0','invisible','left-9');this.parentNode.classList.remove('opacity-100','visible','left-0');">
-                <span>×</span>
-            </button>
-        </div>
-
-
+        <main class="pl-16 flex-1 overflow-auto">
+            <%- content %>
+        </main>
     </div>
+
+    <div id="modal"
+        class="w-full fixed top-0 left-0 flex justify-center  transition-all	duration-300 ease-linear opacity-0 transform  scale-0">
+        <div class="h-screen w-full fixed top-0 left-0 bg-gray-200 opacity-70 "
+            onclick="toggle(document.querySelector('#modal'))"></div>
+        <div class="bg-white rounded shadow p-4 m-4 max-w-xs overflow-y-auto opacity-100 z-10"
+            onclick="event.stopPropagation();">
+            <ul class="text-sm pt-8" id="scrollspy2">
+                <li class="pt-2">
+                    <a href="#h1-1">gradle dependencies</a>
+                </li>
+                <li class="pt-2">
+                    <a href="#h1-2">さくっと実装してみよう</a>
+                    <ul class="pl-4">
+                        <li class="pt-2"><a href="#h2-1">Componentのクラスを作る</a></li>
+                        <li class="pt-2"><a href="#h2-2">Aspectのクラスを作る</a></li>
+                    </ul>
+                </li>
+                <li class="pt-2">
+                    <a href="#h1-3">Mainクラスを作って実行</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script><%- basiclightboxjs %></script>
+
 </body>
+
 </html>

@@ -1,6 +1,7 @@
 ---
 Title: MarkDownから手順書を作成しました。
-UpdatedDate: 2021/04/15
+CreateDate: 2021/07/15
+UpdateDate: 2021/08/15
 ---
 
 # MarkdownからHTMLが作成されました。

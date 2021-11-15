@@ -580,70 +580,110 @@ video {
   border-color: rgba(229, 231, 235, var(--tw-border-opacity));
 }
 
-#container{
-  counter-reset: section;
+main h1{
+  padding-top: 18rem;
 }
 
-#container h1{
-  margin-top: 0px;
-  margin-bottom: 0.5rem;
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-  font-weight: 400;
-  line-height: 1.5;
-  --tw-text-opacity: 1;
-  color: rgba(157, 23, 77, var(--tw-text-opacity));
-  border-bottom-width: 2px;
-  --tw-border-opacity: 1;
-  border-color: rgba(157, 23, 77, var(--tw-border-opacity));
+main h2{
+  padding-top: 4rem;
 }
 
-#container h1::before{
-  margin-top: 0px;
-  margin-bottom: 0.5rem;
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-  font-weight: 400;
-  line-height: 1.5;
-  --tw-text-opacity: 1;
-  color: rgba(157, 23, 77, var(--tw-text-opacity));
-  counter-increment: section;
-  content: counter(section) ". ";
-}
-
-#container h2{
-  margin-top: 0px;
-  margin-bottom: 0.5rem;
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-  font-weight: 400;
-  line-height: 1.5;
-  --tw-text-opacity: 1;
-  color: rgba(31, 41, 55, var(--tw-text-opacity));
-  display: inline-block;
-  border-bottom-width: 2px;
-  border-style: dashed;
-  --tw-border-opacity: 1;
-  border-color: rgba(31, 41, 55, var(--tw-border-opacity));
-}
-
-h3{
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
-h4{
-  font-size: 1.25rem;
-  line-height: 1.75rem;
+aside > ul{
+  padding-top: 4rem;
 }
 
 p{
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding-top: 3rem;
 }
 
-ol{
-  list-style-type: decimal;
+h1{
+  margin-top: 0px;
+  margin-bottom: 0.5rem;
+  border-bottom-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgba(249, 168, 212, var(--tw-border-opacity));
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 400;
+  line-height: 1.5;
+  --tw-text-opacity: 1;
+  color: rgba(249, 168, 212, var(--tw-text-opacity));
+}
+
+h1 + p{
+  padding-top: 2rem;
+}
+
+h2{
+  font-size: 1.5rem;
+  line-height: 2rem;
+  --tw-text-opacity: 1;
+  color: rgba(180, 83, 9, var(--tw-text-opacity));
+}
+
+h2 + p{
+  padding-top: 1rem;
+}
+
+ul+p {
+  padding-top: 2rem;
+}
+
+pre {
+  position: relative;
+  border-radius: 0.5rem;
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgba(239, 246, 255, var(--tw-border-opacity));
+}
+
+button.copy{
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgba(59, 130, 246, var(--tw-border-opacity));
+}
+
+button.copy:hover {
+  border-color: transparent;
+}
+
+button.copy {
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+}
+
+button.copy:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
+}
+
+button.copy {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgba(29, 78, 216, var(--tw-text-opacity));
+}
+
+button.copy:hover {
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+
+button.copy {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .container {
