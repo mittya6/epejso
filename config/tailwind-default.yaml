@@ -6,9 +6,10 @@ ejs:
     include:
         file: 
             tarjs: "dist/tailwind-default.js"
-            notiejs: "node_modules/notie/dist/notie.min.js"
-            notiecss: "node_modules/notie/dist/notie.min.css"
-            basiclightboxjs: "node_modules/basiclightbox/dist/basicLightbox.min.js"
-            basiclightboxcss: "node_modules/basiclightbox/dist/basicLightbox.min.css"
-            highlightsjs: "src/tailwind-default/highlight.min.js"
+            notiejs: "dist/tailwind-default/notie.min.js"
+            notiecss: "dist/tailwind-default/notie.min.css"
+            basiclightboxjs: "dist/tailwind-default/basicLightbox.min.js"
+            basiclightboxcss: "dist/tailwind-default/basicLightbox.min.css"
+            highlightsjs: "dist/tailwind-default/highlight.min.js"
+            highlightscss: "dist/tailwind-default/gradient-light.min.css"
 

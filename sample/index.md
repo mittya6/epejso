@@ -108,6 +108,9 @@ words are ignored in Markdown Extra.
 2. Which is numbered
 3. With periods and a space
 
+- hoge
+- hoghogege
+
 And now some code:
 
     // Code is just text indented a bit

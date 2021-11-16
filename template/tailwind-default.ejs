@@ -8,11 +8,10 @@
 
     <script><%- tarjs %></script>
     <script><%- highlightsjs %></script>
-    <script>hljs.highlightAll();</script>
     <script><%- notiejs %></script>
     <style><%- notiecss %></style>
+    <style><%- highlightscss %></style>
     <style><%- basiclightboxcss %></style>
-
     <script>
 let ScrollSpy = class {
     constructor(selector, classlist) {
@@ -75,6 +74,8 @@ let ScrollSpy = class {
 };
 
         window.addEventListener('DOMContentLoaded', (event) => {
+
+            hljs.highlightAll();
 
             //create menu
             let ul = document.createElement('ul');
@@ -189,9 +190,6 @@ let ScrollSpy = class {
         content: counter(scroll-section2) ". ";
     }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/xcode.min.css"
-    integrity="sha512-hDoXdEZ9LKsZWAWm3LMIeAJT///uSvllP7dCOB4lV/cfSb/sv1yhT+q6ORYKubs1keK/w08GKTrYB0UU8dzhvw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body class="gallery">
@@ -236,7 +234,7 @@ let ScrollSpy = class {
                 </li>
             </ul>
         </aside>
-        <main class="pl-16 flex-1 overflow-auto">
+        <main class="pl-16 pb-80 flex-1 overflow-auto">
             <%- content %>
         </main>
     </div>

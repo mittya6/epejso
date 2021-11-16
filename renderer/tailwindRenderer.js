@@ -15,7 +15,7 @@ module.exports = (mddir) => {
 
         let imageFilepath = path.join(mddir, href);
         const dataURI = fs.existsSync(imageFilepath) ? this.parseAsDataURL(imageFilepath) : href;
-        return `<div onclick="const instance = basicLightbox.create(this.cloneNode(true)).show();"><img src="${dataURI}" class="object-contain w-full border-2 cursor-pointer	"></div>`;
+        return `<div class="w-7/12" onclick="const instance = basicLightbox.create(this.cloneNode(true)).show();"><img src="${dataURI}" class="object-contain w-full border-2 cursor-pointer"></div>`;
     }
 
     renderer.table = function (header, body) {
@@ -39,12 +39,11 @@ module.exports = (mddir) => {
             language = `language-${langs[1]}`;
         }
         if (langs.length > 1) {
-            label = `<span class="text-red-200　rounded overflow-hidden shadow-lg border-2 p-2 relative top-2" title="${langs[1]}">${langs[1]}</span>`;
+            label = `<span class="text-red-500 bg-white overflow-hidden shadow-lg border-2 p-1 absolute top-2 left-2" title="${langs[1]}">${langs[1]}</span>`;
         }
         return `<div style="position:relative">
-                <pre>${label}
-<code class="mt-2">${code}</code></pre>
-            </div>`;
+                <pre>${label}<code style="padding-top:56px;">${code}</code></pre>
+                </div>`;
     }
 
     return renderer;

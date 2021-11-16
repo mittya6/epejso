@@ -6,14 +6,18 @@
 
 @layer base {
 
-
-
     main h1{
+        @apply text-4xl font-normal leading-normal mt-0 mb-2 text-pink-300 border-b-2 border-pink-300;
         @apply pt-72;
     }
 
     main h2{
+        @apply text-2xl text-yellow-700;
         @apply pt-16;
+    }
+
+    main h1 + h2{
+        @apply pt-4;
     }
 
     aside > ul{
@@ -25,16 +29,8 @@
         @apply pt-12;
     }
 
-    h1{
-        @apply text-4xl font-normal leading-normal mt-0 mb-2 text-pink-300 border-b-2 border-pink-300;
-    }
-
     h1 + p{
         @apply pt-8;
-    }
-
-    h2{
-        @apply text-2xl text-yellow-700;
     }
 
     h2 + p{
@@ -47,9 +43,18 @@
 
     pre {
         @apply border-2 border-blue-50 rounded-lg relative;
+        @apply mt-4;
     }
 
     button.copy{
         @apply absolute right-2 top-2 bg-white hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded transition duration-150 ease-in-out;
+    }
+
+    main ul{
+        @apply list-disc ml-4;
+    }
+
+    main ol{
+        @apply list-decimal ml-4;
     }
 }

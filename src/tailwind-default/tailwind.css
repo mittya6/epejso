@@ -581,22 +581,6 @@ video {
 }
 
 main h1{
-  padding-top: 18rem;
-}
-
-main h2{
-  padding-top: 4rem;
-}
-
-aside > ul{
-  padding-top: 4rem;
-}
-
-p{
-  padding-top: 3rem;
-}
-
-h1{
   margin-top: 0px;
   margin-bottom: 0.5rem;
   border-bottom-width: 2px;
@@ -608,17 +592,31 @@ h1{
   line-height: 1.5;
   --tw-text-opacity: 1;
   color: rgba(249, 168, 212, var(--tw-text-opacity));
+  padding-top: 18rem;
 }
 
-h1 + p{
-  padding-top: 2rem;
-}
-
-h2{
+main h2{
   font-size: 1.5rem;
   line-height: 2rem;
   --tw-text-opacity: 1;
   color: rgba(180, 83, 9, var(--tw-text-opacity));
+  padding-top: 4rem;
+}
+
+main h1 + h2{
+  padding-top: 1rem;
+}
+
+aside > ul{
+  padding-top: 4rem;
+}
+
+p{
+  padding-top: 3rem;
+}
+
+h1 + p{
+  padding-top: 2rem;
 }
 
 h2 + p{
@@ -635,6 +633,7 @@ pre {
   border-width: 2px;
   --tw-border-opacity: 1;
   border-color: rgba(239, 246, 255, var(--tw-border-opacity));
+  margin-top: 1rem;
 }
 
 button.copy{
@@ -684,6 +683,16 @@ button.copy {
   transition-duration: 150ms;
   transition-duration: 150ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+main ul{
+  margin-left: 1rem;
+  list-style-type: disc;
+}
+
+main ol{
+  margin-left: 1rem;
+  list-style-type: decimal;
 }
 
 .container {
