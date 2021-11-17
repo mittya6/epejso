@@ -39,7 +39,7 @@ module.exports = (mddir) => {
             language = `language-${langs[1]}`;
         }
         if (langs.length > 1) {
-            label = `<span class="text-red-500 bg-white overflow-hidden shadow-lg border-2 p-1 absolute top-2 left-2" title="${langs[1]}">${langs[1]}</span>`;
+            label = `<span class="bg-opacity-50	bg-white rounded overflow-hidden shadow-lg p-1 pl-4 pr-4 absolute top-2 left-2" title="${langs[1]}">${langs[1]}</span>`;
         }
         return `<div style="position:relative">
                 <pre>${label}<code style="padding-top:56px;">${code}</code></pre>

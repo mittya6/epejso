@@ -25,20 +25,8 @@
     }
 
 
-    p{
-        @apply pt-12;
-    }
-
-    h1 + p{
-        @apply pt-8;
-    }
-
-    h2 + p{
+    main p{
         @apply pt-4;
-    }
-
-    ul+p {
-        @apply pt-8;
     }
 
     pre {
@@ -52,6 +40,10 @@
 
     main ul{
         @apply list-disc ml-4;
+    }
+
+    main li{
+        @apply pt-2;
     }
 
     main ol{

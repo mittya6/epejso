@@ -611,20 +611,8 @@ aside > ul{
   padding-top: 4rem;
 }
 
-p{
-  padding-top: 3rem;
-}
-
-h1 + p{
-  padding-top: 2rem;
-}
-
-h2 + p{
+main p{
   padding-top: 1rem;
-}
-
-ul+p {
-  padding-top: 2rem;
 }
 
 pre {
@@ -688,6 +676,10 @@ button.copy {
 main ul{
   margin-left: 1rem;
   list-style-type: disc;
+}
+
+main li{
+  padding-top: 0.5rem;
 }
 
 main ol{
