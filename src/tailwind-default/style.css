@@ -47,6 +47,6 @@
     }
 
     main ol{
-        @apply list-decimal ml-4;
+        @apply list-decimal ml-4 pt-8;
     }
 }

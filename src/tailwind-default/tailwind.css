@@ -685,6 +685,7 @@ main li{
 main ol{
   margin-left: 1rem;
   list-style-type: decimal;
+  padding-top: 2rem;
 }
 
 .container {
