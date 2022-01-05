@@ -11,5 +11,5 @@ ejs:
             basiclightboxjs: "dist/tailwind-default/basicLightbox.min.js"
             basiclightboxcss: "dist/tailwind-default/basicLightbox.min.css"
             highlightsjs: "dist/tailwind-default/highlight.min.js"
-            highlightscss: "dist/tailwind-default/gradient-light.min.css"
+            highlightscss: "dist/tailwind-default/xcode.min.css"
 

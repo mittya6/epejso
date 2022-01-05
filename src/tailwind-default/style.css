@@ -7,12 +7,12 @@
 @layer base {
 
     main h1{
-        @apply text-4xl font-normal leading-normal mt-0 mb-2 text-pink-300 border-b-2 border-pink-300;
+        @apply text-4xl font-normal leading-normal mt-0 mb-2 text-gray-900 border-b-2 border-gray-900;
         @apply pt-72;
     }
 
     main h2{
-        @apply text-2xl text-yellow-700;
+        @apply text-2xl text-gray-500;
         @apply pt-16;
     }
 
@@ -30,8 +30,12 @@
     }
 
     pre {
-        @apply border-2 border-blue-50 rounded-lg relative;
+        @apply border-1 border-gray-500 rounded-lg relative;
         @apply mt-4;
+    }
+
+    code{
+        @apply rounded-lg
     }
 
     button.copy{
