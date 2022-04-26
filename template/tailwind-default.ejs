@@ -1,126 +1,195 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" class="scroll-smooth">
 
 <head>
-    <meta charset="UTF-8">
-    <title><%- Title %></title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <script><%- tarjs %></script>
-    <script><%- highlightsjs %></script>
-    <script><%- notiejs %></script>
-    <style><%- notiecss %></style>
-    <style><%- highlightscss %></style>
-    <style><%- basiclightboxcss %></style>
+    <title><%- Title %></title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"
+        integrity="sha512-yUUc0qWm2rhM7X0EFe82LNnv2moqArj5nro/w1bi05A09hRVeIZbN6jlMoyu0+4I/Bu4Ck/85JQIU82T82M28w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/a11y-light.min.css"
+        integrity="sha512-WDk6RzwygsN9KecRHAfm9HTN87LQjqdygDmkHSJxVkVI7ErCZ8ZWxP6T8RvBujY1n2/E4Ac+bn2ChXnp5rnnHA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"
+        integrity="sha512-JnjG+Wt53GspUQXQhc+c4j8SBERsgJAoHeehagKHlxQN+MtCCmFDghX9/AcbkkNRZptyZU4zC8utK59M5L45Iw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css"
+        integrity="sha512-IXuoq1aFd2wXs4NqGskwX2Vb+I8UJ+tGJEu/Dc0zwLNKeQ7CW3Sr6v0yU3z5OQWe3eScVIkER4J9L7byrgR/fA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/basicLightbox/5.0.4/basicLightbox.min.js"
+        integrity="sha512-ycqisnM5/8n5gDxYe0MTYoW+5DDuupgGdbdsJ9zcu66ZszaKh4JGsmjzyi7jJY4AjynXc43DOba/m+yVGmv+wQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/basicLightbox/5.0.4/basicLightbox.min.css"
+        integrity="sha512-yNvWz1C0Io3RxC18Hrqh/V+bFUlqSt3aVAtTF7xggTqr9JnV2ZQOGrd4gyaErdDgDOFK5nb/HQL1Q/j7ehmOow=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.14.2/dist/full.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+        @layer base {
+
+            header h1{
+                @apply text-3xl text-stone-500;
+            }
+
+            main h1{
+                @apply text-2xl font-medium leading-normal text-teal-600;
+                @apply mt-0 pb-2;
+                @apply border-b-2 border-stone-500;
+            }
+
+            main h2{
+                @apply text-xl font-medium leading-normal mt-0 mb-2 text-stone-500;
+                @apply pt-8;
+            }
+
+            main h1:not(:first-child){
+                @apply pt-16;
+            }
+
+
+            main :not(p) + p{
+                @apply mt-8;
+            }
+
+            main p{
+                @apply leading-7;
+            }
+
+
+            main pre{
+                @apply relative;
+                @apply overflow-x-auto;
+                @apply border border-black;
+                @apply mt-2;
+            }
+
+            main pre button {
+                @apply absolute top-2 right-4;
+                @apply text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2;
+            }
+
+            dt:after{
+                content:":"
+            }
+
+            main img{
+                @apply cursor-pointer;
+            }
+
+        }
+    </style>
+    <style>
+        * {
+            font-family: 'Noto Sans JP', "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+        }
+    </style>
     <script>
-let ScrollSpy = class {
-    constructor(selector, classlist) {
-        this.selector = document.querySelectorAll(selector);
-        const options = {
-            root: null,
-            rootMargin: `0px`,
-            threshold: 0
-        };
-        const observer = new IntersectionObserver(this.doWhenIntersect.bind(this), options);
-        this.classlist = classlist;
-
-        this.previousMapping = new Map();
-        let lastEle;
-        this.mapping = new Map();
-        [...this.selector].forEach((tarEle) => {
-            if (!tarEle.id) {
-                return;
-            }
-            let targetEles = document.querySelectorAll(`a[href="#${tarEle.id}"]`);
-            if (!targetEles || targetEles.length == 0) {
-                return;
-            }
-            this.mapping.set(tarEle.id, [...targetEles]);
-            observer.observe(tarEle);
-
-            if (lastEle) {
-                this.previousMapping.set(tarEle.id, lastEle);
-            }
-            lastEle = tarEle;
-        });
-    }
-
-    doWhenIntersect(entries) {
-        
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                let clientRect = entry.target.getBoundingClientRect();
-                let tarEles;
-                if (clientRect.top > window.innerHeight) {
-                    tarEles = this.previousMapping.get(entry.target.id);
-                } else {
-                    tarEles = this.mapping.get(entry.target.id);
-                }
-                if (this.lastEle === entry.target) {
-                    return;
-                }
-                if (this.lastEle) {
-                    this.mapping.get(this.lastEle.id).forEach((tarEle) => {
-                        tarEle.classList.remove(...this.classlist);
-                    });
-                }
-                tarEles.forEach((tarEle) => {
-                    tarEle.classList.add(...this.classlist);
+        let ScrollSpy = class {
+            constructor(selector, classlist) {
+                this.selector = document.querySelectorAll(selector);
+                const options = {
+                    root: null,
+                    rootMargin: `0px`,
+                    threshold: 0
+                };
+                const observer = new IntersectionObserver(this.doWhenIntersect.bind(this), options);
+                this.classlist = classlist;
+                this.previousMapping = new Map();
+                let lastEle;
+                this.mapping = new Map();
+                [...this.selector].forEach((tarEle) => {
+                    if (!tarEle.id) {
+                        return;
+                    }
+                    let targetEles = document.querySelectorAll(`a[href="#${tarEle.id}"]`);
+                    if (!targetEles || targetEles.length == 0) {
+                        return;
+                    }
+                    this.mapping.set(tarEle.id, [...targetEles]);
+                    observer.observe(tarEle);
+                    if (lastEle) {
+                        this.previousMapping.set(tarEle.id, lastEle);
+                    }
+                    lastEle = tarEle;
                 });
-                this.lastEle = entry.target;
             }
-        });
-    }
-};
+            doWhenIntersect(entries) {
 
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        let clientRect = entry.target.getBoundingClientRect();
+                        let tarEles;
+                        if (clientRect.top > window.innerHeight) {
+                            tarEles = this.previousMapping.get(entry.target.id);
+                        } else {
+                            tarEles = this.mapping.get(entry.target.id);
+                        }
+                        if (this.lastEle === entry.target) {
+                            return;
+                        }
+                        if (this.lastEle) {
+                            this.mapping.get(this.lastEle.id).forEach((tarEle) => {
+                                tarEle.parentElement.classList.remove(...this.classlist);
+                            });
+                        }
+                        tarEles.forEach((tarEle) => {
+                            tarEle.parentElement.classList.add(...this.classlist);
+                        });
+                        this.lastEle = entry.target;
+                    }
+                });
+            }
+        };
+    </script>
+    <script>
         window.addEventListener('DOMContentLoaded', (event) => {
 
-            hljs.highlightAll();
+            let stepUl = document.querySelector('#steps');
+            document.querySelectorAll("main h1").forEach((tarheading, index) => {
+                tarheading.id = 'tarheading' + index;
 
-            //create menu
-            let ul = document.createElement('ul');
-            let nestedUl;
-            document.querySelectorAll("main h1, main h2").forEach((tarheading,index) => {
-                tarheading.id = `${tarheading.tagName}-${index}`;
-                let li = document.createElement('li');
-                li.classList.add("pt-1")
-                let a = document.createElement('a');
-                a.innerText = tarheading.innerText;
-                a.href =`#${tarheading.id}`;
-                li.appendChild(a);
+                let curLi = document.createElement('li');
+                curLi.classList.add("step");
+                let curA = document.createElement('a');
+                curA.href = `#${tarheading.id}`;
+                curA.innerText = tarheading.innerText;
 
-                if('H1' == tarheading.tagName){
-                    ul.appendChild(li);
-
-                }else if('H2' == tarheading.tagName){
-                    if(ul.lastChild && ul.lastChild.lastChild.tagName == 'UL'){
-                        ul.lastChild.lastChild.appendChild(li);
-                    }else{
-                        let nestedUl = document.createElement('ul');
-                        nestedUl.classList.add("pl-4");
-                        ul.lastChild.appendChild(nestedUl);
-                        nestedUl.appendChild(li);
-                    }
-                }
+                curLi.appendChild(curA);
+                stepUl.appendChild(curLi);
             });
-            document.getElementById("scrollspy").innerHTML = ul.innerHTML;
-            document.getElementById("scrollspy2").innerHTML = ul.innerHTML;
-            
 
-            //scroll spy
-            new ScrollSpy("main h1, main h2", [ "underline", "font-bold"]);
+            new ScrollSpy("main h1", ["step-secondary"]);
 
-            document.querySelectorAll('pre').forEach((tarPre) => {
-                let copyButton = document.createElement("button");
-                copyButton.className = 'copy';
-                copyButton.innerHTML = 'copy';
-                copyButton.addEventListener('click', (event) => {
-                    let tarText = copyButton.parentNode.querySelector('code').innerText;
-                    execCopy(tarText);
-                    notie.alert({ text: 'copied' });
+            document.querySelectorAll("main pre").forEach((tarPre, index) => {
+                let curButton = document.createElement('button');
+                curButton.innerText = 'copy';
+                curButton.addEventListener('click', () => {
+                    let text = curButton.parentElement.querySelector('code').innerText;
+                    execCopy(text);
+                    alertify.success('Copied');
+
                 });
-                tarPre.insertBefore(copyButton, tarPre.firstChild);
+                tarPre.appendChild(curButton);
             });
+
+            document.querySelectorAll("main img").forEach((tarImg, index) => {
+                const instance = basicLightbox.create(`<img src="${tarImg.src}">`);
+                tarImg.addEventListener('click', () => {
+                    instance.show();
+                });
+            });
+
+
+
         });
 
         function execCopy(string) {
@@ -128,142 +197,58 @@ let ScrollSpy = class {
             var tmp = document.createElement("div");
             // 選択用のタグ生成
             var pre = document.createElement('pre');
-
             // 親要素のCSSで user-select: none だとコピーできないので書き換える
             pre.style.webkitUserSelect = 'auto';
             pre.style.userSelect = 'auto';
             tmp.appendChild(pre).textContent = string;
-
             // 要素を画面外へ
             var s = tmp.style;
             s.position = 'fixed';
             s.right = '200%';
-
             // body に追加
             document.body.appendChild(tmp);
             // 要素を選択
             document.getSelection().selectAllChildren(tmp);
-
             // クリップボードにコピー
             var result = document.execCommand("copy");
             // 要素削除
             document.body.removeChild(tmp);
-
             return result;
         }
-
-        function toggle(target) {
-            target.classList.toggle("scale-100");
-            target.classList.toggle("opacity-100");
-        }
     </script>
-    <style>
-    html {
-            scroll-behavior: smooth;
-    }
-
-    main{
-        counter-reset: section;
-    }
-
-    main h1::before {
-        counter-increment: section;
-        content: counter(section) ". ";
-    }
-
-    ul#scrollspy{
-        counter-reset: scroll-section;
-
-    }
-    
-    ul#scrollspy > li::before {
-        counter-increment: scroll-section;
-        content: counter(scroll-section) ". ";
-    }
-
-    ul#scrollspy2{
-        counter-reset: scroll-section2;
-    }
-
-    ul#scrollspy2 > li::before {
-        counter-increment: scroll-section2;
-        content: counter(scroll-section2) ". ";
-    }
-    </style>
 </head>
 
-<body class="gallery">
+<body>
 
-    <div class="flex mx-auto w-5/6 max-w-5xl">
-        <div class="fixed top-0 left-4 md:hidden block  
-            text-pink-600 bg-pink-300 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full mt-8"
-            onclick="toggle(document.querySelector('#modal'))">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="feather feather-grid">
-                <rect x="3" y="3" width="7" height="7"></rect>
-                <rect x="14" y="3" width="7" height="7"></rect>
-                <rect x="14" y="14" width="7" height="7"></rect>
-                <rect x="3" y="14" width="7" height="7"></rect>
-            </svg>
-        </div>
-        <aside class="h-full sticky top-0 w-64 pt-8 hidden md:block ">
-            <header class="inline no-underline border-0	text-2xl	">
+    <header>
+        <div class="flex items-center justify-center h-32">
+            <h1>
                 <%- Title %>
-            </header>
-            <dl class="text-sm	pt-2">
-                <dt class="inline-block ">初回:</dt>
-                <dd class="inline-block text-gray-400"><% if (locals.CreateDate) { %><%- CreateDate %><% } %></dd>
-                <br>
-                <dt class="inline-block ">更新:</dt>
-                <dd class="inline-block text-gray-400"><% if (locals.UpdateDate) { %><%- locals.UpdateDate %><% } %></dd>
-            </dl>
-            <ul id="scrollspy" class="text-sm pt-8">
-                <li class="pt-2">
-                    <a href="#h1-1">gradle dependencies</a>
-                </li>
-                <li class="pt-2">
-                    <a href="#h1-2">さくっと実装してみよう</a>
-                    <ul class="pl-4">
-                        <li class="pt-2"><a href="#h2-1">Componentのクラスを作る</a></li>
-                        <li class="pt-2"><a href="#h2-2">Aspectのクラスを作る</a></li>
-                    </ul>
-                </li>
-                <li class="pt-2">
-                    <a href="#h1-3">Mainクラスを作って実行</a>
-                </li>
-            </ul>
+            </h1>
+        </div>
+    </header>
+
+    <div class="flex mx-12">
+        <aside class="w-96 h-screen sticky top-0 py-4">
+            <div class="pl-2 h-full w-full flex items-center border border-black rounded-xl overflow-y-auto">
+                <ul class="steps steps-vertical " id="steps">
+                </ul>
+            </div>
         </aside>
-        <main class="pl-16 pb-80 flex-1 overflow-auto">
+        <main class="grow max-w-xl max-w-4xl px-8">
             <%- content %>
         </main>
     </div>
-
-    <div id="modal"
-        class="w-full fixed top-0 left-0 flex justify-center  transition-all	duration-300 ease-linear opacity-0 transform  scale-0">
-        <div class="h-screen w-full fixed top-0 left-0 bg-gray-200 opacity-70 "
-            onclick="toggle(document.querySelector('#modal'))"></div>
-        <div class="bg-white rounded shadow p-4 m-4 max-w-xs overflow-y-auto opacity-100 z-10"
-            onclick="event.stopPropagation();">
-            <ul class="text-sm pt-8" id="scrollspy2">
-                <li class="pt-2">
-                    <a href="#h1-1">gradle dependencies</a>
-                </li>
-                <li class="pt-2">
-                    <a href="#h1-2">さくっと実装してみよう</a>
-                    <ul class="pl-4">
-                        <li class="pt-2"><a href="#h2-1">Componentのクラスを作る</a></li>
-                        <li class="pt-2"><a href="#h2-2">Aspectのクラスを作る</a></li>
-                    </ul>
-                </li>
-                <li class="pt-2">
-                    <a href="#h1-3">Mainクラスを作って実行</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <script><%- basiclightboxjs %></script>
+    <footer class="flex justify-end mt-16">
+        <dl class="flex">
+            <dt>作成日</dt>
+            <dd><% if (locals.CreateDate) { %><%- CreateDate %><% } %></dd>
+        </dl>
+        <dl class="flex mx-8">
+            <dt>更新日</dt>
+            <dd><% if (locals.UpdateDate) { %><%- locals.UpdateDate %><% } %></dd>
+        </dl>
+    </footer>
 
 </body>
 

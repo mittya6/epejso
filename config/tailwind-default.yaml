@@ -3,13 +3,4 @@ ejs:
     marked:
         renderer: "./renderer/tailwindRenderer.js"
         ejsKey: "content"
-    include:
-        file: 
-            tarjs: "dist/tailwind-default.js"
-            notiejs: "dist/tailwind-default/notie.min.js"
-            notiecss: "dist/tailwind-default/notie.min.css"
-            basiclightboxjs: "dist/tailwind-default/basicLightbox.min.js"
-            basiclightboxcss: "dist/tailwind-default/basicLightbox.min.css"
-            highlightsjs: "dist/tailwind-default/highlight.min.js"
-            highlightscss: "dist/tailwind-default/xcode.min.css"
 
