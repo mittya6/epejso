@@ -1,0 +1,8 @@
+ejs:
+    template: "./template/default.ejs"
+    marked:
+        renderer: "./renderer/defaultRenderer.js"
+        ejsKey: "content"
+    include:
+        file: 
+            tarjs: "dist/uikit-default.js"

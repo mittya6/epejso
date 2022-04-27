@@ -42,28 +42,28 @@
 
             main h1{
                 @apply text-2xl font-medium leading-normal text-teal-600;
-                @apply mt-0 pb-2;
+                @apply mt-0 pb-2 mb-4;
                 @apply border-b-2 border-stone-500;
             }
 
-            main h2{
-                @apply text-xl font-medium leading-normal mt-0 mb-2 text-stone-500;
-                @apply pt-8;
-            }
-
             main h1:not(:first-child){
-                @apply pt-16;
+                @apply mt-16;
             }
 
+            main h2{
+                @apply text-xl font-medium leading-normal mt-0 mb-2 text-stone-700;
+                @apply mt-4 mb-2;
+                @apply inline-block border-b-2 border-stone-500;
+            }
 
-            main :not(p) + p{
-                @apply mt-8;
+            main h3{
+                @apply text-lg font-medium leading-normal mt-0 mb-2 text-stone-500;
+                @apply mt-4 mb-2;
             }
 
             main p{
                 @apply leading-7;
             }
-
 
             main pre{
                 @apply relative;
@@ -90,6 +90,32 @@
                 @apply font-normal;
             }
 
+            ul{
+                @apply list-disc;
+                @apply ml-4 mb-2;
+            }
+
+            ol{
+                @apply list-decimal;
+                @apply ml-4 mb-2;
+            }
+
+            table{
+                @apply table-auto text-sm text-left text-gray-500;
+            }
+
+            th{
+                @apply text-xs text-gray-700;
+                @apply px-6 py-3
+            }
+
+            tr{
+                @apply bg-white border-b;
+            }
+
+            td{
+                @apply px-6 py-4;
+            }
         }
     </style>
     <style>
@@ -234,7 +260,7 @@
     </header>
 
     <div class="flex mx-12">
-        <aside class="w-96 h-screen sticky top-0 py-4">
+        <aside class="w-96 h-screen sticky top-0 py-4 hidden md:block">
             <div class="pl-2 h-full w-full flex items-center border border-black rounded-xl overflow-y-auto">
                 <ul class="steps steps-vertical " id="steps">
                 </ul>

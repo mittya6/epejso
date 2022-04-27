@@ -5,8 +5,7 @@ UpdateDate: 2021/08/15
 ---
 
 # MarkdownからHTMLが作成されました。
-* * *
-
+aaaa
 1. First item
 2. Second item
 3. Third item
@@ -35,12 +34,13 @@ function test(){
 
 1. まずはコマンド実行
 
+### h3の場合
 ```dos:testです。
 cp ./test ./test/oge
 mv /tmp/hoge /hoge
 ```
 
-2. 休憩する。
+### 休憩する。
 
 使い方は簡単。staticメソッドを呼び出すだけ。
 

@@ -1,6 +1,0 @@
-ejs:
-    template: "./template/tailwind-default.ejs"
-    marked:
-        renderer: "./renderer/tailwindRenderer.js"
-        ejsKey: "content"
-

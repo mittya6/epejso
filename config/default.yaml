@@ -1,8 +1,6 @@
 ejs:
-    template: "./template/default.ejs"
+    template: "./template/tailwind-default.ejs"
     marked:
-        renderer: "./renderer/defaultRenderer.js"
+        renderer: "./renderer/tailwindRenderer.js"
         ejsKey: "content"
-    include:
-        file: 
-            tarjs: "dist/uikit-default.js"
+
