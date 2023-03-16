@@ -1,10 +1,8 @@
+#!/usr/bin/env node
+
 import ejs from 'ejs'
 import * as path from 'path'
 import { fileURLToPath } from 'url';
-
-
-console.log("Hello! Node.js × TypeScript")
-
 
 const __filename = path.join(fileURLToPath(import.meta.url),'../')
 const __dirname = path.dirname(__filename)

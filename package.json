@@ -3,14 +3,17 @@
   "type": "module",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc"
   },
+  "main": "./desc/cli",
+  "bin": {
+    "epejso": "./desc/cli.js"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@types/ejs": "^3.1.2",
     "ejs": "^3.1.9",
