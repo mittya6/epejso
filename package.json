@@ -7,12 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc"
   },
-  "main": "./desc/cli",
+  "main": "./desc/app",
   "bin": {
-    "epejso": "./desc/cli.js"
+    "epejso": "./desc/app.js"
   },
+  "files": [
+    "desc/",
+    "template/"
+  ],
   "keywords": [],
-  "author": "",
+  "author": "Michio Yasuda",
   "license": "MIT",
   "dependencies": {
     "@types/ejs": "^3.1.2",
