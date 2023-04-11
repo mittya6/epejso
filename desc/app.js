@@ -17,8 +17,13 @@ import fs from 'fs';
 import { getRenderer } from './renderer.js';
 import browserSync from 'browser-sync';
 import chokidar from 'chokidar';
+// epejisoのルートディレクトリ
 const __dirname = getDirname();
 const ejspath = path.join(__dirname, './template/index.ejs');
+const rootDir = './target';
+if (!fs.existsSync(rootDir)) {
+    fs.mkdirSync(rootDir);
+}
 const tarMd = path.join(__dirname, '**/*.md');
 const globpath = path.resolve(tarMd);
 const watcher = chokidar.watch(globpath, {
@@ -26,7 +31,7 @@ const watcher = chokidar.watch(globpath, {
     persistent: true
 });
 watcher.on('change', (path) => __awaiter(void 0, void 0, void 0, function* () {
-    const htmlpath = yield makehtml(path);
+    const htmlpath = yield makehtml(path, rootDir);
     if (!loaded.includes(htmlpath)) {
         loaded.push(htmlpath);
         load(htmlpath);
@@ -38,10 +43,9 @@ function getDirname() {
 }
 /**
 * 指定されたmarkdownファイルからhtmlファイルを作成します。
-* @param mdpath MDファイルパス
-*
+* @param mdpath 生成したhtmlパス
 */
-function makehtml(mdpath) {
+function makehtml(mdpath, basedir) {
     return __awaiter(this, void 0, void 0, function* () {
         const fileContent = fs.readFileSync(mdpath, { encoding: "utf8" });
         const { data, content } = matter(fileContent);
@@ -51,7 +55,7 @@ function makehtml(mdpath) {
             title: data.title
         };
         const html = yield ejs.renderFile(ejspath, mapping, { async: true });
-        const htmlpath = `${data.title}.html`;
+        const htmlpath = path.join(basedir, `${data.title}.html`);
         fs.writeFileSync(htmlpath, html, 'utf8');
         return htmlpath;
     });
