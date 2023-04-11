@@ -1,6 +1,100 @@
+<!doctype html>
 
-<h1><%= title %></h1>
-<div class="test">
-    <h1><%= testText %></h1>
-    <p>これはテスト</p>
-</div>
+<html lang="jp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="The HTML5 Herald">
+    <title><%= title %></title>
+
+    <style>
+        :root {
+            --color1: #FFFFFF;
+            --color2: #000000;
+            --color3: #00196D;
+            --color4: #F75652;
+            --color5: #d1d5dc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* font-family: "Montserrat", "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif; */
+            font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,Segoe UI,Hiragino Kaku Gothic ProN,Hiragino Sans,ヒラギノ角ゴ ProN W3,Arial,メイリオ,Meiryo,sans-serif;
+
+        }
+
+        .container {
+            margin: 0 auto;
+            max-width: 780px;
+
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 6.5rem;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            line-height: 3;
+        }
+
+        h2::before {
+            color: var(--color3);
+            counter-increment: section;
+            content: counter(section)"."
+        }
+
+        h1::first-letter {
+            color: var(--color4);
+        }
+
+        p {
+            line-height: 1.8;
+            margin-top: 1.2rem;
+        }
+
+        pre {
+            margin-top: 16px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            border: 1px solid var(--color5);
+            padding: 8px 4px;
+        }
+
+        pre code {
+            color: var(--color3);
+
+        }
+
+        img {
+            margin: 0px auto;
+            margin-top: 16px;
+            width: 100%;
+            max-width: 640px;
+            object-fit: cover;
+            border: solid 1px gray;
+        }
+
+        li {
+            margin-left: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <%- testText %>
+    </div>
+</body>
+
+</html>
