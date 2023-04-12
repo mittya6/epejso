@@ -70,7 +70,7 @@ function load(htmlpath: string) {
     const bs: browserSync.BrowserSyncInstance = browserSync.create();
 
     bs.init({
-        server: { baseDir: __dirname },
+        server: { baseDir: "." },
         startPath: htmlpath
     });
     bs.watch('*.html').on('change', bs.reload);
