@@ -22,8 +22,9 @@ if (!fs.existsSync(rootDir)) {
 }
 
 
+const tarMd = path.join(".", '**/*.md');
 
-const tarMd = path.join(__dirname, '**/*.md');
+// const tarMd = path.join(__dirname, '**/*.md');
 const globpath = path.resolve(tarMd);
 const watcher = chokidar.watch(globpath, {
     ignored: (path => path.includes('node_modules')),
