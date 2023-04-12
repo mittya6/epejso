@@ -73,5 +73,5 @@ function load(htmlpath: string) {
         server: { baseDir: "." },
         startPath: htmlpath
     });
-    bs.watch('*.html').on('change', bs.reload);
+    bs.watch('**/*.html').on('change', bs.reload);
 }
