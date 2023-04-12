@@ -65,7 +65,7 @@ const loaded = [];
 function load(htmlpath) {
     const bs = browserSync.create();
     bs.init({
-        server: { baseDir: __dirname },
+        server: { baseDir: "." },
         startPath: htmlpath
     });
     bs.watch('*.html').on('change', bs.reload);
