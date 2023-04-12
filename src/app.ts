@@ -16,27 +16,26 @@ const __dirname = getDirname()
 
 const ejspath = path.join(__dirname, './template/index.ejs')
 
-const rootDir = './target'
-if (!fs.existsSync(rootDir)) {
-    fs.mkdirSync(rootDir);
+const tmpdir = './tmp'
+if (!fs.existsSync(tmpdir)) {
+    fs.mkdirSync(tmpdir);
 }
 
 
 const tarMd = path.join(".", '**/*.md');
 
-// const tarMd = path.join(__dirname, '**/*.md');
+
 const globpath = path.resolve(tarMd);
 const watcher = chokidar.watch(globpath, {
     ignored: (path => path.includes('node_modules')),
     persistent: true
 })
 watcher.on('change', async (path: string) => {
-    const htmlpath: string = await makehtml(path,rootDir)
-    if(!loaded.includes(htmlpath)){
+    const htmlpath: string = await makehtml(path, tmpdir)
+    if (!loaded.includes(htmlpath)) {
         loaded.push(htmlpath)
-        load(htmlpath)
+        load(htmlpath, tmpdir)
     }
-
 })
 
 
@@ -47,9 +46,11 @@ function getDirname() {
 
 /**
 * 指定されたmarkdownファイルからhtmlファイルを作成します。
-* @param mdpath 生成したhtmlパス
+* @param mdpath mdファイルパス
+* @param basedir html出力先ディレクトリ
+* @returns htmlファイル名
 */
-async function makehtml(mdpath: string, basedir:string): Promise<string> {
+async function makehtml(mdpath: string, basedir: string): Promise<string> {
     const fileContent = fs.readFileSync(mdpath, { encoding: "utf8" })
     const { data, content } = matter(fileContent)
     const markedContents = marked(content, { renderer: getRenderer(__dirname) })
@@ -59,18 +60,19 @@ async function makehtml(mdpath: string, basedir:string): Promise<string> {
         title: data.title
     }
     const html = await ejs.renderFile(ejspath, mapping, { async: true })
-    const htmlpath = path.join(basedir,`${data.title}.html`)
-    fs.writeFileSync(htmlpath, html, 'utf8')
-    return htmlpath
+    const htmlpath = path.join(basedir, `${data.title}.html`)
+    const htmlFilename = `${data.title}.html`
+    fs.writeFileSync(path.join(basedir, htmlFilename), html, 'utf8')
+    return htmlFilename
 }
 
 
-const loaded:Array<string> = []
-function load(htmlpath: string) {
+const loaded: Array<string> = []
+function load(htmlpath: string, basedir: string) {
     const bs: browserSync.BrowserSyncInstance = browserSync.create();
 
     bs.init({
-        server: { baseDir: "." },
+        server: { baseDir: basedir },
         startPath: htmlpath
     });
     bs.watch('**/*.html').on('change', bs.reload);
