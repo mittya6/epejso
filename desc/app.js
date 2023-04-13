@@ -17,19 +17,43 @@ import fs from 'fs';
 import { getRenderer } from './renderer.js';
 import browserSync from 'browser-sync';
 import chokidar from 'chokidar';
+import { program } from 'commander';
+program
+    .option("-d, --tarDir <value>", "target directory")
+    .option("-w, --wait")
+    .parse(process.argv);
 // epejisoのルートディレクトリ
 const __dirname = getDirname();
 const ejspath = path.join(__dirname, './template/index.ejs');
+// 監視モード時の一時htmlファイルの出力先
 const tmpdir = './tmp';
-if (!fs.existsSync(tmpdir)) {
-    fs.mkdirSync(tmpdir);
-}
 const tarMd = path.join(".", '**/*.md');
 const globpath = path.resolve(tarMd);
 const watcher = chokidar.watch(globpath, {
     ignored: (path => path.includes('node_modules')),
     persistent: true
 });
+// waitオプションが
+if (!program.opts().wait) {
+    let targetDir;
+    if (program.opts().tarDir) {
+        targetDir = program.opts().tarDir;
+    }
+    else {
+        targetDir = './target';
+        fs.mkdirSync(targetDir);
+    }
+    if (!(fs.statSync(targetDir).isDirectory())) {
+        throw new Error(`${targetDir} is not directory`);
+    }
+    //エクスポート処理
+}
+// 以下の処理はwatchモードの場合
+else {
+    if (!fs.existsSync(tmpdir)) {
+        fs.mkdirSync(tmpdir);
+    }
+}
 watcher.on('change', (mdFilepath) => __awaiter(void 0, void 0, void 0, function* () {
     const { metadata, content } = compile(mdFilepath);
     const htmlFilename = `${metadata.title}.html`;
@@ -65,7 +89,7 @@ function compile(mdpath) {
 function writeByEJS(filepath, { metadata, content }) {
     return __awaiter(this, void 0, void 0, function* () {
         const mapping = {
-            testText: content,
+            contents: content,
             title: metadata.title
         };
         const html = yield ejs.renderFile(ejspath, mapping, { async: true });
@@ -77,7 +101,8 @@ function load(htmlpath, basedir) {
     const bs = browserSync.create();
     bs.init({
         server: { baseDir: basedir },
-        startPath: htmlpath
+        startPath: htmlpath,
+        notify: false
     });
     bs.watch('**/*.html').on('change', bs.reload);
 }

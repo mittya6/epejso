@@ -24,8 +24,8 @@ const __dirname = getDirname()
 
 const ejspath = path.join(__dirname, './template/index.ejs')
 
-
-
+// 監視モード時の一時htmlファイルの出力先
+const tmpdir = './tmp'
 
 const tarMd = path.join(".", '**/*.md');
 
@@ -55,12 +55,9 @@ if (!program.opts().wait) {
 
 
 }
-
 // 以下の処理はwatchモードの場合
-
-// tmpディレクトリ作成
 else {
-    const tmpdir = './tmp'
+    
     if (!fs.existsSync(tmpdir)) {
         fs.mkdirSync(tmpdir);
     }
@@ -110,7 +107,7 @@ function compile(mdpath: string): compiledData {
  */
 async function writeByEJS(filepath: string, { metadata, content }: compiledData): Promise<void> {
     const mapping = {
-        testText: content,
+        contents: content,
         title: metadata.title
     }
     const html = await ejs.renderFile(ejspath, mapping, { async: true })
@@ -124,7 +121,8 @@ function load(htmlpath: string, basedir: string) {
 
     bs.init({
         server: { baseDir: basedir },
-        startPath: htmlpath
+        startPath: htmlpath,
+        notify: false
     });
     bs.watch('**/*.html').on('change', bs.reload);
 }
