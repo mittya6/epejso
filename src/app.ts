@@ -9,7 +9,18 @@ import fs from 'fs'
 import { getRenderer } from './renderer.js'
 import browserSync from 'browser-sync'
 import chokidar from 'chokidar'
+import { program } from 'commander'
 import glob from 'glob'
+
+
+program
+    .option("-d, --tarDir <value>", "target directory", './target')
+    .option("-w, --wait")
+    .parse(process.argv)
+
+
+
+
 
 // epejisoのルートディレクトリ
 const __dirname = getDirname()
@@ -30,11 +41,17 @@ const watcher = chokidar.watch(globpath, {
     ignored: (path => path.includes('node_modules')),
     persistent: true
 })
+
+if (!program.opts().wait) {
+    program.opts().tarDir
+}
+
+
 watcher.on('change', async (mdFilepath: string) => {
     const { metadata, content } = compile(mdFilepath)
     const htmlFilename = `${metadata.title}.html`
 
-    await writeByEJS(path.join(tmpdir,htmlFilename),{ metadata, content })
+    await writeByEJS(path.join(tmpdir, htmlFilename), { metadata, content })
     if (!loaded.includes(htmlFilename)) {
         loaded.push(htmlFilename)
         load(htmlFilename, tmpdir)
