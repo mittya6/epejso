@@ -30,11 +30,14 @@ const watcher = chokidar.watch(globpath, {
     ignored: (path => path.includes('node_modules')),
     persistent: true
 })
-watcher.on('change', async (path: string) => {
-    const htmlpath: string = await makehtml(path, tmpdir)
-    if (!loaded.includes(htmlpath)) {
-        loaded.push(htmlpath)
-        load(htmlpath, tmpdir)
+watcher.on('change', async (mdFilepath: string) => {
+    const { metadata, content } = compile(mdFilepath)
+    const htmlFilename = `${metadata.title}.html`
+
+    await writeByEJS(path.join(tmpdir,htmlFilename),{ metadata, content })
+    if (!loaded.includes(htmlFilename)) {
+        loaded.push(htmlFilename)
+        load(htmlFilename, tmpdir)
     }
 })
 
@@ -44,26 +47,39 @@ function getDirname() {
     return path.dirname(__filename)
 }
 
+
+type compiledData = {
+    metadata: { [key: string]: any; },
+    content: string
+}
+
 /**
-* 指定されたmarkdownファイルからhtmlファイルを作成します。
-* @param mdpath mdファイルパス
-* @param basedir html出力先ディレクトリ
-* @returns htmlファイル名
-*/
-async function makehtml(mdpath: string, basedir: string): Promise<string> {
+ * markdownを解析してデータを取得します。
+ * @param mdpath markdownファイルパス
+ * @returns コンパイルしたデータ
+ */
+function compile(mdpath: string): compiledData {
     const fileContent = fs.readFileSync(mdpath, { encoding: "utf8" })
     const { data, content } = matter(fileContent)
     const markedContents = marked(content, { renderer: getRenderer(__dirname) })
+    return {
+        metadata: data,
+        content: markedContents
+    }
+}
 
+/**
+ * ejsでレンダリングしたデータを書き込みます。
+ * @param filepath 
+ * @param param1 
+ */
+async function writeByEJS(filepath: string, { metadata, content }: compiledData): Promise<void> {
     const mapping = {
-        testText: markedContents,
-        title: data.title
+        testText: content,
+        title: metadata.title
     }
     const html = await ejs.renderFile(ejspath, mapping, { async: true })
-    const htmlpath = path.join(basedir, `${data.title}.html`)
-    const htmlFilename = `${data.title}.html`
-    fs.writeFileSync(path.join(basedir, htmlFilename), html, 'utf8')
-    return htmlFilename
+    fs.writeFileSync(filepath, html, 'utf8')
 }
 
 

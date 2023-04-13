@@ -30,11 +30,13 @@ const watcher = chokidar.watch(globpath, {
     ignored: (path => path.includes('node_modules')),
     persistent: true
 });
-watcher.on('change', (path) => __awaiter(void 0, void 0, void 0, function* () {
-    const htmlpath = yield makehtml(path, tmpdir);
-    if (!loaded.includes(htmlpath)) {
-        loaded.push(htmlpath);
-        load(htmlpath, tmpdir);
+watcher.on('change', (mdFilepath) => __awaiter(void 0, void 0, void 0, function* () {
+    const { metadata, content } = compile(mdFilepath);
+    const htmlFilename = `${metadata.title}.html`;
+    yield writeByEJS(path.join(tmpdir, htmlFilename), { metadata, content });
+    if (!loaded.includes(htmlFilename)) {
+        loaded.push(htmlFilename);
+        load(htmlFilename, tmpdir);
     }
 }));
 function getDirname() {
@@ -42,25 +44,32 @@ function getDirname() {
     return path.dirname(__filename);
 }
 /**
-* 指定されたmarkdownファイルからhtmlファイルを作成します。
-* @param mdpath mdファイルパス
-* @param basedir html出力先ディレクトリ
-* @returns htmlファイル名
-*/
-function makehtml(mdpath, basedir) {
+ * markdownを解析してデータを取得します。
+ * @param mdpath markdownファイルパス
+ * @returns コンパイルしたデータ
+ */
+function compile(mdpath) {
+    const fileContent = fs.readFileSync(mdpath, { encoding: "utf8" });
+    const { data, content } = matter(fileContent);
+    const markedContents = marked(content, { renderer: getRenderer(__dirname) });
+    return {
+        metadata: data,
+        content: markedContents
+    };
+}
+/**
+ * ejsでレンダリングしたデータを書き込みます。
+ * @param filepath
+ * @param param1
+ */
+function writeByEJS(filepath, { metadata, content }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const fileContent = fs.readFileSync(mdpath, { encoding: "utf8" });
-        const { data, content } = matter(fileContent);
-        const markedContents = marked(content, { renderer: getRenderer(__dirname) });
         const mapping = {
-            testText: markedContents,
-            title: data.title
+            testText: content,
+            title: metadata.title
         };
         const html = yield ejs.renderFile(ejspath, mapping, { async: true });
-        const htmlpath = path.join(basedir, `${data.title}.html`);
-        const htmlFilename = `${data.title}.html`;
-        fs.writeFileSync(path.join(basedir, htmlFilename), html, 'utf8');
-        return htmlFilename;
+        fs.writeFileSync(filepath, html, 'utf8');
     });
 }
 const loaded = [];
