@@ -14,12 +14,9 @@ import glob from 'glob'
 
 
 program
-    .option("-d, --tarDir <value>", "target directory", './target')
+    .option("-d, --tarDir <value>", "target directory")
     .option("-w, --wait")
     .parse(process.argv)
-
-
-
 
 
 // epejisoのルートディレクトリ
@@ -27,10 +24,7 @@ const __dirname = getDirname()
 
 const ejspath = path.join(__dirname, './template/index.ejs')
 
-const tmpdir = './tmp'
-if (!fs.existsSync(tmpdir)) {
-    fs.mkdirSync(tmpdir);
-}
+
 
 
 const tarMd = path.join(".", '**/*.md');
@@ -42,11 +36,35 @@ const watcher = chokidar.watch(globpath, {
     persistent: true
 })
 
+// waitオプションが
 if (!program.opts().wait) {
-    program.opts().tarDir
+
+    let targetDir
+    if (program.opts().tarDir) {
+        targetDir = program.opts().tarDir
+    } else {
+        targetDir = './target'
+        fs.mkdirSync(targetDir)
+    }
+
+    if (!(fs.statSync(targetDir).isDirectory())) {
+        throw new Error(`${targetDir} is not directory`)
+    }
+    //エクスポート処理
+
+
+
 }
 
+// 以下の処理はwatchモードの場合
 
+// tmpディレクトリ作成
+else {
+    const tmpdir = './tmp'
+    if (!fs.existsSync(tmpdir)) {
+        fs.mkdirSync(tmpdir);
+    }
+}
 watcher.on('change', async (mdFilepath: string) => {
     const { metadata, content } = compile(mdFilepath)
     const htmlFilename = `${metadata.title}.html`
