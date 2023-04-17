@@ -58,10 +58,6 @@
                 tarPre.appendChild(clonedCopy)
                 tarPre.appendChild(clonedCopied)
             })
-
-
-
-
         }
 
         function addImgEvent() {
@@ -206,12 +202,13 @@
             display: inline-block;
             background: #888888;
             position: absolute;
-            top: -16px;
+            top: -24px;
             right: -4px;
             font-size: 0.9rem;
-            padding: 2px 4px;
+            padding: 4px 8px;
 
             opacity: 0;
+            color:white;
         }
 
         pre:hover svg.icon-copy {
@@ -221,7 +218,7 @@
         .popup {
             animation-name: fade;
             animation-duration: 1s;
-            animation-timing-function: linear;
+            animation-timing-function: ease-in-out;
             animation-iteration-count: 1;
             animation-direction: alternate;
             /* animation-play-state: paused; */
