@@ -14,7 +14,26 @@
             addModalEvent()
             addImgEvent()
             initCopyEvent()
+            addMenuEvent()
         });
+
+        function addMenuEvent(){
+            const dialog = document.querySelector('#dialog-menu')
+            const dialogMenu = dialog.querySelector('ul')
+            const headers = document.querySelectorAll('.container h1')
+            headers.forEach((curHeader) =>{
+                const tarLi = document.createElement('li')
+                const tarA = document.createElement('a')
+
+                tarA.innerText = curHeader.innerText
+                tarLi.appendChild(tarA)
+                dialogMenu.appendChild(tarLi)
+            })
+
+            document.querySelector('#icon-menu').addEventListener('click', () =>{
+                dialog.showModal()
+            })
+        }
 
         function addModalEvent() {
             const dialog = document.querySelector('dialog')
@@ -45,10 +64,7 @@
 
                     const elementCode = clonedCopy.parentNode.querySelector('code')
                     navigator.clipboard.writeText(elementCode.innerText)
-                    // clonedCopied.getAnimations().forEach(anim => {
-                    //     anim.cancel()
-                    //     anim.play()
-                    // })
+
                     clonedCopied.classList.add('popup')
                     clonedCopied.addEventListener('animationend', () => {
                         clonedCopied.classList.remove('popup')
@@ -62,7 +78,7 @@
 
         function addImgEvent() {
             const imglist = document.querySelectorAll('img')
-            const dialog = document.querySelector('dialog')
+            const dialog = document.querySelector('dialog#dialog-img')
             const dialogImg = document.querySelector('dialog img')
 
             imglist.forEach((curImg) => {
@@ -70,7 +86,6 @@
                     dialogImg.src = curImg.src
                     dialog.showModal()
                 })
-
             })
         }
 
@@ -107,6 +122,18 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+        }
+
+        .header{
+            display:inline-block;
+
+            position: fixed;
+            top: 8px;
+            left: 16px;
+        }
+
+        #icon-menu{
+            cursor: pointer;
         }
 
         .container {
@@ -208,7 +235,7 @@
             padding: 4px 8px;
 
             opacity: 0;
-            color:white;
+            color: white;
         }
 
         pre:hover svg.icon-copy {
@@ -241,6 +268,17 @@
 </head>
 
 <body>
+    <div class="header">
+        <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2" width="24"
+            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M4 6l16 0"></path>
+            <path d="M4 12l16 0"></path>
+            <path d="M4 18l16 0"></path>
+        </svg>
+    </div>
+
     <div class="area-title">
         <h1>
             <%= title %>
@@ -250,7 +288,12 @@
         <%- contents %>
     </div>
 
-    <dialog class="modal-cover" id="dialog">
+
+    <dialog id="dialog-menu" class="modal-cover" id="dialog">
+        <ul></ul>
+    </dialog>
+
+    <dialog id="dialog-img" class="modal-cover" id="dialog">
         <img src="">
     </dialog>
 
