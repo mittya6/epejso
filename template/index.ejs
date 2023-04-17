@@ -5,7 +5,80 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="The HTML5 Herald">
-    <title><%= title %></title>
+    <title>
+        <%= title %>
+    </title>
+    <script>
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            addModalEvent()
+            addImgEvent()
+            initCopyEvent()
+        });
+
+        function addModalEvent() {
+            const dialog = document.querySelector('dialog')
+            dialog.addEventListener('click', () => {
+                dialog.close()
+            })
+
+            const dialogImg = document.querySelector('dialog img')
+            dialogImg.addEventListener('click', () => {
+                event.stopPropagation()
+            })
+        }
+
+        function initCopyEvent() {
+
+            const templateIconCopy = document.querySelector('#template-icon-copy')
+            const iconCopy = templateIconCopy.content.querySelector('.icon-copy')
+
+            const templateIconCopied = document.querySelector('#template-icon-copied')
+            const iconCopied = templateIconCopied.content.querySelector('.icon-copied')
+
+            const preList = document.querySelectorAll('pre')
+            preList.forEach((tarPre) => {
+
+                const clonedCopy = iconCopy.cloneNode(true)
+                const clonedCopied = iconCopied.cloneNode(true)
+                clonedCopy.addEventListener('click', () => {
+
+                    const elementCode = clonedCopy.parentNode.querySelector('code')
+                    navigator.clipboard.writeText(elementCode.innerText)
+                    // clonedCopied.getAnimations().forEach(anim => {
+                    //     anim.cancel()
+                    //     anim.play()
+                    // })
+                    clonedCopied.classList.add('popup')
+                    clonedCopied.addEventListener('animationend', () => {
+                        clonedCopied.classList.remove('popup')
+                    });
+
+                })
+                tarPre.appendChild(clonedCopy)
+                tarPre.appendChild(clonedCopied)
+            })
+
+
+
+
+        }
+
+        function addImgEvent() {
+            const imglist = document.querySelectorAll('img')
+            const dialog = document.querySelector('dialog')
+            const dialogImg = document.querySelector('dialog img')
+
+            imglist.forEach((curImg) => {
+                curImg.addEventListener('click', () => {
+                    dialogImg.src = curImg.src
+                    dialog.showModal()
+                })
+
+            })
+        }
+
+    </script>
     <style>
         :root {
             --color1: #FFFFFF;
@@ -22,8 +95,22 @@
         }
 
         body {
-            font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,Segoe UI,Hiragino Kaku Gothic ProN,Hiragino Sans,ヒラギノ角ゴ ProN W3,Arial,メイリオ,Meiryo,sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Segoe UI, Hiragino Kaku Gothic ProN, Hiragino Sans, ヒラギノ角ゴ ProN W3, Arial, メイリオ, Meiryo, sans-serif;
 
+        }
+
+        .area-title {
+            width: 100%;
+            height: 64vh;
+        }
+
+        .area-title h1 {
+            width: 80%;
+            text-align: center;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .container {
@@ -31,33 +118,34 @@
             max-width: 780px;
         }
 
-        h1 {
+        .container h1 {
             font-size: 1.5rem;
             text-align: center;
             margin-top: 6.5rem;
         }
 
-        h2 {
+        .container h2 {
             font-size: 1.2rem;
             line-height: 3;
         }
 
-        h2::before {
+        .container h2::before {
             color: var(--color3);
             counter-increment: section;
             content: counter(section)"."
         }
 
-        h1::first-letter {
+        .container h1::first-letter {
             color: var(--color4);
         }
 
-        p {
+        .container p {
             line-height: 1.8;
             margin-top: 1.2rem;
         }
 
-        pre {
+        .container pre {
+            position: relative;
             margin-top: 16px;
             white-space: pre-wrap;
             line-height: 1.6;
@@ -65,14 +153,14 @@
             padding: 8px 4px;
         }
 
-        pre code {
+        .container pre code {
             color: var(--color3);
 
         }
 
-        img {
+        .container img {
             cursor: pointer;
-            display:block;
+            display: block;
             margin: 0 auto;
             margin-top: 16px;
             max-width: 640px;
@@ -81,28 +169,106 @@
 
         }
 
-        li {
+        .container li {
             margin-left: 1.5rem;
         }
 
+        dialog.modal-cover {
+            position: fixed;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            border: 0;
+            border-radius: 0.6rem;
+            box-shadow: 0 0 1em black;
+        }
 
-        .modal-cover{
+        dialog::backdrop {
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        dialog img {
+            object-fit: contain;
+            border: 0;
+        }
+
+        svg.icon-copy {
             position: absolute;
-            top:0;
-            left:0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0,0,0,0.5);
+            cursor: pointer;
+            top: 8px;
+            right: 8px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .icon-copied {
+            display: inline-block;
+            background: #888888;
+            position: absolute;
+            top: -16px;
+            right: -4px;
+            font-size: 0.9rem;
+            padding: 2px 4px;
+
+            opacity: 0;
+        }
+
+        pre:hover svg.icon-copy {
+            opacity: 1;
+        }
+
+        .popup {
+            animation-name: fade;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-iteration-count: 1;
+            animation-direction: alternate;
+            /* animation-play-state: paused; */
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
         }
     </style>
 </head>
+
 <body>
+    <div class="area-title">
+        <h1>
+            <%= title %>
+        </h1>
+    </div>
     <div class="container">
         <%- contents %>
     </div>
 
-    <div class="modal-cover">
-    </div>
+    <dialog class="modal-cover" id="dialog">
+        <img src="">
+    </dialog>
+
+    <template id="template-icon-copy">
+        <svg class="icon-copy" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clipboard"
+            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"></path>
+            <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"></path>
+        </svg>
+    </template>
+    <template id="template-icon-copied">
+        <div class="icon-copied">copied</div>
+    </template>
 </body>
 
 </html>
