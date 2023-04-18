@@ -21,9 +21,11 @@
             const dialog = document.querySelector('#dialog-menu')
             const dialogMenu = dialog.querySelector('ul')
             const headers = document.querySelectorAll('.container h1')
-            headers.forEach((curHeader) => {
+            headers.forEach((curHeader,index) => {
+                curHeader.id = `title_${index}`
                 const tarLi = document.createElement('li')
                 const tarA = document.createElement('a')
+                tarA.href = `#${curHeader.id}`
 
                 tarA.innerText = curHeader.innerText
                 tarLi.appendChild(tarA)
@@ -181,7 +183,6 @@
 
         .container pre code {
             color: var(--color3);
-
         }
 
         .container img {
@@ -213,9 +214,15 @@
         }
 
         dialog.modal-menu-cover div {
+            position: absolute;
+            top:0;
+            left:0;
             width: 100%;
             height: 100%;
-            background: #888888;
+        }
+
+        dialog.modal-menu-cover ul {
+            margin: 16px 8px;
         }
 
         dialog.modal-menu-cover li {
@@ -237,7 +244,6 @@
             cursor: pointer;
             backdrop-filter: blur(4px);
 
-            /* background: rgba(0, 0, 0, 0.5); */
         }
 
         dialog.modal-img-cover img {
@@ -257,6 +263,7 @@
         .icon-copied {
             display: inline-block;
             background: #888888;
+            border-radius: 8px;
             position: absolute;
             top: -24px;
             right: -4px;
@@ -274,7 +281,7 @@
         .popup {
             animation-name: fade;
             animation-duration: 1s;
-            animation-timing-function: ease-in-out;
+            animation-timing-function: ease-out;
             animation-iteration-count: 1;
             animation-direction: alternate;
         }

@@ -14,10 +14,7 @@ export function getRenderer(mddir: string) {
               <img src="${dataURI}" title="${title}" alt="${text}">
             </a>`;
   }
-
-
   return renderer;
-
 }
 
 function parseAsDataURL(file: string) {

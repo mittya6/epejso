@@ -51,13 +51,9 @@ if (!program.opts().wait) {
         throw new Error(`${targetDir} is not directory`)
     }
     //エクスポート処理
-
-
-
 }
 // 以下の処理はwatchモードの場合
 else {
-    
     if (!fs.existsSync(tmpdir)) {
         fs.mkdirSync(tmpdir);
     }
@@ -93,7 +89,7 @@ type compiledData = {
 function compile(mdpath: string): compiledData {
     const fileContent = fs.readFileSync(mdpath, { encoding: "utf8" })
     const { data, content } = matter(fileContent)
-    const markedContents = marked(content, { renderer: getRenderer(__dirname) })
+    const markedContents = marked(content, { renderer: getRenderer(path.dirname(mdpath)) })
     return {
         metadata: data,
         content: markedContents
