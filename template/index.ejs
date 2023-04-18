@@ -26,6 +26,9 @@
                 const tarLi = document.createElement('li')
                 const tarA = document.createElement('a')
                 tarA.href = `#${curHeader.id}`
+                tarA.addEventListener('click',()=>{
+                    dialog.close()
+                })
 
                 tarA.innerText = curHeader.innerText
                 tarLi.appendChild(tarA)
