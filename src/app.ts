@@ -104,7 +104,7 @@ function compile(mdpath: string): compiledData {
 async function writeByEJS(filepath: string, { metadata, content }: compiledData): Promise<void> {
     const mapping = {
         contents: content,
-        title: metadata.title
+        metadata: metadata
     }
     const html = await ejs.renderFile(ejspath, mapping, { async: true })
     fs.writeFileSync(filepath, html, 'utf8')

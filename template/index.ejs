@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="The HTML5 Herald">
     <title>
-        <%= title %>
+        <%= metadata.title || 'no name' %>
     </title>
     <script>
 
@@ -21,12 +21,12 @@
             const dialog = document.querySelector('#dialog-menu')
             const dialogMenu = dialog.querySelector('ul')
             const headers = document.querySelectorAll('.container h1')
-            headers.forEach((curHeader,index) => {
+            headers.forEach((curHeader, index) => {
                 curHeader.id = `title_${index}`
                 const tarLi = document.createElement('li')
                 const tarA = document.createElement('a')
                 tarA.href = `#${curHeader.id}`
-                tarA.addEventListener('click',()=>{
+                tarA.addEventListener('click', () => {
                     dialog.close()
                 })
 
@@ -115,15 +115,14 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Segoe UI, Hiragino Kaku Gothic ProN, Hiragino Sans, ヒラギノ角ゴ ProN W3, Arial, メイリオ, Meiryo, sans-serif;
-
         }
 
         .area-title {
             width: 100%;
-            height: 64vh;
+            height: 80vh;
         }
 
-        .area-title h1 {
+        .container-header{
             width: 80%;
             text-align: center;
             position: relative;
@@ -132,9 +131,28 @@
             transform: translate(-50%, -50%);
         }
 
+        .area-title h1 {
+            font-size: 2.4rem;
+        }
+
+        .area-title h1::first-letter {
+            color: var(--color4);
+        }
+
+        .posted-date > *{
+            display: inline-block;
+        }
+
+        .posted-date .updated-date{
+            margin-left: 8px;
+        }
+
+        .posted-date dt{
+            color: var(--color3);
+        }
+
         .header {
             display: inline-block;
-
             position: fixed;
             top: 8px;
             left: 16px;
@@ -147,27 +165,26 @@
         .container {
             margin: 0 auto;
             max-width: 780px;
+            counter-reset: section;
+
         }
 
         .container h1 {
-            font-size: 1.5rem;
-            text-align: center;
+            color: var(--color2);
+            font-size: 2rem;
             margin-top: 6.5rem;
+            border-bottom: solid 1px var(--color5);
+        }
+
+        .container h1::before {
+            color: var(--color3);
+            counter-increment: section;
+            content: counter(section)". "
         }
 
         .container h2 {
             font-size: 1.2rem;
             line-height: 3;
-        }
-
-        .container h2::before {
-            color: var(--color3);
-            counter-increment: section;
-            content: counter(section)"."
-        }
-
-        .container h1::first-letter {
-            color: var(--color4);
         }
 
         .container p {
@@ -185,7 +202,7 @@
         }
 
         .container pre code {
-            color: var(--color3);
+            color: var(--color2);
         }
 
         .container img {
@@ -218,8 +235,8 @@
 
         dialog.modal-menu-cover div {
             position: absolute;
-            top:0;
-            left:0;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
         }
@@ -241,6 +258,8 @@
             border: 0;
             border-radius: 0.6rem;
             box-shadow: 0 0 1em black;
+            width: 80%;
+            overflow: hidden;
         }
 
         dialog::backdrop {
@@ -252,6 +271,8 @@
         dialog.modal-img-cover img {
             object-fit: contain;
             border: 0;
+            width: 100%;
+            height: 100%;
         }
 
         svg.icon-copy {
@@ -283,7 +304,7 @@
 
         .popup {
             animation-name: fade;
-            animation-duration: 1s;
+            animation-duration: 2s;
             animation-timing-function: ease-out;
             animation-iteration-count: 1;
             animation-direction: alternate;
@@ -318,9 +339,22 @@
     </div>
 
     <div class="area-title">
-        <h1>
-            <%= title %>
-        </h1>
+        <div class="container-header">
+            <h1>
+                <%= metadata.title || '' %>
+            </h1>
+            <dl class="posted-date">
+                <% if (metadata.createDate) { %>
+                <dt>投稿日</dt>
+                <dd><%=metadata.createDate || '' %></dd>
+                <% } %>
+                <% if (metadata.updateDate) { %>
+                <dt class="updated-date">更新日</dt>
+                <dd><%=metadata.updateDate || '' %></dd>
+                <% } %>
+
+            </dl>
+        </div>
     </div>
     <div class="container">
         <%- contents %>

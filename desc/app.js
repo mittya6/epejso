@@ -90,7 +90,7 @@ function writeByEJS(filepath, { metadata, content }) {
     return __awaiter(this, void 0, void 0, function* () {
         const mapping = {
             contents: content,
-            title: metadata.title
+            metadata: metadata
         };
         const html = yield ejs.renderFile(ejspath, mapping, { async: true });
         fs.writeFileSync(filepath, html, 'utf8');
