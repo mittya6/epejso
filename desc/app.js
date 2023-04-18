@@ -75,7 +75,7 @@ function getDirname() {
 function compile(mdpath) {
     const fileContent = fs.readFileSync(mdpath, { encoding: "utf8" });
     const { data, content } = matter(fileContent);
-    const markedContents = marked(content, { renderer: getRenderer(__dirname) });
+    const markedContents = marked(content, { renderer: getRenderer(path.dirname(mdpath)) });
     return {
         metadata: data,
         content: markedContents
