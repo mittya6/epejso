@@ -14,6 +14,11 @@ export function getRenderer(mddir: string) {
               <img src="${dataURI}" title="${title}" alt="${text}">
             </a>`;
   }
+
+  renderer.link = function( href, title, text ) {
+    return `<a href="${href}" title="${title}" target="_blank">${text}</a>`
+  }
+
   return renderer;
 }
 
