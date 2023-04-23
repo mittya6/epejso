@@ -18,9 +18,10 @@ import { getRenderer } from './renderer.js';
 import browserSync from 'browser-sync';
 import chokidar from 'chokidar';
 import { program } from 'commander';
+import glob from 'glob';
 program
-    .option("-d, --tarDir <value>", "target directory")
-    .option("-w, --wait")
+    .option("-e, --export [type]", "target directory")
+    .option("-c, --create [type]", "create markdown Template", 'no-title')
     .parse(process.argv);
 // epejisoのルートディレクトリ
 const __dirname = getDirname();
@@ -28,41 +29,43 @@ const ejspath = path.join(__dirname, './template/index.ejs');
 // 監視モード時の一時htmlファイルの出力先
 const tmpdir = './tmp';
 const tarMd = path.join(".", '**/*.md');
-const globpath = path.resolve(tarMd);
-const watcher = chokidar.watch(globpath, {
-    ignored: (path => path.includes('node_modules')),
-    persistent: true
-});
-// waitオプションが
-if (!program.opts().wait) {
+if (program.opts().export) {
     let targetDir;
-    if (program.opts().tarDir) {
-        targetDir = program.opts().tarDir;
+    if (program.opts().export === true) {
+        targetDir = './target';
+        if (!fs.existsSync(targetDir)) {
+            fs.mkdirSync(targetDir);
+        }
     }
     else {
-        targetDir = './target';
-        fs.mkdirSync(targetDir);
+        targetDir = program.opts().export;
     }
-    if (!(fs.statSync(targetDir).isDirectory())) {
+    if (!fs.statSync(targetDir)) {
         throw new Error(`${targetDir} is not directory`);
     }
     //エクスポート処理
+    exportHTMLs(targetDir);
 }
-// 以下の処理はwatchモードの場合
 else {
+    console.log('epejso observer mode');
+    const globpath = path.resolve(tarMd);
+    const watcher = chokidar.watch(globpath, {
+        ignored: (path => path.includes('node_modules')),
+        persistent: true
+    });
     if (!fs.existsSync(tmpdir)) {
         fs.mkdirSync(tmpdir);
     }
+    watcher.on('change', (mdFilepath) => __awaiter(void 0, void 0, void 0, function* () {
+        const { metadata, content } = compile(mdFilepath);
+        const htmlFilename = metadata.file ? `${metadata.file}.html` : `${metadata.title}.html`;
+        yield writeByEJS(path.join(tmpdir, htmlFilename), { metadata, content });
+        if (!loaded.includes(htmlFilename)) {
+            loaded.push(htmlFilename);
+            load(htmlFilename, tmpdir);
+        }
+    }));
 }
-watcher.on('change', (mdFilepath) => __awaiter(void 0, void 0, void 0, function* () {
-    const { metadata, content } = compile(mdFilepath);
-    const htmlFilename = `${metadata.title}.html`;
-    yield writeByEJS(path.join(tmpdir, htmlFilename), { metadata, content });
-    if (!loaded.includes(htmlFilename)) {
-        loaded.push(htmlFilename);
-        load(htmlFilename, tmpdir);
-    }
-}));
 function getDirname() {
     const __filename = path.join(fileURLToPath(import.meta.url), '../');
     return path.dirname(__filename);
@@ -105,5 +108,19 @@ function load(htmlpath, basedir) {
         notify: false
     });
     bs.watch('**/*.html').on('change', bs.reload);
+}
+function exportHTMLs(exportDir) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const mdfiles = yield glob('**/*.md', { 'ignore': ['**/node_modules/**'] });
+        mdfiles.forEach((mdfile) => __awaiter(this, void 0, void 0, function* () {
+            mdfile = path.resolve(mdfile);
+            console.log(`marked ${mdfile}`);
+            const { metadata, content } = compile(mdfile);
+            const htmlFilename = metadata.file ? `${metadata.file}.html` : `${metadata.title}.html`;
+            console.log(exportDir);
+            console.log(`output ${path.join(exportDir, htmlFilename)}`);
+            yield writeByEJS(path.join(exportDir, htmlFilename), { metadata, content });
+        }));
+    });
 }
 //# sourceMappingURL=app.js.map
