@@ -19,7 +19,6 @@ export function getRenderer(mddir: string) {
     return `<a href="${href}" title="${title}" target="_blank">${text}</a>`
   }
 
-
   renderer.code = function (code, str) {
 
     const values = str?.split(':')
