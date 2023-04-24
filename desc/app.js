@@ -21,7 +21,7 @@ import { program } from 'commander';
 import glob from 'glob';
 program
     .option("-e, --export [type]", "target directory")
-    .option("-c, --create [type]", "create markdown Template", 'no-title')
+    .option("-c, --create [type]", "create markdown Template")
     .parse(process.argv);
 // epejisoのルートディレクトリ
 const __dirname = getDirname();
@@ -29,7 +29,15 @@ const ejspath = path.join(__dirname, './template/index.ejs');
 // 監視モード時の一時htmlファイルの出力先
 const tmpdir = './tmp';
 const tarMd = path.join(".", '**/*.md');
-if (program.opts().export) {
+if (program.opts().create) {
+    const title = (function () {
+        if (program.opts().create === true) {
+            return 'no-title';
+        }
+        return program.opts().create;
+    })();
+}
+else if (program.opts().export) {
     let targetDir;
     if (program.opts().export === true) {
         targetDir = './target';
