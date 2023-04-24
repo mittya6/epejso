@@ -107,6 +107,9 @@
             --color6: #287100;
 
             --color0: #444;
+
+            --font-sans: Helvetica Neue, Arial, Hiragino Sans, Hiragino Kaku Gothic ProN, BIZ UDPGothic, Meiryo, sans-serif;
+            --font-mono: SFMono-Regular, Menlo, Consolas, Bitstream Vera Sans Mono, Courier New, Courier, BIZ UDGothic, Meiryo, monospace;
         }
 
         * {
@@ -116,17 +119,18 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Segoe UI, Hiragino Kaku Gothic ProN, Hiragino Sans, ヒラギノ角ゴ ProN W3, Arial, メイリオ, Meiryo, sans-serif;
+            font-family: var(--font-sans);
+            /* font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Segoe UI, Hiragino Kaku Gothic ProN, Hiragino Sans, ヒラギノ角ゴ ProN W3, Arial, メイリオ, Meiryo, sans-serif; */
             color: var(--color0);
         }
 
         a {
             color: var(--color6);
-            text-decoration:none;
+            text-decoration: none;
             outline: none;
         }
 
-        a:hover{
+        a:hover {
             text-decoration: underline;
         }
 
@@ -135,7 +139,7 @@
             height: 80vh;
         }
 
-        .container-header{
+        .container-header {
             width: 80%;
             text-align: center;
             position: relative;
@@ -152,15 +156,15 @@
             color: var(--color4);
         }
 
-        .posted-date > *{
+        .posted-date>* {
             display: inline-block;
         }
 
-        .posted-date .updated-date{
+        .posted-date .updated-date {
             margin-left: 8px;
         }
 
-        .posted-date dt{
+        .posted-date dt {
             color: var(--color3);
         }
 
@@ -215,7 +219,7 @@
 
         .container pre {
             position: relative;
-            margin-top: 16px;
+            margin-top: 1.4rem;
             white-space: pre-wrap;
             line-height: 1.6;
             border: 1px solid var(--color5);
@@ -224,6 +228,17 @@
 
         .container pre code {
             color: var(--color2);
+        }
+
+        .container pre div.title {
+            position: absolute;
+            top: -12px;
+            left: 0;
+            display: inline-block;
+            background: var(--color3);
+            color: var(--color1);
+            padding: 0px 4px;
+
         }
 
         .container img {
@@ -280,7 +295,7 @@
             border: 0;
             border-radius: 0.6rem;
             /* box-shadow: 0 0 1em black; */
-            width: 80%;
+            width: 72%;
             overflow: hidden;
         }
 
@@ -367,13 +382,17 @@
             </h1>
             <dl class="posted-date">
                 <% if (metadata.createDate) { %>
-                <dt>投稿日</dt>
-                <dd><%=metadata.createDate || '' %></dd>
-                <% } %>
-                <% if (metadata.updateDate) { %>
-                <dt class="updated-date">更新日</dt>
-                <dd><%=metadata.updateDate || '' %></dd>
-                <% } %>
+                    <dt>投稿日</dt>
+                    <dd>
+                        <%=metadata.createDate || '' %>
+                    </dd>
+                    <% } %>
+                        <% if (metadata.updateDate) { %>
+                            <dt class="updated-date">更新日</dt>
+                            <dd>
+                                <%=metadata.updateDate || '' %>
+                            </dd>
+                            <% } %>
 
             </dl>
         </div>

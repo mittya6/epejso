@@ -13,6 +13,18 @@ export function getRenderer(mddir) {
     renderer.link = function (href, title, text) {
         return `<a href="${href}" title="${title}" target="_blank">${text}</a>`;
     };
+    renderer.code = function (code, str) {
+        const values = str === null || str === void 0 ? void 0 : str.split(':');
+        if (!values) {
+            return `<pre><code>${code}</code></pre>`;
+        }
+        const lang = values[0];
+        if (values.length < 2) {
+            return `<pre><code class="language-${lang}">${code}</code></pre>`;
+        }
+        const title = values[1];
+        return `<pre><div class="title">${title}</div><code class="language-${lang}">${code}</code></pre>`;
+    };
     return renderer;
 }
 function parseAsDataURL(file) {
