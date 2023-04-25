@@ -80,7 +80,7 @@ else {
     }
     watcher.on('change', (mdFilepath) => __awaiter(void 0, void 0, void 0, function* () {
         const { metadata, content } = compile(mdFilepath);
-        const htmlFilename = metadata.file ? `${metadata.file}.html` : `${metadata.title}.html`;
+        const htmlFilename = metadata.file ? `${metadata.file}.html` : `${path.basename(mdFilepath, '.md')}.html`;
         yield writeByEJS(path.join(tmpdir, htmlFilename), { metadata, content });
         if (!loaded.includes(htmlFilename)) {
             loaded.push(htmlFilename);
@@ -138,7 +138,7 @@ function exportHTMLs(exportDir) {
             mdfile = path.resolve(mdfile);
             console.log(`marked ${mdfile}`);
             const { metadata, content } = compile(mdfile);
-            const htmlFilename = metadata.file ? `${metadata.file}.html` : `${metadata.title}.html`;
+            const htmlFilename = metadata.file ? `${metadata.file}.html` : `${path.basename(mdfile, '.md')}.html`;
             console.log(exportDir);
             console.log(`output ${path.join(exportDir, htmlFilename)}`);
             yield writeByEJS(path.join(exportDir, htmlFilename), { metadata, content });

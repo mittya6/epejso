@@ -9,7 +9,6 @@
         <%= metadata.title || 'no name' %>
     </title>
     <script>
-
         window.addEventListener('DOMContentLoaded', (event) => {
             addModalEvent()
             addImgEvent()
@@ -95,7 +94,6 @@
                 })
             })
         }
-
     </script>
     <style>
         :root {
@@ -217,8 +215,9 @@
             margin-top: 1.2rem;
         }
 
-        .container strong, .container em {
-            background: linear-gradient(transparent 70%, #fc61a6 30%); 
+        .container strong,
+        .container em {
+            background: linear-gradient(transparent 70%, #fc61a6 30%);
 
         }
 
@@ -392,6 +391,7 @@
         </svg>
     </div>
 
+    <% if (metadata.title) { %>
     <div class="area-title">
         <div class="container-header">
             <h1>
@@ -399,21 +399,22 @@
             </h1>
             <dl class="posted-date">
                 <% if (metadata.createDate) { %>
-                    <dt>投稿日</dt>
-                    <dd>
-                        <%=metadata.createDate || '' %>
-                    </dd>
-                    <% } %>
-                        <% if (metadata.updateDate) { %>
-                            <dt class="updated-date">更新日</dt>
-                            <dd>
-                                <%=metadata.updateDate || '' %>
-                            </dd>
-                            <% } %>
-
+                <dt>投稿日</dt>
+                <dd>
+                    <%=metadata.createDate || '' %>
+                </dd>
+                <% } %>
+                <% if (metadata.updateDate) { %>
+                <dt class="updated-date">更新日</dt>
+                <dd>
+                    <%=metadata.updateDate || '' %>
+                </dd>
+                <% } %>
             </dl>
         </div>
     </div>
+    <% } %>
+    
     <div class="container">
         <%- contents %>
     </div>

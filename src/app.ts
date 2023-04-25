@@ -89,7 +89,7 @@ if (program.opts().create) {
     }
     watcher.on('change', async (mdFilepath: string) => {
         const { metadata, content } = compile(mdFilepath)
-        const htmlFilename = metadata.file ? `${metadata.file}.html` : `${metadata.title}.html`
+        const htmlFilename = metadata.file ? `${metadata.file}.html` : `${path.basename(mdFilepath,'.md')}.html`
 
         await writeByEJS(path.join(tmpdir, htmlFilename), { metadata, content })
         if (!loaded.includes(htmlFilename)) {
@@ -163,7 +163,7 @@ async function exportHTMLs(exportDir: string): Promise<void> {
         mdfile = path.resolve(mdfile)
         console.log(`marked ${mdfile}`)
         const { metadata, content } = compile(mdfile)
-        const htmlFilename = metadata.file ? `${metadata.file}.html` : `${metadata.title}.html`
+        const htmlFilename = metadata.file ? `${metadata.file}.html` : `${path.basename(mdfile,'.md')}.html`
         console.log(exportDir)
         console.log(`output ${path.join(exportDir, htmlFilename)}`)
         await writeByEJS(path.join(exportDir, htmlFilename), { metadata, content })
