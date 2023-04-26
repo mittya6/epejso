@@ -20,6 +20,7 @@ import chokidar from 'chokidar';
 import { program } from 'commander';
 import glob from 'glob';
 import dayjs from 'dayjs';
+import os from 'os';
 program
     .option("-e, --export [type]", "target directory")
     .option("-c, --create [type]", "create markdown Template")
@@ -27,8 +28,6 @@ program
 // epejisoのルートディレクトリ
 const __dirname = getDirname();
 const ejspath = path.join(__dirname, './template/index.ejs');
-// 監視モード時の一時htmlファイルの出力先
-const tmpdir = './tmp';
 const tarMd = path.join(".", '**/*.md');
 if (program.opts().create) {
     const mdtemplatepath = path.join(__dirname, './template/md-template.ejs');
@@ -70,6 +69,8 @@ else if (program.opts().export) {
 }
 else {
     console.log('epejso observer mode');
+    // 監視モード時の一時htmlファイルの出力先
+    const tmpdir = fs.mkdtempSync(path.join(os.tmpdir(), 'tmp'));
     const globpath = path.resolve(tarMd);
     const watcher = chokidar.watch(globpath, {
         ignored: (path => path.includes('node_modules')),
@@ -123,14 +124,15 @@ function writeByEJS(filepath, { metadata, content }) {
     });
 }
 const loaded = [];
-function load(htmlpath, basedir) {
+function load(htmlfileName, basedir) {
     const bs = browserSync.create();
     bs.init({
         server: { baseDir: basedir },
-        startPath: htmlpath,
+        startPath: htmlfileName,
         notify: false
     });
-    bs.watch('**/*.html').on('change', bs.reload);
+    //bs.watch(path.join(basedir,'*.html')).on('change', bs.reload)
+    bs.watch(path.join(basedir, htmlfileName)).on('change', bs.reload);
 }
 function exportHTMLs(exportDir) {
     return __awaiter(this, void 0, void 0, function* () {

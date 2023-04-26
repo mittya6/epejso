@@ -12,6 +12,7 @@ import chokidar from 'chokidar'
 import { program } from 'commander'
 import glob from 'glob'
 import dayjs from 'dayjs'
+import os from 'os'
 
 
 program
@@ -26,10 +27,7 @@ const __dirname = getDirname()
 
 const ejspath = path.join(__dirname, './template/index.ejs')
 
-// 監視モード時の一時htmlファイルの出力先
-const tmpdir = './tmp'
-
-const tarMd = path.join(".", '**/*.md');
+const tarMd = path.join(".", '**/*.md')
 
 
 if (program.opts().create) {
@@ -77,6 +75,9 @@ if (program.opts().create) {
 
 } else {
     console.log('epejso observer mode')
+
+    // 監視モード時の一時htmlファイルの出力先
+    const tmpdir = fs.mkdtempSync(path.join(os.tmpdir(),'tmp'))
 
     const globpath = path.resolve(tarMd);
     const watcher = chokidar.watch(globpath, {
@@ -144,15 +145,17 @@ async function writeByEJS(filepath: string, { metadata, content }: compiledData)
 
 
 const loaded: Array<string> = []
-function load(htmlpath: string, basedir: string) {
+function load(htmlfileName: string, basedir: string) {
     const bs: browserSync.BrowserSyncInstance = browserSync.create();
 
     bs.init({
         server: { baseDir: basedir },
-        startPath: htmlpath,
+        startPath: htmlfileName,
         notify: false
     });
-    bs.watch('**/*.html').on('change', bs.reload)
+    //bs.watch(path.join(basedir,'*.html')).on('change', bs.reload)
+    bs.watch(path.join(basedir,htmlfileName)).on('change', bs.reload)
+
 }
 
 
