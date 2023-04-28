@@ -19,38 +19,16 @@ import browserSync from 'browser-sync';
 import chokidar from 'chokidar';
 import { program } from 'commander';
 import glob from 'glob';
-import dayjs from 'dayjs';
 import os from 'os';
 program
+    .option("-o, --observe [type]", "target directory", './')
     .option("-e, --export [type]", "target directory")
-    .option("-c, --create [type]", "create markdown Template")
     .parse(process.argv);
 // epejisoのルートディレクトリ
 const __dirname = getDirname();
 const ejspath = path.join(__dirname, './template/index.ejs');
-const tarMd = path.join(".", '**/*.md');
-if (program.opts().create) {
-    const mdtemplatepath = path.join(__dirname, './template/md-template.ejs');
-    const currentDate = dayjs();
-    const title = (function () {
-        if (program.opts().create === true) {
-            return 'no-title';
-        }
-        return program.opts().create;
-    })();
-    if (fs.existsSync(title)) {
-        throw new Error(`${title} directory is already exist`);
-    }
-    fs.mkdirSync(title);
-    const mapping = {
-        title: title,
-        createDate: currentDate.format('YYYY/MM/DD'),
-        updateDate: currentDate.format('YYYY/MM/DD')
-    };
-    const mdData = ejs.render(fs.readFileSync(mdtemplatepath, { encoding: 'utf8' }), mapping);
-    fs.writeFileSync(`./${title}/index.md`, mdData, 'utf8');
-}
-else if (program.opts().export) {
+const tarMd = path.join(program.opts().observe, '**/*.md');
+if (program.opts().export) {
     let targetDir;
     if (program.opts().export === true) {
         targetDir = './target';
@@ -76,9 +54,6 @@ else {
         ignored: (path => path.includes('node_modules')),
         persistent: true
     });
-    if (!fs.existsSync(tmpdir)) {
-        fs.mkdirSync(tmpdir);
-    }
     watcher.on('change', (mdFilepath) => __awaiter(void 0, void 0, void 0, function* () {
         const { metadata, content } = compile(mdFilepath);
         const htmlFilename = metadata.file ? `${metadata.file}.html` : `${path.basename(mdFilepath, '.md')}.html`;

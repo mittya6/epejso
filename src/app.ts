@@ -11,15 +11,13 @@ import browserSync from 'browser-sync'
 import chokidar from 'chokidar'
 import { program } from 'commander'
 import glob from 'glob'
-import dayjs from 'dayjs'
 import os from 'os'
 
 
 program
+    .option("-o, --observe [type]", "target directory", './')
     .option("-e, --export [type]", "target directory")
-    .option("-c, --create [type]", "create markdown Template")
     .parse(process.argv)
-
 
 
 // epejisoのルートディレクトリ
@@ -27,35 +25,9 @@ const __dirname = getDirname()
 
 const ejspath = path.join(__dirname, './template/index.ejs')
 
-const tarMd = path.join(".", '**/*.md')
+const tarMd = path.join(program.opts().observe, '**/*.md')
 
-
-if (program.opts().create) {
-
-    const mdtemplatepath = path.join(__dirname, './template/md-template.ejs')
-    const currentDate = dayjs()
-    const title = (function () {
-        if (program.opts().create === true) {
-            return 'no-title'
-        }
-        return program.opts().create
-    })()
-
-    if (fs.existsSync(title)) {
-        throw new Error(`${title} directory is already exist`)
-    }
-    fs.mkdirSync(title)
-
-    const mapping = {
-        title: title,
-        createDate: currentDate.format('YYYY/MM/DD'),
-        updateDate: currentDate.format('YYYY/MM/DD')
-
-    }
-    const mdData = ejs.render(fs.readFileSync(mdtemplatepath,{encoding:'utf8'}), mapping)
-    fs.writeFileSync(`./${title}/index.md`, mdData, 'utf8')
-
-} else if (program.opts().export) {
+if (program.opts().export) {
 
     let targetDir;
     if (program.opts().export === true) {
@@ -77,7 +49,7 @@ if (program.opts().create) {
     console.log('epejso observer mode')
 
     // 監視モード時の一時htmlファイルの出力先
-    const tmpdir = fs.mkdtempSync(path.join(os.tmpdir(),'tmp'))
+    const tmpdir = fs.mkdtempSync(path.join(os.tmpdir(), 'tmp'))
 
     const globpath = path.resolve(tarMd);
     const watcher = chokidar.watch(globpath, {
@@ -85,13 +57,10 @@ if (program.opts().create) {
         persistent: true
     })
 
-    if (!fs.existsSync(tmpdir)) {
-        fs.mkdirSync(tmpdir)
-    }
     watcher.on('change', async (mdFilepath: string) => {
         const { metadata, content } = compile(mdFilepath)
-        const htmlFilename = metadata.file ? `${metadata.file}.html` : `${path.basename(mdFilepath,'.md')}.html`
-        metadata.title = metadata.title?metadata.title:`${path.basename(mdFilepath,'.md')}`
+        const htmlFilename = metadata.file ? `${metadata.file}.html` : `${path.basename(mdFilepath, '.md')}.html`
+        metadata.title = metadata.title ? metadata.title : `${path.basename(mdFilepath, '.md')}`
 
         await writeByEJS(path.join(tmpdir, htmlFilename), { metadata, content })
         if (!loaded.includes(htmlFilename)) {
@@ -154,7 +123,7 @@ function load(htmlfileName: string, basedir: string) {
         notify: false
     });
     //bs.watch(path.join(basedir,'*.html')).on('change', bs.reload)
-    bs.watch(path.join(basedir,htmlfileName)).on('change', bs.reload)
+    bs.watch(path.join(basedir, htmlfileName)).on('change', bs.reload)
 
 }
 
@@ -167,8 +136,8 @@ async function exportHTMLs(exportDir: string): Promise<void> {
         mdfile = path.resolve(mdfile)
         console.log(`marked ${mdfile}`)
         const { metadata, content } = compile(mdfile)
-        const htmlFilename = metadata.file ? `${metadata.file}.html` : `${path.basename(mdfile,'.md')}.html`
-        metadata.title = metadata.title?metadata.title:`${path.basename(mdfile,'.md')}`
+        const htmlFilename = metadata.file ? `${metadata.file}.html` : `${path.basename(mdfile, '.md')}.html`
+        metadata.title = metadata.title ? metadata.title : `${path.basename(mdfile, '.md')}`
 
         console.log(`output ${path.join(exportDir, htmlFilename)}`)
         await writeByEJS(path.join(exportDir, htmlFilename), { metadata, content })
