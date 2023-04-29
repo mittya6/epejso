@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "doc": "typedoc --entryPointStrategy expand ./src",
-    "compile": "tsc"
+    "compile": "tsc",
+    "check": "npx prettier --write \"./src/**/*.ts\" && eslint --fix --ext .ts src"
   },
   "main": "./desc/app",
   "bin": {
@@ -33,6 +34,11 @@
     "@types/ejs": "^3.1.2",
     "@types/marked": "^4.0.8",
     "@types/node": "^18.14.2",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "eslint": "^8.39.0",
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "^2.8.8",
     "ts-node": "^10.9.1",
     "typedoc": "^0.23.28",
     "typescript": "^5.0.4"

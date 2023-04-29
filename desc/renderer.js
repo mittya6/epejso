@@ -1,11 +1,13 @@
 import { marked } from "marked";
-import fs from 'fs';
-import * as path from 'path';
+import fs from "fs";
+import * as path from "path";
 export function getRenderer(mddir) {
     const renderer = new marked.Renderer();
     renderer.image = function (href, title, text) {
-        let imageFilepath = path.join(mddir, href);
-        const dataURI = fs.existsSync(imageFilepath) ? parseAsDataURL(imageFilepath) : href;
+        const imageFilepath = path.join(mddir, href);
+        const dataURI = fs.existsSync(imageFilepath)
+            ? parseAsDataURL(imageFilepath)
+            : href;
         return `<a>
               <img src="${dataURI}" title="${title}" alt="${text}">
             </a>`;
@@ -14,7 +16,7 @@ export function getRenderer(mddir) {
         return `<a href="${href}" title="${title}" target="_blank">${text}</a>`;
     };
     renderer.code = function (code, str) {
-        const values = str === null || str === void 0 ? void 0 : str.split(':');
+        const values = str === null || str === void 0 ? void 0 : str.split(":");
         if (!values) {
             return `<pre><code>${code}</code></pre>`;
         }
@@ -29,6 +31,6 @@ export function getRenderer(mddir) {
 }
 function parseAsDataURL(file) {
     const base64ed = fs.readFileSync(file, { encoding: "base64" });
-    return `data:image/${path.extname(file).replace('.', '')};base64,${base64ed}`;
+    return `data:image/${path.extname(file).replace(".", "")};base64,${base64ed}`;
 }
 //# sourceMappingURL=renderer.js.map
