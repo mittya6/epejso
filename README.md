@@ -4,7 +4,8 @@
 
 ----
 
-epejsoの説明
+markdownおよび参照されている画像から1枚のhtmlを生成します。
+
 
 ----
 
@@ -15,6 +16,15 @@ npm install git+https://github.com/mittya6/epejso.git
 ```
 
 # Usage
-````
+
+## 監視モード
+```
+npx epejso -w
+```
+markdownを修正するとブラウザに表示されているhtmlも自動的に反映されます。
+ディレクトリを指定することもできます。デフォルトは、nodeプロジェクト配下を監視します。
+
+## 出力モード
+```
 npx epejso -w
 ```
