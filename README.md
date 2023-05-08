@@ -19,14 +19,14 @@ npm install git+https://github.com/mittya6/epejso.git
 
 ## 監視モード
 ```
-npx epejso -w
+npx epejso -o
 ```
 markdownファイルを修正されるとブラウザに変更内容が反映します。
 
 デフォルトは、nodeプロジェクト配下を監視します。起動引数でディレクトリを指定することもできます。
 
 ```
-npx epejso -w c:\mdfiles
+npx epejso -o c:\mdfiles
 ```
 
 ## 出力モード
