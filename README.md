@@ -1,6 +1,6 @@
 # epejso
 
-![uikit](https://user-images.githubusercontent.com/53619699/117480426-8d945680-af9c-11eb-802b-63ca593a8c07.jpg)
+![uikit](https://user-images.githubusercontent.com/53619699/242761828-fd968c77-3278-4a9d-bbc0-260858f06bd2.png)
 
 ----
 
